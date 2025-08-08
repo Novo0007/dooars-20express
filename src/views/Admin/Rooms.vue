@@ -629,6 +629,34 @@ const occupancyRate = computed(() => {
 })
 
 // Methods
+const testConnection = async () => {
+  notificationStore.info('Testing database connection...', 'Database Test')
+
+  try {
+    const result = await testDatabaseConnection()
+    const roomsTest = await testRoomsQuery()
+
+    logger.info('Database test results', { connectionTest: result, roomsTest })
+
+    if (result.connected && result.tablesAccessible && roomsTest.success) {
+      notificationStore.success(
+        `Connected! Hotels: ${result.hotelsCount}, Rooms: ${result.roomsCount}`,
+        'Database Test Successful'
+      )
+    } else {
+      const errors = result.errors.concat(roomsTest.error ? [roomsTest.error] : [])
+      notificationStore.error(
+        `Issues found: ${errors.join(', ')}`,
+        'Database Test Failed'
+      )
+    }
+  } catch (error) {
+    logger.error('Database test exception', { error })
+    const errorMessage = error instanceof Error ? error.message : 'Database test failed'
+    notificationStore.error(errorMessage, 'Database Test Error')
+  }
+}
+
 const fetchRooms = async () => {
   try {
     const { data, error } = await supabase
