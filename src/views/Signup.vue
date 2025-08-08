@@ -253,6 +253,8 @@ const form = ref({
 })
 
 const showPassword = ref(false)
+const showEmailConfirmation = ref(false)
+const signupEmail = ref('')
 
 // Validation
 const errors = ref<Record<string, string>>({})
