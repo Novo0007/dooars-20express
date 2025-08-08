@@ -661,6 +661,30 @@ const occupancyRate = computed(() => {
 })
 
 // Methods
+const runQuickTest = async () => {
+  notificationStore.info('Running quick rooms test...', 'Quick Test')
+
+  try {
+    const result = await quickRoomsTest()
+
+    if (result.success) {
+      notificationStore.success(
+        'Quick test passed! Rooms table is accessible and working.',
+        'Quick Test Success'
+      )
+    } else {
+      notificationStore.error(
+        `Quick test failed: ${result.error}. Check console for details.`,
+        'Quick Test Failed'
+      )
+    }
+  } catch (error) {
+    logger.error('Quick test execution failed', { error })
+    const errorMessage = error instanceof Error ? error.message : 'Quick test failed'
+    notificationStore.error(errorMessage, 'Quick Test Error')
+  }
+}
+
 const testErrorHandling = () => {
   notificationStore.info('Running error handling tests...', 'Error Test')
 
