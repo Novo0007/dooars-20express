@@ -189,7 +189,7 @@
             <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
             <div class="absolute bottom-6 left-6 text-white">
               <h3 class="font-display font-bold text-xl mb-2">{{ destination.name }}</h3>
-              <p class="text-white/90 text-sm">{{ destination.properties }} properties</p>
+              <p class="text-white/90 text-sm">{{ destination.properties }} {{ $t('home.destinations.properties') }}</p>
             </div>
           </div>
         </div>
