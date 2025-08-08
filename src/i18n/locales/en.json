@@ -69,7 +69,29 @@
     "next": "Next",
     "previous": "Previous",
     "close": "Close",
-    "open": "Open"
+    "open": "Open",
+    "hotels": "hotels"
+  },
+  "search": {
+    "filters": "Filters",
+    "showMap": "Show Map",
+    "hideMap": "Hide Map",
+    "mapView": "Map View",
+    "sortBy": {
+      "rating": "Best Rating",
+      "price": "Lowest Price",
+      "distance": "Distance"
+    },
+    "priceRange": "Price Range",
+    "minPrice": "Min",
+    "maxPrice": "Max",
+    "minRating": "Minimum Rating",
+    "anyRating": "Any Rating",
+    "amenities": "Amenities",
+    "bookNow": "Book Now",
+    "noResults": "No hotels found",
+    "tryAdjustingFilters": "Try adjusting your search filters or browse our featured hotels.",
+    "clearFilters": "Clear Filters"
   },
   "booking": {
     "title": "Book Your Stay",
