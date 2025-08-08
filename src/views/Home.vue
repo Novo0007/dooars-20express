@@ -31,13 +31,13 @@
             <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
               <!-- Destination -->
               <div class="lg:col-span-1">
-                <label class="block text-sm font-medium text-neutral-700 mb-2">Destination</label>
+                <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">{{ $t('home.search.destination') }}</label>
                 <div class="relative">
-                  <input 
+                  <input
                     v-model="searchForm.destination"
-                    type="text" 
-                    placeholder="Where do you want to go?"
-                    class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
+                    type="text"
+                    :placeholder="$t('home.search.destinationPlaceholder')"
+                    class="w-full px-4 py-3 border border-neutral-300 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-neutral-700 text-neutral-800 dark:text-neutral-200 transition-all duration-200"
                   />
                   <svg class="absolute right-3 top-3.5 w-5 h-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -48,36 +48,36 @@
 
               <!-- Check-in Date -->
               <div>
-                <label class="block text-sm font-medium text-neutral-700 mb-2">Check-in</label>
-                <input 
+                <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">{{ $t('home.search.checkin') }}</label>
+                <input
                   v-model="searchForm.checkIn"
-                  type="date" 
-                  class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
+                  type="date"
+                  class="w-full px-4 py-3 border border-neutral-300 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-neutral-700 text-neutral-800 dark:text-neutral-200 transition-all duration-200"
                 />
               </div>
 
               <!-- Check-out Date -->
               <div>
-                <label class="block text-sm font-medium text-neutral-700 mb-2">Check-out</label>
-                <input 
+                <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">{{ $t('home.search.checkout') }}</label>
+                <input
                   v-model="searchForm.checkOut"
-                  type="date" 
-                  class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
+                  type="date"
+                  class="w-full px-4 py-3 border border-neutral-300 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-neutral-700 text-neutral-800 dark:text-neutral-200 transition-all duration-200"
                 />
               </div>
 
               <!-- Guests -->
               <div>
-                <label class="block text-sm font-medium text-neutral-700 mb-2">Guests</label>
-                <select 
+                <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">{{ $t('home.search.guests') }}</label>
+                <select
                   v-model="searchForm.guests"
-                  class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
+                  class="w-full px-4 py-3 border border-neutral-300 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-neutral-700 text-neutral-800 dark:text-neutral-200 transition-all duration-200"
                 >
-                  <option value="1">1 Guest</option>
-                  <option value="2">2 Guests</option>
-                  <option value="3">3 Guests</option>
-                  <option value="4">4 Guests</option>
-                  <option value="5+">5+ Guests</option>
+                  <option value="1">{{ $t('home.search.guestOptions.1') }}</option>
+                  <option value="2">{{ $t('home.search.guestOptions.2') }}</option>
+                  <option value="3">{{ $t('home.search.guestOptions.3') }}</option>
+                  <option value="4">{{ $t('home.search.guestOptions.4') }}</option>
+                  <option value="5+">{{ $t('home.search.guestOptions.5+') }}</option>
                 </select>
               </div>
             </div>
