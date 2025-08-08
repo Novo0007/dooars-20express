@@ -1,0 +1,97 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "search": "Suchen",
+    "bookings": "Meine Buchungen",
+    "signin": "Anmelden",
+    "signup": "Registrieren",
+    "theme": "Design"
+  },
+  "home": {
+    "hero": {
+      "title": "Entdecke Deinen Perfekten",
+      "titleAccent": "Kurzurlaub",
+      "subtitle": "Buche erstaunliche Hotels und schaffe unvergessliche Erinnerungen rund um die Welt"
+    },
+    "search": {
+      "destination": "Reiseziel",
+      "destinationPlaceholder": "Wohin möchten Sie reisen?",
+      "checkin": "Anreise",
+      "checkout": "Abreise",
+      "guests": "Gäste",
+      "guestOptions": {
+        "1": "1 Gast",
+        "2": "2 Gäste",
+        "3": "3 Gäste",
+        "4": "4 Gäste",
+        "5+": "5+ Gäste"
+      },
+      "searchButton": "Hotels Suchen"
+    },
+    "featured": {
+      "title": "Empfohlene Hotels",
+      "subtitle": "Entdecke unsere handverlesene Auswahl an Luxushotels und Boutique-Eigenschaften",
+      "viewDetails": "Details Anzeigen",
+      "perNight": "/Nacht"
+    },
+    "destinations": {
+      "title": "Beliebte Reiseziele",
+      "subtitle": "Erkunde die begehrtesten Reiseziele der Welt",
+      "properties": "Eigenschaften"
+    },
+    "features": {
+      "title": "Warum WanderStay Wählen?",
+      "subtitle": "Wir machen Reisebuchungen einfach, sicher und lohnend",
+      "priceGuarantee": {
+        "title": "Bestpreis-Garantie",
+        "description": "Das gleiche Hotel günstiger gefunden? Wir gleichen den Preis an und geben Ihnen zusätzlich 5% Rabatt."
+      },
+      "support": {
+        "title": "24/7 Kundensupport",
+        "description": "Unsere Reiseexperten sind rund um die Uhr verfügbar, um Ihnen bei Fragen zu helfen."
+      },
+      "secure": {
+        "title": "Sichere Buchung",
+        "description": "Ihre persönlichen und Zahlungsinformationen sind mit branchenüblicher Verschlüsselung geschützt."
+      }
+    }
+  },
+  "common": {
+    "loading": "Lädt...",
+    "error": "Fehler",
+    "retry": "Wiederholen",
+    "cancel": "Abbrechen",
+    "confirm": "Bestätigen",
+    "save": "Speichern",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "previous": "Vorherige",
+    "close": "Schließen",
+    "open": "Öffnen"
+  },
+  "booking": {
+    "title": "Ihren Aufenthalt Buchen",
+    "guestInfo": "Gastinformationen",
+    "paymentInfo": "Zahlungsinformationen",
+    "bookingSummary": "Buchungszusammenfassung",
+    "total": "Gesamt",
+    "discount": "Rabatt",
+    "finalPrice": "Endpreis",
+    "confirmBooking": "Buchung Bestätigen"
+  },
+  "chat": {
+    "title": "Live-Chat",
+    "placeholder": "Nachricht eingeben...",
+    "send": "Senden",
+    "startConversation": "Starten Sie ein Gespräch mit unserem Support-Team"
+  },
+  "placeholder": {
+    "comingSoon": "Bald Verfügbar",
+    "underConstruction": "Diese Seite befindet sich im Aufbau. Wir arbeiten hart daran, Ihnen eine erstaunliche {feature}-Erfahrung zu bieten.",
+    "helpBuild": "Möchten Sie uns beim Aufbau dieser Funktion helfen?",
+    "continuePrompting": "Teilen Sie weiterhin spezifische Anforderungen für diese Seite mit und wir werden sie für Sie implementieren!",
+    "backToHome": "Zurück zur Startseite"
+  }
+}
