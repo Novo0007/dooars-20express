@@ -5,6 +5,7 @@
     <router-view />
     <LiveChatWidget />
     <PWAInstallPrompt />
+    <AuthDebug />
   </div>
 </template>
 
