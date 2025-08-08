@@ -206,10 +206,10 @@
                     </h3>
                     <div class="text-right">
                       <div class="text-2xl font-bold text-primary-600 dark:text-primary-400">
-                        ${{ applyDiscount(hotel.price) }}
+                        {{ formatPrice(applyDiscount(hotel.price)) }}
                       </div>
                       <div v-if="hasDiscount" class="text-sm text-neutral-500 line-through">
-                        ${{ hotel.price }}
+                        {{ formatPrice(hotel.price) }}
                       </div>
                       <div class="text-sm text-neutral-500 dark:text-neutral-400">
                         {{ $t('home.featured.perNight') }}

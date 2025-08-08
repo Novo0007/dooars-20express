@@ -137,7 +137,7 @@
               </div>
               <div class="bg-white dark:bg-neutral-800 rounded-lg p-4 text-center">
                 <div class="text-2xl font-bold text-primary-600 dark:text-primary-400">
-                  ${{ lowestPrice }}
+                  {{ formatPrice(lowestPrice) }}
                 </div>
                 <div class="text-sm text-neutral-600 dark:text-neutral-400">
                   {{ $t('hotel.startingFrom') }}
@@ -246,10 +246,10 @@
 
                   <div class="text-right">
                     <div class="text-2xl font-bold text-primary-600 dark:text-primary-400">
-                      ${{ calculateRoomPrice(room.price) }}
+                      {{ formatPrice(calculateRoomPrice(room.price)) }}
                     </div>
                     <div v-if="hasDiscount" class="text-sm text-neutral-500 line-through">
-                      ${{ room.price }}
+                      {{ formatPrice(room.price) }}
                     </div>
                     <div class="text-sm text-neutral-500 dark:text-neutral-400 mb-3">
                       {{ $t('home.featured.perNight') }}
