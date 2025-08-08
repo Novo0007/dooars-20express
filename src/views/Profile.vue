@@ -544,5 +544,10 @@ const changePassword = async () => {
 onMounted(() => {
   loadProfileData()
   loadUserStats()
+
+  // Ensure form is initialized even if profile data is not fully loaded
+  if (!profileForm.value.email && authStore.user?.email) {
+    profileForm.value.email = authStore.user.email
+  }
 })
 </script>
