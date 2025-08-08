@@ -163,14 +163,14 @@
     </section>
 
     <!-- Popular Destinations Section -->
-    <section class="py-20 bg-neutral-50">
+    <section class="py-20 bg-neutral-50 dark:bg-neutral-800">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-          <h2 class="text-3xl lg:text-4xl font-display font-bold text-neutral-800 mb-4">
-            Popular Destinations
+          <h2 class="text-3xl lg:text-4xl font-display font-bold text-neutral-800 dark:text-neutral-200 mb-4">
+            {{ $t('home.destinations.title') }}
           </h2>
-          <p class="text-lg text-neutral-600 max-w-2xl mx-auto">
-            Explore the world's most sought-after travel destinations
+          <p class="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
+            {{ $t('home.destinations.subtitle') }}
           </p>
         </div>
 
