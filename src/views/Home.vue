@@ -295,7 +295,7 @@
               <div class="flex items-center justify-between">
                 <div>
                   <span class="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                    {{ formatPrice(getLowestRoomPrice(hotel)) }}
+                    {{ formatPricePerNight(getLowestRoomPrice(hotel)) }}
                   </span>
                   <span class="text-gray-500 dark:text-gray-400 text-sm">/night</span>
                 </div>
