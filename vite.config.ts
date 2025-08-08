@@ -18,8 +18,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
       manifest: {
-        name: 'WanderStay - Hotel Booking App',
-        short_name: 'WanderStay',
+        name: 'Dooars Express - Luxury Hotel Booking',
+        short_name: 'Dooars Express',
         description: 'Book amazing hotels and create unforgettable memories around the world',
         theme_color: '#3b82f6',
         background_color: '#ffffff',
