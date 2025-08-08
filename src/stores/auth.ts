@@ -28,6 +28,7 @@ export const useAuthStore = defineStore('auth', () => {
   const user = ref<User | null>(null)
   const session = ref<Session | null>(null)
   const loading = ref(false)
+  const isInitialized = ref(false)
   const error = ref<string | null>(null)
 
   // Computed
