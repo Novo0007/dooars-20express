@@ -498,6 +498,8 @@ import { useAuthStore } from '@/stores/auth'
 // State
 const users = ref<any[]>([])
 const authUsers = ref<any[]>([])
+const hotels = ref<any[]>([])
+const userHotelAssignments = ref<any[]>([])
 const loading = ref(false)
 const currentPage = ref(1)
 const itemsPerPage = ref(10)
