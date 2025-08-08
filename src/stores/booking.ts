@@ -275,6 +275,7 @@ export const useBookingStore = defineStore('booking', () => {
     bookingDuration,
     upcomingBookings,
     pastBookings,
+    formattedPricing,
 
     // Actions
     startBooking,
