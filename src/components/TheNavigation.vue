@@ -70,16 +70,20 @@
         >
           {{ item.name }}
         </router-link>
-        <div class="border-t border-neutral-200 pt-3 mt-3">
-          <router-link 
-            to="/login" 
+        <div class="border-t border-neutral-200 dark:border-neutral-700 pt-3 mt-3">
+          <div class="flex items-center justify-between px-3 py-2 mb-2">
+            <span class="text-sm font-medium text-neutral-600 dark:text-neutral-300">Theme</span>
+            <ThemeToggle />
+          </div>
+          <router-link
+            to="/login"
             @click="mobileMenuOpen = false"
-            class="block px-3 py-2 text-base font-medium text-neutral-600 hover:text-primary-600 hover:bg-neutral-50 rounded-md transition-colors duration-200"
+            class="block px-3 py-2 text-base font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-md transition-colors duration-200"
           >
             Sign In
           </router-link>
-          <router-link 
-            to="/signup" 
+          <router-link
+            to="/signup"
             @click="mobileMenuOpen = false"
             class="block px-3 py-2 text-base font-medium bg-primary-600 text-white hover:bg-primary-700 rounded-md mt-2 transition-colors duration-200"
           >
