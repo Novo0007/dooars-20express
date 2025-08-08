@@ -440,6 +440,11 @@ export const useAuthStore = defineStore('auth', () => {
         ...authUser,
         profile: profile || undefined,
       }
+
+      // Auto-fetch hotel assignments for hotel managers
+      if (profile?.role === 'hotel_manager') {
+        await fetchHotelAssignments()
+      }
     } catch (err) {
       console.error('Failed to fetch user profile:', err instanceof Error ? err.message : JSON.stringify(err))
       // Even if profile fetch fails, set the basic user info
