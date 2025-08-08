@@ -465,14 +465,32 @@ const updateProfile = async () => {
     error.value = ''
     success.value = ''
 
+    console.log('Submitting profile form:', profileForm.value)
+
+    // Validate required fields
+    if (!profileForm.value.full_name?.trim()) {
+      throw new Error('Full name is required')
+    }
+    if (!profileForm.value.email?.trim()) {
+      throw new Error('Email is required')
+    }
+
+    // Update profile via auth store
     await authStore.updateProfile(profileForm.value)
+
     success.value = 'Profile updated successfully!'
+    notificationStore.success('Profile updated successfully!')
+
+    console.log('Profile update completed successfully')
 
     setTimeout(() => {
       success.value = ''
-    }, 3000)
+    }, 5000)
   } catch (err) {
-    error.value = err instanceof Error ? err.message : 'Failed to update profile'
+    const errorMessage = err instanceof Error ? err.message : 'Failed to update profile'
+    error.value = errorMessage
+    notificationStore.error(errorMessage)
+    console.error('Profile update error:', err)
   } finally {
     loading.value = false
   }

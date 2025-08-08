@@ -596,12 +596,28 @@ const closeModal = () => {
 }
 
 const saveHotel = async () => {
+  // Validate required fields
+  if (!hotelForm.value.name?.trim() || !hotelForm.value.location?.trim()) {
+    notificationStore.error('Please fill in all required fields (Name and Location)')
+    return
+  }
+
   try {
     saving.value = true
+    console.log('Saving hotel with data:', hotelForm.value)
 
     const hotelData = {
-      ...hotelForm.value,
-      images: imageUrls.value.split('\n').filter((url) => url.trim()),
+      name: hotelForm.value.name.trim(),
+      location: hotelForm.value.location.trim(),
+      description: hotelForm.value.description?.trim() || '',
+      latitude: Number(hotelForm.value.latitude) || 0,
+      longitude: Number(hotelForm.value.longitude) || 0,
+      rating: Number(hotelForm.value.rating) || 4.0,
+      badge: hotelForm.value.badge || 'Featured',
+      amenities: hotelForm.value.amenities || [],
+      images: imageUrls.value.split('\n').filter((url) => url.trim()).map(url => url.trim()),
+      is_active: true,
+      updated_at: new Date().toISOString()
     }
 
     if (editingHotel.value) {
@@ -628,10 +644,14 @@ const saveHotel = async () => {
     }
 
     closeModal()
-    alert(`Hotel ${editingHotel.value ? 'updated' : 'created'} successfully!`)
+    notificationStore.success(`Hotel ${editingHotel.value ? 'updated' : 'created'} successfully!`)
+
+    // Reload hotels to ensure fresh data
+    await loadHotels()
   } catch (error) {
     console.error('Failed to save hotel:', error)
-    alert('Failed to save hotel. Please try again.')
+    const errorMessage = error instanceof Error ? error.message : 'Failed to save hotel'
+    notificationStore.error(`Failed to save hotel: ${errorMessage}`)
   } finally {
     saving.value = false
   }
