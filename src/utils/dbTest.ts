@@ -110,8 +110,22 @@ export const testRoomsTable = async (): Promise<DBTestResult> => {
       .limit(3)
 
     if (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Unknown rooms table error'
-      console.error('Rooms table error:', errorMessage)
+      let errorMessage = 'Unknown rooms table error'
+    let errorDetails = ''
+
+    if (error instanceof Error) {
+      errorMessage = error.message
+      errorDetails = error.stack || ''
+    } else if (typeof error === 'object' && error !== null) {
+      // Handle Supabase error objects
+      const supabaseError = error as any
+      errorMessage = supabaseError.message || supabaseError.error_description || 'Supabase rooms error'
+      errorDetails = `Code: ${supabaseError.code || 'N/A'}, Details: ${supabaseError.details || 'N/A'}, Hint: ${supabaseError.hint || 'N/A'}`
+    } else {
+      errorMessage = String(error)
+    }
+
+    console.error('Rooms table error:', errorMessage, errorDetails ? `(${errorDetails})` : '')
       return {
         success: false,
         message: `Rooms table access failed: ${error.message}`,
