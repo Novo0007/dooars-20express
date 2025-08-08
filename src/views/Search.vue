@@ -354,6 +354,7 @@ import { useBookingStore } from '../stores/booking'
 import { useAppStore } from '../stores/app'
 import LeafletMap from '../components/LeafletMap.vue'
 import PromoCodeInput from '../components/PromoCodeInput.vue'
+import { formatPrice } from '../utils/currency'
 
 const route = useRoute()
 const router = useRouter()

@@ -455,6 +455,7 @@ import { useAppStore } from '../stores/app'
 import PhotoCarousel from '../components/PhotoCarousel.vue'
 import LeafletMap from '../components/LeafletMap.vue'
 import BookingWidget from '../components/BookingWidget.vue'
+import { formatPrice } from '../utils/currency'
 
 const route = useRoute()
 const router = useRouter()
