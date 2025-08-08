@@ -17,7 +17,7 @@
             </svg>
           </div>
           <span class="font-display font-bold text-xl text-neutral-800 dark:text-neutral-200"
-            >WanderStay</span
+            >Dooars Express</span
           >
         </router-link>
 
