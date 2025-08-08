@@ -1,0 +1,97 @@
+{
+  "nav": {
+    "home": "Home",
+    "search": "Search",
+    "bookings": "My Bookings",
+    "signin": "Sign In",
+    "signup": "Sign Up",
+    "theme": "Theme"
+  },
+  "home": {
+    "hero": {
+      "title": "Discover Your Perfect",
+      "titleAccent": "Getaway",
+      "subtitle": "Book amazing hotels and create unforgettable memories around the world"
+    },
+    "search": {
+      "destination": "Destination",
+      "destinationPlaceholder": "Where do you want to go?",
+      "checkin": "Check-in",
+      "checkout": "Check-out",
+      "guests": "Guests",
+      "guestOptions": {
+        "1": "1 Guest",
+        "2": "2 Guests",
+        "3": "3 Guests",
+        "4": "4 Guests",
+        "5+": "5+ Guests"
+      },
+      "searchButton": "Search Hotels"
+    },
+    "featured": {
+      "title": "Featured Hotels",
+      "subtitle": "Discover our handpicked selection of luxury hotels and boutique properties",
+      "viewDetails": "View Details",
+      "perNight": "/night"
+    },
+    "destinations": {
+      "title": "Popular Destinations",
+      "subtitle": "Explore the world's most sought-after travel destinations",
+      "properties": "properties"
+    },
+    "features": {
+      "title": "Why Choose WanderStay?",
+      "subtitle": "We make travel booking simple, secure, and rewarding",
+      "priceGuarantee": {
+        "title": "Best Price Guarantee",
+        "description": "Find the same hotel for less? We'll match the price and give you an extra 5% off."
+      },
+      "support": {
+        "title": "24/7 Customer Support",
+        "description": "Our travel experts are available around the clock to help you with any questions."
+      },
+      "secure": {
+        "title": "Secure Booking",
+        "description": "Your personal and payment information is protected with industry-standard encryption."
+      }
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close",
+    "open": "Open"
+  },
+  "booking": {
+    "title": "Book Your Stay",
+    "guestInfo": "Guest Information",
+    "paymentInfo": "Payment Information",
+    "bookingSummary": "Booking Summary",
+    "total": "Total",
+    "discount": "Discount",
+    "finalPrice": "Final Price",
+    "confirmBooking": "Confirm Booking"
+  },
+  "chat": {
+    "title": "Live Chat",
+    "placeholder": "Type your message...",
+    "send": "Send",
+    "startConversation": "Start a conversation with our support team"
+  },
+  "placeholder": {
+    "comingSoon": "Coming Soon",
+    "underConstruction": "This page is under construction. We're working hard to bring you an amazing {feature} experience.",
+    "helpBuild": "Want to help us build this feature?",
+    "continuePrompting": "Continue prompting with specific requirements for this page and we'll implement it for you!",
+    "backToHome": "Back to Home"
+  }
+}
