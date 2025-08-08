@@ -508,7 +508,7 @@ const processRazorpayPayment = async () => {
     const options = {
       key: import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_sample',
       amount: currentBooking.value!.finalPrice * 100, // Amount in paise
-      currency: 'USD',
+      currency: 'INR',
       name: 'WanderStay',
       description: `Booking for ${currentBooking.value!.hotel.name}`,
       image: '/favicon.ico',
