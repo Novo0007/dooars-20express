@@ -51,7 +51,13 @@ export const useAuthStore = defineStore('auth', () => {
         password
       })
 
-      if (authError) throw authError
+      if (authError) {
+        // Customize error messages for better user experience
+        if (authError.message.includes('Email not confirmed')) {
+          throw new Error('Please check your email and click the confirmation link before signing in.')
+        }
+        throw authError
+      }
 
       if (data.user && data.session) {
         await setUser(data.user, data.session)
