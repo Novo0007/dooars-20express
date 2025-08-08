@@ -1,36 +1,44 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
+import { supabase } from '@/lib/supabase'
+import type { User as SupabaseUser, Session } from '@supabase/supabase-js'
 
-export interface User {
+export interface UserProfile {
   id: string
   email: string
-  firstName: string
-  lastName: string
+  full_name?: string
+  avatar_url?: string
   phone?: string
-  avatar?: string
-  preferences: {
-    language: string
-    currency: string
-    notifications: boolean
-  }
-  favoriteHotels: number[]
-  membershipLevel: 'bronze' | 'silver' | 'gold' | 'platinum'
-  joinedAt: Date
+  date_of_birth?: string
+  preferred_language: string
+  role: 'user' | 'admin' | 'super_admin'
+  is_active: boolean
+  email_notifications: boolean
+  marketing_emails: boolean
+  created_at: string
+  updated_at: string
+}
+
+export interface User extends SupabaseUser {
+  profile?: UserProfile
 }
 
 export const useAuthStore = defineStore('auth', () => {
   // State
   const user = ref<User | null>(null)
-  const token = ref<string | null>(null)
+  const session = ref<Session | null>(null)
   const loading = ref(false)
   const error = ref<string | null>(null)
 
   // Computed
-  const isAuthenticated = computed(() => !!user.value && !!token.value)
+  const isAuthenticated = computed(() => !!user.value && !!session.value)
   const userDisplayName = computed(() => {
-    if (!user.value) return ''
-    return `${user.value.firstName} ${user.value.lastName}`
+    if (!user.value?.profile?.full_name) return user.value?.email || ''
+    return user.value.profile.full_name
   })
+  const isAdmin = computed(() => 
+    user.value?.profile?.role === 'admin' || user.value?.profile?.role === 'super_admin'
+  )
 
   // Actions
   const login = async (email: string, password: string) => {
@@ -38,38 +46,18 @@ export const useAuthStore = defineStore('auth', () => {
     error.value = null
 
     try {
-      // Mock login API call
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      // Mock successful login
-      const mockUser: User = {
-        id: '1',
+      const { data, error: authError } = await supabase.auth.signInWithPassword({
         email,
-        firstName: 'John',
-        lastName: 'Doe',
-        phone: '+1234567890',
-        avatar:
-          'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
-        preferences: {
-          language: 'en',
-          currency: 'USD',
-          notifications: true,
-        },
-        favoriteHotels: [1, 3],
-        membershipLevel: 'gold',
-        joinedAt: new Date('2023-01-15'),
+        password
+      })
+
+      if (authError) throw authError
+
+      if (data.user && data.session) {
+        await setUser(data.user, data.session)
       }
 
-      const mockToken = 'mock-jwt-token-12345'
-
-      user.value = mockUser
-      token.value = mockToken
-
-      // Store in localStorage
-      localStorage.setItem('auth_token', mockToken)
-      localStorage.setItem('user_data', JSON.stringify(mockUser))
-
-      return { user: mockUser, token: mockToken }
+      return { user: data.user, session: data.session }
     } catch (err) {
       error.value = err instanceof Error ? err.message : 'Login failed'
       throw err
@@ -81,44 +69,31 @@ export const useAuthStore = defineStore('auth', () => {
   const signup = async (userData: {
     email: string
     password: string
-    firstName: string
-    lastName: string
+    full_name: string
     phone?: string
   }) => {
     loading.value = true
     error.value = null
 
     try {
-      // Mock signup API call
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      // Mock successful signup
-      const newUser: User = {
-        id: Date.now().toString(),
+      const { data, error: authError } = await supabase.auth.signUp({
         email: userData.email,
-        firstName: userData.firstName,
-        lastName: userData.lastName,
-        phone: userData.phone,
-        preferences: {
-          language: 'en',
-          currency: 'USD',
-          notifications: true,
-        },
-        favoriteHotels: [],
-        membershipLevel: 'bronze',
-        joinedAt: new Date(),
+        password: userData.password,
+        options: {
+          data: {
+            full_name: userData.full_name,
+            phone: userData.phone
+          }
+        }
+      })
+
+      if (authError) throw authError
+
+      if (data.user && data.session) {
+        await setUser(data.user, data.session)
       }
 
-      const newToken = `mock-jwt-token-${Date.now()}`
-
-      user.value = newUser
-      token.value = newToken
-
-      // Store in localStorage
-      localStorage.setItem('auth_token', newToken)
-      localStorage.setItem('user_data', JSON.stringify(newUser))
-
-      return { user: newUser, token: newToken }
+      return { user: data.user, session: data.session }
     } catch (err) {
       error.value = err instanceof Error ? err.message : 'Signup failed'
       throw err
@@ -131,40 +106,45 @@ export const useAuthStore = defineStore('auth', () => {
     loading.value = true
 
     try {
-      // Mock logout API call
-      await new Promise((resolve) => setTimeout(resolve, 500))
+      const { error: authError } = await supabase.auth.signOut()
+      if (authError) throw authError
 
       // Clear state
       user.value = null
-      token.value = null
-
-      // Clear localStorage
-      localStorage.removeItem('auth_token')
-      localStorage.removeItem('user_data')
+      session.value = null
     } catch (err) {
       console.error('Logout error:', err)
+      error.value = err instanceof Error ? err.message : 'Logout failed'
     } finally {
       loading.value = false
     }
   }
 
-  const updateProfile = async (updates: Partial<User>) => {
-    if (!user.value) throw new Error('No user logged in')
+  const updateProfile = async (updates: Partial<UserProfile>) => {
+    if (!user.value || !user.value.profile) throw new Error('No user logged in')
 
     loading.value = true
     error.value = null
 
     try {
-      // Mock API call
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      const { data, error: updateError } = await supabase
+        .from('user_profiles')
+        .update({
+          ...updates,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', user.value.id)
+        .select()
+        .single()
 
-      // Update user data
-      user.value = { ...user.value, ...updates }
+      if (updateError) throw updateError
 
-      // Update localStorage
-      localStorage.setItem('user_data', JSON.stringify(user.value))
+      // Update local state
+      if (user.value.profile) {
+        user.value.profile = { ...user.value.profile, ...data }
+      }
 
-      return user.value
+      return data
     } catch (err) {
       error.value = err instanceof Error ? err.message : 'Profile update failed'
       throw err
@@ -174,67 +154,156 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   const addFavoriteHotel = async (hotelId: number) => {
-    if (!user.value) return
+    if (!user.value) throw new Error('User not authenticated')
 
-    if (!user.value.favoriteHotels.includes(hotelId)) {
-      user.value.favoriteHotels.push(hotelId)
-      localStorage.setItem('user_data', JSON.stringify(user.value))
+    try {
+      const { error: insertError } = await supabase
+        .from('user_favorites')
+        .insert({
+          user_id: user.value.id,
+          hotel_id: hotelId
+        })
+
+      if (insertError) throw insertError
+    } catch (err) {
+      error.value = err instanceof Error ? err.message : 'Failed to add favorite'
+      throw err
     }
   }
 
   const removeFavoriteHotel = async (hotelId: number) => {
-    if (!user.value) return
+    if (!user.value) throw new Error('User not authenticated')
 
-    user.value.favoriteHotels = user.value.favoriteHotels.filter((id) => id !== hotelId)
-    localStorage.setItem('user_data', JSON.stringify(user.value))
-  }
+    try {
+      const { error: deleteError } = await supabase
+        .from('user_favorites')
+        .delete()
+        .eq('user_id', user.value.id)
+        .eq('hotel_id', hotelId)
 
-  const initializeAuth = () => {
-    const savedToken = localStorage.getItem('auth_token')
-    const savedUser = localStorage.getItem('user_data')
-
-    if (savedToken && savedUser) {
-      try {
-        token.value = savedToken
-        user.value = JSON.parse(savedUser)
-      } catch (err) {
-        console.error('Failed to restore auth state:', err)
-        // Clear invalid data
-        localStorage.removeItem('auth_token')
-        localStorage.removeItem('user_data')
-      }
+      if (deleteError) throw deleteError
+    } catch (err) {
+      error.value = err instanceof Error ? err.message : 'Failed to remove favorite'
+      throw err
     }
   }
 
-  const refreshToken = async () => {
-    if (!token.value) return false
+  const getUserFavorites = async (): Promise<number[]> => {
+    if (!user.value) return []
 
     try {
-      // Mock token refresh
-      await new Promise((resolve) => setTimeout(resolve, 500))
+      const { data, error: fetchError } = await supabase
+        .from('user_favorites')
+        .select('hotel_id')
+        .eq('user_id', user.value.id)
 
-      const newToken = `refreshed-token-${Date.now()}`
-      token.value = newToken
-      localStorage.setItem('auth_token', newToken)
+      if (fetchError) throw fetchError
 
-      return true
+      return data.map(item => item.hotel_id)
     } catch (err) {
-      console.error('Token refresh failed:', err)
-      await logout()
-      return false
+      console.error('Failed to fetch favorites:', err)
+      return []
+    }
+  }
+
+  const setUser = async (authUser: SupabaseUser, authSession: Session) => {
+    session.value = authSession
+    
+    // Fetch user profile
+    try {
+      const { data: profile, error: profileError } = await supabase
+        .from('user_profiles')
+        .select('*')
+        .eq('id', authUser.id)
+        .single()
+
+      if (profileError && profileError.code !== 'PGRST116') {
+        // PGRST116 = row not found, which is expected for new users
+        throw profileError
+      }
+
+      user.value = {
+        ...authUser,
+        profile: profile || undefined
+      }
+    } catch (err) {
+      console.error('Failed to fetch user profile:', err)
+      user.value = authUser
+    }
+  }
+
+  const initializeAuth = async () => {
+    try {
+      // Get current session
+      const { data: { session: currentSession } } = await supabase.auth.getSession()
+      
+      if (currentSession?.user) {
+        await setUser(currentSession.user, currentSession)
+      }
+
+      // Listen for auth changes
+      supabase.auth.onAuthStateChange(async (event, authSession) => {
+        if (event === 'SIGNED_IN' && authSession?.user) {
+          await setUser(authSession.user, authSession)
+        } else if (event === 'SIGNED_OUT') {
+          user.value = null
+          session.value = null
+        } else if (event === 'TOKEN_REFRESHED' && authSession?.user) {
+          await setUser(authSession.user, authSession)
+        }
+      })
+    } catch (err) {
+      console.error('Failed to initialize auth:', err)
+    }
+  }
+
+  const resetPassword = async (email: string) => {
+    loading.value = true
+    error.value = null
+
+    try {
+      const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`
+      })
+
+      if (resetError) throw resetError
+    } catch (err) {
+      error.value = err instanceof Error ? err.message : 'Password reset failed'
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
+  const updatePassword = async (newPassword: string) => {
+    loading.value = true
+    error.value = null
+
+    try {
+      const { error: updateError } = await supabase.auth.updateUser({
+        password: newPassword
+      })
+
+      if (updateError) throw updateError
+    } catch (err) {
+      error.value = err instanceof Error ? err.message : 'Password update failed'
+      throw err
+    } finally {
+      loading.value = false
     }
   }
 
   return {
     // State
     user,
-    token,
+    session,
     loading,
     error,
 
     // Computed
     isAuthenticated,
     userDisplayName,
+    isAdmin,
 
     // Actions
     login,
@@ -243,7 +312,9 @@ export const useAuthStore = defineStore('auth', () => {
     updateProfile,
     addFavoriteHotel,
     removeFavoriteHotel,
+    getUserFavorites,
     initializeAuth,
-    refreshToken,
+    resetPassword,
+    updatePassword,
   }
 })
