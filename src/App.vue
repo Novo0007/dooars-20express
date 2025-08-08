@@ -14,6 +14,7 @@ import TheNavigation from './components/TheNavigation.vue'
 import LiveChatWidget from './components/LiveChatWidget.vue'
 import PWAInstallPrompt from './components/PWAInstallPrompt.vue'
 import OfflineIndicator from './components/OfflineIndicator.vue'
+import AuthDebug from './components/AuthDebug.vue'
 </script>
 
 <style>
