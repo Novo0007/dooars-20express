@@ -170,11 +170,11 @@ export const useHotelStore = defineStore('hotel', () => {
           description: hotel.description || '',
           amenities: hotel.amenities || [],
         }))
-      } else {
-        // No featured hotels found in database, proceed with mock data
-        console.log('No featured hotels found in database, using mock data')
-        // Don't throw error, just proceed to mock data
+        return // Successfully loaded from database
       }
+
+      // No featured hotels found in database, use mock data
+      console.log('No featured hotels found in database, using mock data')
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Unknown error occurred'
       error.value = errorMessage
