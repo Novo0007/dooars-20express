@@ -137,12 +137,77 @@ export const useAuthStore = defineStore('auth', () => {
     // Super admins can manage anyone
     if (isSuperAdmin.value) return true
 
-    // Admins can manage regular users but not other admins
+    // Admins can manage regular users and hotel managers but not other admins
     if (targetUser.role === 'admin' || targetUser.role === 'super_admin') {
       return false
     }
 
     return true
+  }
+
+  const fetchHotelAssignments = async () => {
+    if (!user.value || !isHotelManager.value) return
+
+    try {
+      const { data, error } = await supabase
+        .from('hotel_assignments')
+        .select('*, hotel:hotels(*)')
+        .eq('user_id', user.value.id)
+        .eq('is_active', true)
+
+      if (error) throw error
+      hotelAssignments.value = data || []
+    } catch (error) {
+      console.error('Error fetching hotel assignments:', error)
+    }
+  }
+
+  const assignUserToHotel = async (userId: string, hotelId: number, role: string = 'manager') => {
+    try {
+      const { data, error } = await supabase
+        .from('hotel_assignments')
+        .upsert({
+          user_id: userId,
+          hotel_id: hotelId,
+          role: role,
+          assigned_by: user.value?.id,
+          is_active: true,
+        })
+        .select()
+
+      if (error) throw error
+      return data
+    } catch (error) {
+      console.error('Error assigning user to hotel:', error)
+      throw error
+    }
+  }
+
+  const removeUserFromHotel = async (userId: string, hotelId: number) => {
+    try {
+      const { error } = await supabase
+        .from('hotel_assignments')
+        .update({ is_active: false })
+        .eq('user_id', userId)
+        .eq('hotel_id', hotelId)
+
+      if (error) throw error
+    } catch (error) {
+      console.error('Error removing user from hotel:', error)
+      throw error
+    }
+  }
+
+  const canAccessHotel = (hotelId: number) => {
+    // Admins and super admins can access all hotels
+    if (isAdmin.value) return true
+
+    // Hotel managers can only access assigned hotels
+    if (isHotelManager.value) {
+      return assignedHotels.value.includes(hotelId)
+    }
+
+    return false
   }
 
   // Actions
