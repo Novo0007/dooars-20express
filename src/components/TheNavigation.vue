@@ -27,6 +27,7 @@
 
         <!-- Desktop Auth Buttons -->
         <div class="hidden md:flex items-center space-x-4">
+          <LanguageSelector />
           <ThemeToggle />
           <router-link 
             to="/login" 
