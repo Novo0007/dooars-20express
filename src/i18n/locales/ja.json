@@ -1,0 +1,97 @@
+{
+  "nav": {
+    "home": "ホーム",
+    "search": "検索",
+    "bookings": "マイ予約",
+    "signin": "ログイン",
+    "signup": "サインアップ",
+    "theme": "テーマ"
+  },
+  "home": {
+    "hero": {
+      "title": "あなたの完璧な",
+      "titleAccent": "旅行先を発見",
+      "subtitle": "素晴らしいホテルを予約し、世界中で忘れられない思い出を作りましょう"
+    },
+    "search": {
+      "destination": "目的地",
+      "destinationPlaceholder": "どこに行きたいですか？",
+      "checkin": "チェックイン",
+      "checkout": "チェックアウト",
+      "guests": "ゲスト",
+      "guestOptions": {
+        "1": "1名",
+        "2": "2名",
+        "3": "3名",
+        "4": "4名",
+        "5+": "5名以上"
+      },
+      "searchButton": "ホテルを検索"
+    },
+    "featured": {
+      "title": "おすすめホテル",
+      "subtitle": "厳選された高級ホテルとブティックプロパティを発見してください",
+      "viewDetails": "詳細を見る",
+      "perNight": "/泊"
+    },
+    "destinations": {
+      "title": "人気の目的地",
+      "subtitle": "世界で最も人気のある旅行先を探索してください",
+      "properties": "プロパティ"
+    },
+    "features": {
+      "title": "なぜWanderStayを選ぶのか？",
+      "subtitle": "私たちは旅行予約をシンプル、安全、そしてやりがいのあるものにします",
+      "priceGuarantee": {
+        "title": "最安値保証",
+        "description": "同じホテルをより安く見つけましたか？価格に合わせて、さらに5％オフいたします。"
+      },
+      "support": {
+        "title": "24時間サポート",
+        "description": "私たちの旅行専門家は24時間体制で、ご質問にお答えいたします。"
+      },
+      "secure": {
+        "title": "安全な予約",
+        "description": "あなたの個人情報と支払い情報は、業界標準の暗号化で保護されています。"
+      }
+    }
+  },
+  "common": {
+    "loading": "読み���み中...",
+    "error": "エラー",
+    "retry": "再試行",
+    "cancel": "キャンセル",
+    "confirm": "確認",
+    "save": "保存",
+    "edit": "編集",
+    "delete": "削除",
+    "back": "戻る",
+    "next": "次へ",
+    "previous": "前へ",
+    "close": "閉じる",
+    "open": "開く"
+  },
+  "booking": {
+    "title": "ご滞在を予約",
+    "guestInfo": "ゲスト情報",
+    "paymentInfo": "支払い情報",
+    "bookingSummary": "予約概要",
+    "total": "合計",
+    "discount": "割引",
+    "finalPrice": "最終価格",
+    "confirmBooking": "予約を確認"
+  },
+  "chat": {
+    "title": "ライブチャット",
+    "placeholder": "メッセージを入力...",
+    "send": "送信",
+    "startConversation": "サポートチームとの会話を開始"
+  },
+  "placeholder": {
+    "comingSoon": "近日公開",
+    "underConstruction": "このページは構築中です。素晴らしい{feature}体験をお届けするために懸命に取り組んでいます。",
+    "helpBuild": "この機能の構築にご協力いただけませんか？",
+    "continuePrompting": "このページの具体的な要件を引き続きお聞かせください。お客様のためにそれを実装いたします！",
+    "backToHome": "ホームに戻る"
+  }
+}
