@@ -40,19 +40,17 @@ export const useAuthStore = defineStore('auth', () => {
     () => user.value?.profile?.role === 'admin' || user.value?.profile?.role === 'super_admin',
   )
 
-  const isSuperAdmin = computed(
-    () => user.value?.profile?.role === 'super_admin',
-  )
+  const isSuperAdmin = computed(() => user.value?.profile?.role === 'super_admin')
 
-  const isHotelManager = computed(
-    () => user.value?.profile?.role === 'hotel_manager',
-  )
+  const isHotelManager = computed(() => user.value?.profile?.role === 'hotel_manager')
 
   const userRole = computed(() => user.value?.profile?.role || 'user')
 
   // Hotel assignments for hotel managers
   const hotelAssignments = ref<any[]>([])
-  const assignedHotels = computed(() => hotelAssignments.value.map(assignment => assignment.hotel_id))
+  const assignedHotels = computed(() =>
+    hotelAssignments.value.map((assignment) => assignment.hotel_id),
+  )
 
   // Role-based permissions system
   const permissions = computed(() => {
@@ -60,58 +58,58 @@ export const useAuthStore = defineStore('auth', () => {
 
     const basePermissions = {
       // Basic user permissions
-      'view_own_profile': true,
-      'edit_own_profile': true,
-      'view_hotels': true,
-      'create_booking': true,
-      'view_own_bookings': true,
-      'cancel_own_booking': true,
-      'add_favorites': true,
-      'leave_reviews': true,
+      view_own_profile: true,
+      edit_own_profile: true,
+      view_hotels: true,
+      create_booking: true,
+      view_own_bookings: true,
+      cancel_own_booking: true,
+      add_favorites: true,
+      leave_reviews: true,
     }
 
     const hotelManagerPermissions = {
       ...basePermissions,
       // Hotel manager permissions (limited to assigned hotels)
-      'view_hotel_dashboard': true,
-      'view_assigned_hotels': true,
-      'manage_assigned_hotels': true,
-      'manage_assigned_rooms': true,
-      'view_assigned_bookings': true,
-      'manage_assigned_bookings': true,
-      'view_assigned_reports': true,
-      'export_assigned_data': true,
-      'moderate_assigned_reviews': true,
+      view_hotel_dashboard: true,
+      view_assigned_hotels: true,
+      manage_assigned_hotels: true,
+      manage_assigned_rooms: true,
+      view_assigned_bookings: true,
+      manage_assigned_bookings: true,
+      view_assigned_reports: true,
+      export_assigned_data: true,
+      moderate_assigned_reviews: true,
     }
 
     const adminPermissions = {
       ...basePermissions,
       // Admin permissions
-      'view_admin_dashboard': true,
-      'view_all_users': true,
-      'edit_user_profiles': true,
-      'view_all_bookings': true,
-      'manage_bookings': true,
-      'manage_hotels': true,
-      'manage_rooms': true,
-      'view_reports': true,
-      'export_data': true,
-      'moderate_reviews': true,
-      'activate_deactivate_users': true,
-      'assign_hotel_managers': true,
+      view_admin_dashboard: true,
+      view_all_users: true,
+      edit_user_profiles: true,
+      view_all_bookings: true,
+      manage_bookings: true,
+      manage_hotels: true,
+      manage_rooms: true,
+      view_reports: true,
+      export_data: true,
+      moderate_reviews: true,
+      activate_deactivate_users: true,
+      assign_hotel_managers: true,
     }
 
     const superAdminPermissions = {
       ...adminPermissions,
       // Super admin permissions
-      'manage_admin_users': true,
-      'delete_users': true,
-      'system_settings': true,
-      'backup_restore': true,
-      'invite_users': true,
-      'change_user_roles': true,
-      'delete_hotels': true,
-      'delete_bookings': true,
+      manage_admin_users: true,
+      delete_users: true,
+      system_settings: true,
+      backup_restore: true,
+      invite_users: true,
+      change_user_roles: true,
+      delete_hotels: true,
+      delete_bookings: true,
     }
 
     switch (role) {
@@ -399,7 +397,10 @@ export const useAuthStore = defineStore('auth', () => {
 
       if (profileError && profileError.code !== 'PGRST116') {
         // PGRST116 = row not found, which is expected for new users
-        console.error('Profile fetch error:', profileError.message || profileError.hint || JSON.stringify(profileError))
+        console.error(
+          'Profile fetch error:',
+          profileError.message || profileError.hint || JSON.stringify(profileError),
+        )
 
         // Try to create a basic profile for new users
         if (profileError.code === 'PGRST116') {
@@ -410,7 +411,7 @@ export const useAuthStore = defineStore('auth', () => {
               id: authUser.id,
               email: authUser.email || '',
               full_name: authUser.user_metadata?.full_name || null,
-              role: 'user'
+              role: 'user',
             })
             .select()
             .single()
@@ -446,7 +447,10 @@ export const useAuthStore = defineStore('auth', () => {
         await fetchHotelAssignments()
       }
     } catch (err) {
-      console.error('Failed to fetch user profile:', err instanceof Error ? err.message : JSON.stringify(err))
+      console.error(
+        'Failed to fetch user profile:',
+        err instanceof Error ? err.message : JSON.stringify(err),
+      )
       // Even if profile fetch fails, set the basic user info
       user.value = authUser
     }
@@ -458,9 +462,15 @@ export const useAuthStore = defineStore('auth', () => {
       const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
       const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
-      if (!supabaseUrl || supabaseUrl === 'https://your-project.supabase.co' ||
-          !supabaseKey || supabaseKey === 'your-anon-key') {
-        console.error('Supabase configuration is missing or using default values. Please check your .env file.')
+      if (
+        !supabaseUrl ||
+        supabaseUrl === 'https://your-project.supabase.co' ||
+        !supabaseKey ||
+        supabaseKey === 'your-anon-key'
+      ) {
+        console.error(
+          'Supabase configuration is missing or using default values. Please check your .env file.',
+        )
         console.log('Current URL:', supabaseUrl)
         isInitialized.value = true
         return
@@ -473,7 +483,10 @@ export const useAuthStore = defineStore('auth', () => {
       } = await supabase.auth.getSession()
 
       if (sessionError) {
-        console.error('Failed to get session:', sessionError.message || JSON.stringify(sessionError))
+        console.error(
+          'Failed to get session:',
+          sessionError.message || JSON.stringify(sessionError),
+        )
         return
       }
 

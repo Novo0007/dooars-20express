@@ -17,7 +17,12 @@
             class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200"
           >
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 19l-7-7 7-7"
+              />
             </svg>
             Back to Dashboard
           </router-link>
@@ -25,8 +30,12 @@
       </div>
 
       <!-- Hotel Selection -->
-      <div class="mb-8 bg-white dark:bg-neutral-800 rounded-xl shadow-soft p-6 border border-neutral-200 dark:border-neutral-700">
-        <h3 class="text-lg font-medium text-neutral-900 dark:text-neutral-100 mb-4">Select Hotel</h3>
+      <div
+        class="mb-8 bg-white dark:bg-neutral-800 rounded-xl shadow-soft p-6 border border-neutral-200 dark:border-neutral-700"
+      >
+        <h3 class="text-lg font-medium text-neutral-900 dark:text-neutral-100 mb-4">
+          Select Hotel
+        </h3>
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
           <select
             v-model="selectedHotelId"
@@ -64,58 +73,116 @@
       <div v-if="selectedHotelId && rooms.length > 0">
         <!-- Stats Cards -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-soft p-6 border border-neutral-200 dark:border-neutral-700">
+          <div
+            class="bg-white dark:bg-neutral-800 rounded-xl shadow-soft p-6 border border-neutral-200 dark:border-neutral-700"
+          >
             <div class="flex items-center">
               <div class="p-3 rounded-full bg-blue-100 dark:bg-blue-900/20">
-                <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z" />
+                <svg
+                  class="w-6 h-6 text-blue-600 dark:text-blue-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"
+                  />
                 </svg>
               </div>
               <div class="ml-4">
-                <p class="text-sm font-medium text-neutral-600 dark:text-neutral-400">Total Rooms</p>
-                <p class="text-2xl font-semibold text-neutral-900 dark:text-neutral-100">{{ rooms.length }}</p>
+                <p class="text-sm font-medium text-neutral-600 dark:text-neutral-400">
+                  Total Rooms
+                </p>
+                <p class="text-2xl font-semibold text-neutral-900 dark:text-neutral-100">
+                  {{ rooms.length }}
+                </p>
               </div>
             </div>
           </div>
 
-          <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-soft p-6 border border-neutral-200 dark:border-neutral-700">
+          <div
+            class="bg-white dark:bg-neutral-800 rounded-xl shadow-soft p-6 border border-neutral-200 dark:border-neutral-700"
+          >
             <div class="flex items-center">
               <div class="p-3 rounded-full bg-green-100 dark:bg-green-900/20">
-                <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <svg
+                  class="w-6 h-6 text-green-600 dark:text-green-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
                 </svg>
               </div>
               <div class="ml-4">
                 <p class="text-sm font-medium text-neutral-600 dark:text-neutral-400">Available</p>
-                <p class="text-2xl font-semibold text-neutral-900 dark:text-neutral-100">{{ availableRooms }}</p>
+                <p class="text-2xl font-semibold text-neutral-900 dark:text-neutral-100">
+                  {{ availableRooms }}
+                </p>
               </div>
             </div>
           </div>
 
-          <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-soft p-6 border border-neutral-200 dark:border-neutral-700">
+          <div
+            class="bg-white dark:bg-neutral-800 rounded-xl shadow-soft p-6 border border-neutral-200 dark:border-neutral-700"
+          >
             <div class="flex items-center">
               <div class="p-3 rounded-full bg-yellow-100 dark:bg-yellow-900/20">
-                <svg class="w-6 h-6 text-yellow-600 dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                <svg
+                  class="w-6 h-6 text-yellow-600 dark:text-yellow-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"
+                  />
                 </svg>
               </div>
               <div class="ml-4">
                 <p class="text-sm font-medium text-neutral-600 dark:text-neutral-400">Avg. Price</p>
-                <p class="text-2xl font-semibold text-neutral-900 dark:text-neutral-100">${{ averagePrice }}</p>
+                <p class="text-2xl font-semibold text-neutral-900 dark:text-neutral-100">
+                  ${{ averagePrice }}
+                </p>
               </div>
             </div>
           </div>
 
-          <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-soft p-6 border border-neutral-200 dark:border-neutral-700">
+          <div
+            class="bg-white dark:bg-neutral-800 rounded-xl shadow-soft p-6 border border-neutral-200 dark:border-neutral-700"
+          >
             <div class="flex items-center">
               <div class="p-3 rounded-full bg-purple-100 dark:bg-purple-900/20">
-                <svg class="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                <svg
+                  class="w-6 h-6 text-purple-600 dark:text-purple-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                  />
                 </svg>
               </div>
               <div class="ml-4">
                 <p class="text-sm font-medium text-neutral-600 dark:text-neutral-400">Occupancy</p>
-                <p class="text-2xl font-semibold text-neutral-900 dark:text-neutral-100">{{ occupancyRate }}%</p>
+                <p class="text-2xl font-semibold text-neutral-900 dark:text-neutral-100">
+                  {{ occupancyRate }}%
+                </p>
               </div>
             </div>
           </div>
@@ -140,24 +207,32 @@
                   {{ room.is_active ? 'Active' : 'Inactive' }}
                 </span>
               </div>
-              
+
               <div class="space-y-2 mb-4">
                 <div class="flex justify-between text-sm">
                   <span class="text-neutral-600 dark:text-neutral-400">Price per night:</span>
-                  <span class="font-medium text-neutral-900 dark:text-neutral-100">${{ room.price }}</span>
+                  <span class="font-medium text-neutral-900 dark:text-neutral-100"
+                    >${{ room.price }}</span
+                  >
                 </div>
                 <div class="flex justify-between text-sm">
                   <span class="text-neutral-600 dark:text-neutral-400">Max guests:</span>
-                  <span class="font-medium text-neutral-900 dark:text-neutral-100">{{ room.max_guests }}</span>
+                  <span class="font-medium text-neutral-900 dark:text-neutral-100">{{
+                    room.max_guests
+                  }}</span>
                 </div>
                 <div class="flex justify-between text-sm">
                   <span class="text-neutral-600 dark:text-neutral-400">Available:</span>
-                  <span class="font-medium text-neutral-900 dark:text-neutral-100">{{ room.available_count }}</span>
+                  <span class="font-medium text-neutral-900 dark:text-neutral-100">{{
+                    room.available_count
+                  }}</span>
                 </div>
               </div>
 
               <div v-if="room.amenities && room.amenities.length > 0" class="mb-4">
-                <h4 class="text-sm font-medium text-neutral-900 dark:text-neutral-100 mb-2">Amenities</h4>
+                <h4 class="text-sm font-medium text-neutral-900 dark:text-neutral-100 mb-2">
+                  Amenities
+                </h4>
                 <div class="flex flex-wrap gap-1">
                   <span
                     v-for="amenity in room.amenities.slice(0, 3)"
@@ -184,7 +259,11 @@
                 </button>
                 <button
                   @click="toggleRoomStatus(room)"
-                  :class="room.is_active ? 'bg-yellow-600 hover:bg-yellow-700' : 'bg-green-600 hover:bg-green-700'"
+                  :class="
+                    room.is_active
+                      ? 'bg-yellow-600 hover:bg-yellow-700'
+                      : 'bg-green-600 hover:bg-green-700'
+                  "
                   class="flex-1 px-3 py-2 text-white text-sm font-medium rounded-md transition-colors"
                 >
                   {{ room.is_active ? 'Deactivate' : 'Activate' }}
@@ -197,18 +276,37 @@
 
       <!-- Empty State -->
       <div v-else-if="selectedHotelId && !loading && rooms.length === 0" class="text-center py-12">
-        <svg class="mx-auto h-12 w-12 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z" />
+        <svg
+          class="mx-auto h-12 w-12 text-neutral-400"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"
+          />
         </svg>
-        <h3 class="mt-2 text-sm font-medium text-neutral-900 dark:text-neutral-100">No rooms found</h3>
-        <p class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">This hotel has no rooms configured yet.</p>
+        <h3 class="mt-2 text-sm font-medium text-neutral-900 dark:text-neutral-100">
+          No rooms found
+        </h3>
+        <p class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+          This hotel has no rooms configured yet.
+        </p>
         <div class="mt-6">
           <button
             @click="openAddRoomModal"
             class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md"
           >
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 4v16m8-8H4"
+              />
             </svg>
             Add First Room
           </button>
@@ -217,16 +315,35 @@
 
       <!-- Select Hotel State -->
       <div v-else-if="!selectedHotelId" class="text-center py-12">
-        <svg class="mx-auto h-12 w-12 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+        <svg
+          class="mx-auto h-12 w-12 text-neutral-400"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+          />
         </svg>
-        <h3 class="mt-2 text-sm font-medium text-neutral-900 dark:text-neutral-100">Select a hotel</h3>
-        <p class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Choose a hotel from the dropdown above to view its rooms.</p>
+        <h3 class="mt-2 text-sm font-medium text-neutral-900 dark:text-neutral-100">
+          Select a hotel
+        </h3>
+        <p class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+          Choose a hotel from the dropdown above to view its rooms.
+        </p>
       </div>
 
       <!-- Add/Edit Room Modal -->
-      <div v-if="showModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-        <div class="relative top-20 mx-auto p-5 border w-11/12 max-w-2xl shadow-lg rounded-md bg-white dark:bg-neutral-800">
+      <div
+        v-if="showModal"
+        class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50"
+      >
+        <div
+          class="relative top-20 mx-auto p-5 border w-11/12 max-w-2xl shadow-lg rounded-md bg-white dark:bg-neutral-800"
+        >
           <div class="mt-3">
             <div class="flex justify-between items-center mb-4">
               <h3 class="text-lg font-medium text-neutral-900 dark:text-neutral-100">
@@ -234,7 +351,12 @@
               </h3>
               <button @click="closeModal" class="text-neutral-400 hover:text-neutral-600">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               </button>
             </div>
@@ -242,7 +364,10 @@
             <form @submit.prevent="saveRoom" class="space-y-4">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Room Type</label>
+                  <label
+                    class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1"
+                    >Room Type</label
+                  >
                   <input
                     v-model="roomForm.type"
                     type="text"
@@ -252,7 +377,10 @@
                   />
                 </div>
                 <div>
-                  <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Price per Night</label>
+                  <label
+                    class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1"
+                    >Price per Night</label
+                  >
                   <input
                     v-model.number="roomForm.price"
                     type="number"
@@ -266,7 +394,10 @@
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Max Guests</label>
+                  <label
+                    class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1"
+                    >Max Guests</label
+                  >
                   <input
                     v-model.number="roomForm.max_guests"
                     type="number"
@@ -276,7 +407,10 @@
                   />
                 </div>
                 <div>
-                  <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Available Count</label>
+                  <label
+                    class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1"
+                    >Available Count</label
+                  >
                   <input
                     v-model.number="roomForm.available_count"
                     type="number"
@@ -288,7 +422,9 @@
               </div>
 
               <div>
-                <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Description</label>
+                <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1"
+                  >Description</label
+                >
                 <textarea
                   v-model="roomForm.description"
                   rows="3"
@@ -310,7 +446,7 @@
                   :disabled="loading"
                   class="px-4 py-2 bg-blue-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50"
                 >
-                  {{ loading ? 'Saving...' : (isEditing ? 'Update Room' : 'Add Room') }}
+                  {{ loading ? 'Saving...' : isEditing ? 'Update Room' : 'Add Room' }}
                 </button>
               </div>
             </form>
@@ -344,11 +480,11 @@ const roomForm = ref({
   description: '',
   max_guests: 1,
   available_count: 1,
-  is_active: true
+  is_active: true,
 })
 
 // Computed
-const availableRooms = computed(() => rooms.value.filter(r => r.is_active).length)
+const availableRooms = computed(() => rooms.value.filter((r) => r.is_active).length)
 const averagePrice = computed(() => {
   if (rooms.value.length === 0) return 0
   const total = rooms.value.reduce((sum, room) => sum + (room.price || 0), 0)
@@ -389,7 +525,7 @@ const openAddRoomModal = () => {
     description: '',
     max_guests: 1,
     available_count: 1,
-    is_active: true
+    is_active: true,
   }
   showModal.value = true
 }
@@ -412,20 +548,15 @@ const saveRoom = async () => {
   try {
     const roomData = {
       ...roomForm.value,
-      hotel_id: selectedHotelId.value
+      hotel_id: selectedHotelId.value,
     }
 
     if (isEditing.value) {
-      const { error } = await supabase
-        .from('rooms')
-        .update(roomData)
-        .eq('id', editingRoom.value.id)
+      const { error } = await supabase.from('rooms').update(roomData).eq('id', editingRoom.value.id)
 
       if (error) throw error
     } else {
-      const { error } = await supabase
-        .from('rooms')
-        .insert([roomData])
+      const { error } = await supabase.from('rooms').insert([roomData])
 
       if (error) throw error
     }
@@ -463,10 +594,10 @@ const getStatusClass = (isActive: boolean) => {
 // Lifecycle
 onMounted(async () => {
   await authStore.fetchHotelAssignments()
-  
+
   // Auto-select hotel from query parameter
   const hotelParam = route.query.hotel as string
-  if (hotelParam && authStore.hotelAssignments.some(a => a.hotel.id.toString() === hotelParam)) {
+  if (hotelParam && authStore.hotelAssignments.some((a) => a.hotel.id.toString() === hotelParam)) {
     selectedHotelId.value = hotelParam
     await fetchRooms()
   }

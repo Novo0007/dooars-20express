@@ -11,7 +11,12 @@
           class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md flex items-center gap-2"
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+            ></path>
           </svg>
           Export Users
         </button>
@@ -20,7 +25,12 @@
           class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center gap-2"
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 4v16m8-8H4"
+            ></path>
           </svg>
           Invite User
         </button>
@@ -32,8 +42,18 @@
       <div class="bg-white rounded-lg shadow p-6">
         <div class="flex items-center">
           <div class="p-3 rounded-full bg-blue-100">
-            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            <svg
+              class="w-6 h-6 text-blue-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+              ></path>
             </svg>
           </div>
           <div class="ml-4">
@@ -46,8 +66,18 @@
       <div class="bg-white rounded-lg shadow p-6">
         <div class="flex items-center">
           <div class="p-3 rounded-full bg-green-100">
-            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            <svg
+              class="w-6 h-6 text-green-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
             </svg>
           </div>
           <div class="ml-4">
@@ -60,8 +90,18 @@
       <div class="bg-white rounded-lg shadow p-6">
         <div class="flex items-center">
           <div class="p-3 rounded-full bg-purple-100">
-            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            <svg
+              class="w-6 h-6 text-purple-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12l2 2 4-4m5 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
             </svg>
           </div>
           <div class="ml-4">
@@ -74,8 +114,18 @@
       <div class="bg-white rounded-lg shadow p-6">
         <div class="flex items-center">
           <div class="p-3 rounded-full bg-yellow-100">
-            <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            <svg
+              class="w-6 h-6 text-yellow-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
             </svg>
           </div>
           <div class="ml-4">
@@ -140,22 +190,34 @@
         <table class="min-w-full divide-y divide-gray-200">
           <thead class="bg-gray-50">
             <tr>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
                 User
               </th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
                 Role
               </th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
                 Status
               </th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
                 Last Login
               </th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
                 Joined
               </th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
                 Actions
               </th>
             </tr>
@@ -165,13 +227,13 @@
               <td class="px-6 py-4 whitespace-nowrap">
                 <div class="flex items-center">
                   <div class="flex-shrink-0 h-10 w-10">
-                    <img 
+                    <img
                       v-if="user.avatar_url"
-                      :src="user.avatar_url" 
+                      :src="user.avatar_url"
                       :alt="user.full_name"
                       class="h-10 w-10 rounded-full object-cover"
                     />
-                    <div 
+                    <div
                       v-else
                       class="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center"
                     >
@@ -189,7 +251,7 @@
                 </div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
-                <span 
+                <span
                   class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                   :class="getRoleClass(user.role)"
                 >
@@ -197,9 +259,11 @@
                 </span>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
-                <span 
+                <span
                   class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
-                  :class="user.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'"
+                  :class="
+                    user.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                  "
                 >
                   {{ user.is_active ? 'Active' : 'Inactive' }}
                 </span>
@@ -212,15 +276,16 @@
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                 <div class="flex space-x-2">
-                  <button
-                    @click="editUser(user)"
-                    class="text-blue-600 hover:text-blue-900"
-                  >
+                  <button @click="editUser(user)" class="text-blue-600 hover:text-blue-900">
                     Edit
                   </button>
                   <button
                     @click="toggleUserStatus(user)"
-                    :class="user.is_active ? 'text-red-600 hover:text-red-900' : 'text-green-600 hover:text-green-900'"
+                    :class="
+                      user.is_active
+                        ? 'text-red-600 hover:text-red-900'
+                        : 'text-green-600 hover:text-green-900'
+                    "
                   >
                     {{ user.is_active ? 'Deactivate' : 'Activate' }}
                   </button>
@@ -245,7 +310,9 @@
       </div>
 
       <!-- Pagination -->
-      <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+      <div
+        class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6"
+      >
         <div class="flex-1 flex justify-between sm:hidden">
           <button
             @click="previousPage"
@@ -265,8 +332,9 @@
         <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
           <div>
             <p class="text-sm text-gray-700">
-              Showing {{ (currentPage - 1) * itemsPerPage + 1 }} to {{ Math.min(currentPage * itemsPerPage, filteredUsers.length) }}
-              of {{ filteredUsers.length }} results
+              Showing {{ (currentPage - 1) * itemsPerPage + 1 }} to
+              {{ Math.min(currentPage * itemsPerPage, filteredUsers.length) }} of
+              {{ filteredUsers.length }} results
             </p>
           </div>
           <div>
@@ -286,7 +354,7 @@
                   'relative inline-flex items-center px-4 py-2 border text-sm font-medium',
                   currentPage === page
                     ? 'z-10 bg-blue-50 border-blue-500 text-blue-600'
-                    : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
+                    : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50',
                 ]"
               >
                 {{ page }}
@@ -305,8 +373,13 @@
     </div>
 
     <!-- Edit User Modal -->
-    <div v-if="showEditModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-      <div class="relative top-20 mx-auto p-5 border w-11/12 max-w-2xl shadow-lg rounded-md bg-white">
+    <div
+      v-if="showEditModal"
+      class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50"
+    >
+      <div
+        class="relative top-20 mx-auto p-5 border w-11/12 max-w-2xl shadow-lg rounded-md bg-white"
+      >
         <div class="mt-3">
           <div class="flex justify-between items-center mb-4">
             <h3 class="text-lg font-medium text-gray-900">
@@ -314,7 +387,12 @@
             </h3>
             <button @click="closeEditModal" class="text-gray-400 hover:text-gray-600">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                ></path>
               </svg>
             </button>
           </div>
@@ -387,11 +465,7 @@
               </div>
               <div>
                 <label class="flex items-center">
-                  <input
-                    type="checkbox"
-                    v-model="editForm.marketing_emails"
-                    class="mr-2 rounded"
-                  />
+                  <input type="checkbox" v-model="editForm.marketing_emails" class="mr-2 rounded" />
                   <span class="text-sm text-gray-700">Marketing Emails</span>
                 </label>
               </div>
@@ -442,11 +516,19 @@
                     class="text-red-600 hover:text-red-800"
                   >
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                      ></path>
                     </svg>
                   </button>
                 </div>
-                <div v-if="editForm.assigned_hotels.length === 0" class="text-sm text-gray-500 italic">
+                <div
+                  v-if="editForm.assigned_hotels.length === 0"
+                  class="text-sm text-gray-500 italic"
+                >
                   No hotels assigned. Click "Add Hotel" to assign hotels to this user.
                 </div>
               </div>
@@ -474,14 +556,24 @@
     </div>
 
     <!-- Invite User Modal -->
-    <div v-if="showInviteModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-      <div class="relative top-20 mx-auto p-5 border w-11/12 max-w-lg shadow-lg rounded-md bg-white">
+    <div
+      v-if="showInviteModal"
+      class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50"
+    >
+      <div
+        class="relative top-20 mx-auto p-5 border w-11/12 max-w-lg shadow-lg rounded-md bg-white"
+      >
         <div class="mt-3">
           <div class="flex justify-between items-center mb-4">
             <h3 class="text-lg font-medium text-gray-900">Invite New User</h3>
             <button @click="closeInviteModal" class="text-gray-400 hover:text-gray-600">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                ></path>
               </svg>
             </button>
           </div>
@@ -512,7 +604,9 @@
             </div>
 
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">Full Name (Optional)</label>
+              <label class="block text-sm font-medium text-gray-700 mb-1"
+                >Full Name (Optional)</label
+              >
               <input
                 v-model="inviteForm.full_name"
                 type="text"
@@ -576,13 +670,13 @@ const editForm = ref({
   phone: '',
   email_notifications: true,
   marketing_emails: false,
-  assigned_hotels: [] as any[]
+  assigned_hotels: [] as any[],
 })
 
 const inviteForm = ref({
   email: '',
   role: 'user',
-  full_name: ''
+  full_name: '',
 })
 
 const router = useRouter()
@@ -594,19 +688,19 @@ const filteredUsers = computed(() => {
 
   if (searchQuery.value) {
     const query = searchQuery.value.toLowerCase()
-    filtered = filtered.filter(user => 
-      user.full_name?.toLowerCase().includes(query) ||
-      user.email?.toLowerCase().includes(query)
+    filtered = filtered.filter(
+      (user) =>
+        user.full_name?.toLowerCase().includes(query) || user.email?.toLowerCase().includes(query),
     )
   }
 
   if (selectedRole.value) {
-    filtered = filtered.filter(user => user.role === selectedRole.value)
+    filtered = filtered.filter((user) => user.role === selectedRole.value)
   }
 
   if (selectedStatus.value !== '') {
     const isActive = selectedStatus.value === 'true'
-    filtered = filtered.filter(user => user.is_active === isActive)
+    filtered = filtered.filter((user) => user.is_active === isActive)
   }
 
   return filtered
@@ -625,11 +719,11 @@ const visiblePages = computed(() => {
   const maxVisible = 5
   let start = Math.max(1, currentPage.value - Math.floor(maxVisible / 2))
   let end = Math.min(totalPages.value, start + maxVisible - 1)
-  
+
   if (end - start + 1 < maxVisible) {
     start = Math.max(1, end - maxVisible + 1)
   }
-  
+
   for (let i = start; i <= end; i++) {
     pages.push(i)
   }
@@ -637,12 +731,14 @@ const visiblePages = computed(() => {
 })
 
 const totalUsers = computed(() => users.value.length)
-const activeUsers = computed(() => users.value.filter(user => user.is_active).length)
-const adminUsers = computed(() => users.value.filter(user => user.role === 'admin' || user.role === 'super_admin').length)
+const activeUsers = computed(() => users.value.filter((user) => user.is_active).length)
+const adminUsers = computed(
+  () => users.value.filter((user) => user.role === 'admin' || user.role === 'super_admin').length,
+)
 const newUsersThisMonth = computed(() => {
   const oneMonthAgo = new Date()
   oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1)
-  return users.value.filter(user => new Date(user.created_at) > oneMonthAgo).length
+  return users.value.filter((user) => new Date(user.created_at) > oneMonthAgo).length
 })
 
 // Methods
@@ -659,19 +755,19 @@ const fetchUsers = async () => {
 
     // Fetch auth users for last login info
     const { data: authUsersData, error: authError } = await supabase.auth.admin.listUsers()
-    
+
     if (authError) {
       console.warn('Could not fetch auth users:', authError.message)
       users.value = profiles || []
     } else {
       // Merge profile data with auth data
-      const mergedUsers = (profiles || []).map(profile => {
-        const authUser = authUsersData.users.find(au => au.id === profile.id)
+      const mergedUsers = (profiles || []).map((profile) => {
+        const authUser = authUsersData.users.find((au) => au.id === profile.id)
         return {
           ...profile,
           last_sign_in_at: authUser?.last_sign_in_at,
           confirmed_at: authUser?.confirmed_at,
-          email_confirmed_at: authUser?.email_confirmed_at
+          email_confirmed_at: authUser?.email_confirmed_at,
         }
       })
       users.value = mergedUsers
@@ -732,7 +828,7 @@ const editUser = async (user: any) => {
     phone: user.phone || '',
     email_notifications: user.email_notifications ?? true,
     marketing_emails: user.marketing_emails ?? false,
-    assigned_hotels: assignments
+    assigned_hotels: assignments,
   }
   showEditModal.value = true
 }
@@ -757,7 +853,7 @@ const saveUserChanges = async () => {
         phone: editForm.value.phone,
         email_notifications: editForm.value.email_notifications,
         marketing_emails: editForm.value.marketing_emails,
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       })
       .eq('id', editingUser.value.id)
 
@@ -784,23 +880,18 @@ const saveUserChanges = async () => {
 const updateHotelAssignments = async (userId: string, assignments: any[]) => {
   try {
     // First, deactivate all existing assignments
-    await supabase
-      .from('hotel_assignments')
-      .update({ is_active: false })
-      .eq('user_id', userId)
+    await supabase.from('hotel_assignments').update({ is_active: false }).eq('user_id', userId)
 
     // Then, create/reactivate assignments for selected hotels
     for (const assignment of assignments) {
       if (assignment.hotel_id) {
-        await supabase
-          .from('hotel_assignments')
-          .upsert({
-            user_id: userId,
-            hotel_id: assignment.hotel_id,
-            role: assignment.role || 'manager',
-            is_active: true,
-            assigned_by: authStore.user?.id
-          })
+        await supabase.from('hotel_assignments').upsert({
+          user_id: userId,
+          hotel_id: assignment.hotel_id,
+          role: assignment.role || 'manager',
+          is_active: true,
+          assigned_by: authStore.user?.id,
+        })
       }
     }
   } catch (error) {
@@ -811,10 +902,7 @@ const updateHotelAssignments = async (userId: string, assignments: any[]) => {
 
 const clearHotelAssignments = async (userId: string) => {
   try {
-    await supabase
-      .from('hotel_assignments')
-      .update({ is_active: false })
-      .eq('user_id', userId)
+    await supabase.from('hotel_assignments').update({ is_active: false }).eq('user_id', userId)
   } catch (error) {
     console.error('Error clearing hotel assignments:', error)
   }
@@ -824,7 +912,7 @@ const addHotelAssignment = () => {
   editForm.value.assigned_hotels.push({
     hotel_id: '',
     role: 'manager',
-    is_active: true
+    is_active: true,
   })
 }
 
@@ -834,13 +922,13 @@ const removeHotelAssignment = (index: number) => {
 
 const toggleUserStatus = async (user: any) => {
   const newStatus = !user.is_active
-  
+
   try {
     const { error } = await supabase
       .from('user_profiles')
-      .update({ 
+      .update({
         is_active: newStatus,
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       })
       .eq('id', user.id)
 
@@ -855,10 +943,7 @@ const deleteUser = async (userId: string) => {
   if (!confirm('Are you sure you want to delete this user? This action cannot be undone.')) return
 
   try {
-    const { error } = await supabase
-      .from('user_profiles')
-      .delete()
-      .eq('id', userId)
+    const { error } = await supabase.from('user_profiles').delete().eq('id', userId)
 
     if (error) throw error
     await fetchUsers()
@@ -875,7 +960,7 @@ const openInviteModal = () => {
   inviteForm.value = {
     email: '',
     role: 'user',
-    full_name: ''
+    full_name: '',
   }
   showInviteModal.value = true
 }
@@ -901,19 +986,16 @@ const sendInvite = async () => {
 
 const exportUsers = () => {
   const headers = ['Name', 'Email', 'Role', 'Status', 'Joined', 'Last Login']
-  const csvData = users.value.map(user => [
+  const csvData = users.value.map((user) => [
     user.full_name || '',
     user.email,
     getRoleLabel(user.role),
     user.is_active ? 'Active' : 'Inactive',
     formatDate(user.created_at),
-    user.last_sign_in_at ? formatDate(user.last_sign_in_at) : 'Never'
+    user.last_sign_in_at ? formatDate(user.last_sign_in_at) : 'Never',
   ])
 
-  const csvContent = [
-    headers.join(','),
-    ...csvData.map(row => row.join(','))
-  ].join('\n')
+  const csvContent = [headers.join(','), ...csvData.map((row) => row.join(','))].join('\n')
 
   const blob = new Blob([csvContent], { type: 'text/csv' })
   const url = window.URL.createObjectURL(blob)
@@ -926,25 +1008,30 @@ const exportUsers = () => {
 
 const getInitials = (name: string) => {
   if (!name) return '??'
-  return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
+  return name
+    .split(' ')
+    .map((n) => n[0])
+    .join('')
+    .toUpperCase()
+    .slice(0, 2)
 }
 
 const getRoleClass = (role: string) => {
   const classes = {
-    'user': 'bg-gray-100 text-gray-800',
-    'hotel_manager': 'bg-green-100 text-green-800',
-    'admin': 'bg-blue-100 text-blue-800',
-    'super_admin': 'bg-purple-100 text-purple-800'
+    user: 'bg-gray-100 text-gray-800',
+    hotel_manager: 'bg-green-100 text-green-800',
+    admin: 'bg-blue-100 text-blue-800',
+    super_admin: 'bg-purple-100 text-purple-800',
   }
   return classes[role as keyof typeof classes] || 'bg-gray-100 text-gray-800'
 }
 
 const getRoleLabel = (role: string) => {
   const labels = {
-    'user': 'User',
-    'hotel_manager': 'Hotel Manager',
-    'admin': 'Admin',
-    'super_admin': 'Super Admin'
+    user: 'User',
+    hotel_manager: 'Hotel Manager',
+    admin: 'Admin',
+    super_admin: 'Super Admin',
   }
   return labels[role as keyof typeof labels] || 'Unknown'
 }

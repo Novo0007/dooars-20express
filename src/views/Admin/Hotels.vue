@@ -16,7 +16,12 @@
           class="inline-flex items-center px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-colors duration-200"
         >
           <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+            />
           </svg>
           Add Hotel
         </button>
@@ -45,7 +50,11 @@
 
       <!-- Hotels Grid -->
       <div v-if="loading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div v-for="i in 6" :key="i" class="bg-white dark:bg-neutral-800 rounded-xl shadow-soft p-6 animate-pulse">
+        <div
+          v-for="i in 6"
+          :key="i"
+          class="bg-white dark:bg-neutral-800 rounded-xl shadow-soft p-6 animate-pulse"
+        >
           <div class="h-48 bg-neutral-200 dark:bg-neutral-700 rounded-lg mb-4"></div>
           <div class="h-4 bg-neutral-200 dark:bg-neutral-700 rounded mb-2"></div>
           <div class="h-4 bg-neutral-200 dark:bg-neutral-700 rounded w-3/4"></div>
@@ -53,11 +62,25 @@
       </div>
 
       <div v-else-if="filteredHotels.length === 0" class="text-center py-12">
-        <svg class="mx-auto h-12 w-12 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+        <svg
+          class="mx-auto h-12 w-12 text-neutral-400"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+          />
         </svg>
-        <h3 class="mt-2 text-sm font-medium text-neutral-900 dark:text-neutral-100">No hotels found</h3>
-        <p class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Get started by adding your first hotel.</p>
+        <h3 class="mt-2 text-sm font-medium text-neutral-900 dark:text-neutral-100">
+          No hotels found
+        </h3>
+        <p class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+          Get started by adding your first hotel.
+        </p>
       </div>
 
       <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -82,13 +105,19 @@
               </span>
               <span
                 class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium"
-                :class="hotel.is_active ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400' : 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400'"
+                :class="
+                  hotel.is_active
+                    ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400'
+                    : 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400'
+                "
               >
                 {{ hotel.is_active ? 'Active' : 'Inactive' }}
               </span>
             </div>
             <div class="absolute top-4 right-4">
-              <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-white/90 text-neutral-800">
+              <span
+                class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-white/90 text-neutral-800"
+              >
                 ⭐ {{ hotel.rating || 0 }}
               </span>
             </div>
@@ -107,11 +136,21 @@
                 {{ hotel.badge }}
               </span>
             </div>
-            
+
             <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-4 flex items-center">
               <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                />
               </svg>
               {{ hotel.location }}
             </p>
@@ -143,11 +182,15 @@
             <div class="grid grid-cols-2 gap-4 mb-4 text-sm">
               <div>
                 <span class="text-neutral-500 dark:text-neutral-400">Rooms:</span>
-                <span class="ml-1 font-medium text-neutral-900 dark:text-neutral-100">{{ hotel.room_count || 0 }}</span>
+                <span class="ml-1 font-medium text-neutral-900 dark:text-neutral-100">{{
+                  hotel.room_count || 0
+                }}</span>
               </div>
               <div>
                 <span class="text-neutral-500 dark:text-neutral-400">Reviews:</span>
-                <span class="ml-1 font-medium text-neutral-900 dark:text-neutral-100">{{ hotel.review_count || 0 }}</span>
+                <span class="ml-1 font-medium text-neutral-900 dark:text-neutral-100">{{
+                  hotel.review_count || 0
+                }}</span>
               </div>
             </div>
 
@@ -168,9 +211,11 @@
               <button
                 @click="toggleHotelStatus(hotel)"
                 class="px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200"
-                :class="hotel.is_active 
-                  ? 'text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 border border-red-300 dark:border-red-700'
-                  : 'text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 border border-green-300 dark:border-green-700'"
+                :class="
+                  hotel.is_active
+                    ? 'text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 border border-red-300 dark:border-red-700'
+                    : 'text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 border border-green-300 dark:border-green-700'
+                "
               >
                 {{ hotel.is_active ? 'Deactivate' : 'Activate' }}
               </button>
@@ -180,8 +225,13 @@
       </div>
 
       <!-- Add/Edit Hotel Modal -->
-      <div v-if="showAddHotelModal || editingHotel" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-        <div class="bg-white dark:bg-neutral-800 rounded-2xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+      <div
+        v-if="showAddHotelModal || editingHotel"
+        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+      >
+        <div
+          class="bg-white dark:bg-neutral-800 rounded-2xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+        >
           <div class="p-6">
             <div class="flex justify-between items-center mb-6">
               <h3 class="text-xl font-semibold text-neutral-900 dark:text-neutral-100">
@@ -192,7 +242,12 @@
                 class="text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200"
               >
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               </button>
             </div>
@@ -201,7 +256,9 @@
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Basic Info -->
                 <div>
-                  <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+                  <label
+                    class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
+                  >
                     Hotel Name *
                   </label>
                   <input
@@ -214,7 +271,9 @@
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+                  <label
+                    class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
+                  >
                     Location *
                   </label>
                   <input
@@ -227,7 +286,9 @@
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+                  <label
+                    class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
+                  >
                     Badge
                   </label>
                   <select
@@ -244,7 +305,9 @@
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+                  <label
+                    class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
+                  >
                     Rating
                   </label>
                   <input
@@ -261,7 +324,9 @@
 
               <!-- Description -->
               <div>
-                <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+                <label
+                  class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
+                >
                   Description
                 </label>
                 <textarea
@@ -275,7 +340,9 @@
               <!-- Coordinates -->
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+                  <label
+                    class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
+                  >
                     Latitude
                   </label>
                   <input
@@ -288,7 +355,9 @@
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+                  <label
+                    class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
+                  >
                     Longitude
                   </label>
                   <input
@@ -303,7 +372,9 @@
 
               <!-- Amenities -->
               <div>
-                <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+                <label
+                  class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
+                >
                   Amenities
                 </label>
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
@@ -318,14 +389,18 @@
                       v-model="hotelForm.amenities"
                       class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 rounded focus:ring-primary-500 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     />
-                    <span class="ml-2 text-sm text-neutral-700 dark:text-neutral-300">{{ amenity }}</span>
+                    <span class="ml-2 text-sm text-neutral-700 dark:text-neutral-300">{{
+                      amenity
+                    }}</span>
                   </label>
                 </div>
               </div>
 
               <!-- Images -->
               <div>
-                <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+                <label
+                  class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
+                >
                   Image URLs (one per line)
                 </label>
                 <textarea
@@ -408,13 +483,28 @@ const hotelForm = ref({
   badge: '',
   amenities: [] as string[],
   is_active: true,
-  featured: false
+  featured: false,
 })
 
 const availableAmenities = [
-  'WiFi', 'Pool', 'Spa', 'Gym', 'Restaurant', 'Bar', 'Room Service', 'Parking',
-  'Pet Friendly', 'Business Center', 'Concierge', 'Laundry', 'Airport Shuttle',
-  'Beach Access', 'Tennis Court', 'Golf Course', 'Skiing', 'Hiking Trails'
+  'WiFi',
+  'Pool',
+  'Spa',
+  'Gym',
+  'Restaurant',
+  'Bar',
+  'Room Service',
+  'Parking',
+  'Pet Friendly',
+  'Business Center',
+  'Concierge',
+  'Laundry',
+  'Airport Shuttle',
+  'Beach Access',
+  'Tennis Court',
+  'Golf Course',
+  'Skiing',
+  'Hiking Trails',
 ]
 
 const filteredHotels = computed(() => {
@@ -422,22 +512,22 @@ const filteredHotels = computed(() => {
 
   if (searchTerm.value) {
     const search = searchTerm.value.toLowerCase()
-    filtered = filtered.filter(hotel =>
-      hotel.name.toLowerCase().includes(search) ||
-      hotel.location.toLowerCase().includes(search)
+    filtered = filtered.filter(
+      (hotel) =>
+        hotel.name.toLowerCase().includes(search) || hotel.location.toLowerCase().includes(search),
     )
   }
 
   if (statusFilter.value) {
     switch (statusFilter.value) {
       case 'active':
-        filtered = filtered.filter(hotel => hotel.is_active)
+        filtered = filtered.filter((hotel) => hotel.is_active)
         break
       case 'inactive':
-        filtered = filtered.filter(hotel => !hotel.is_active)
+        filtered = filtered.filter((hotel) => !hotel.is_active)
         break
       case 'featured':
-        filtered = filtered.filter(hotel => hotel.featured)
+        filtered = filtered.filter((hotel) => hotel.featured)
         break
     }
   }
@@ -448,14 +538,16 @@ const filteredHotels = computed(() => {
 const loadHotels = async () => {
   try {
     loading.value = true
-    
+
     const { data, error } = await supabase
       .from('hotels')
-      .select(`
+      .select(
+        `
         *,
         room_count:rooms(count),
         review_count:reviews(count)
-      `)
+      `,
+      )
       .order('created_at', { ascending: false })
 
     if (error) throw error
@@ -480,7 +572,7 @@ const editHotel = (hotel: any) => {
     badge: hotel.badge || '',
     amenities: hotel.amenities || [],
     is_active: hotel.is_active,
-    featured: hotel.featured
+    featured: hotel.featured,
   }
   imageUrls.value = (hotel.images || []).join('\n')
 }
@@ -498,7 +590,7 @@ const closeModal = () => {
     badge: '',
     amenities: [],
     is_active: true,
-    featured: false
+    featured: false,
   }
   imageUrls.value = ''
 }
@@ -509,7 +601,7 @@ const saveHotel = async () => {
 
     const hotelData = {
       ...hotelForm.value,
-      images: imageUrls.value.split('\n').filter(url => url.trim())
+      images: imageUrls.value.split('\n').filter((url) => url.trim()),
     }
 
     if (editingHotel.value) {
@@ -522,17 +614,13 @@ const saveHotel = async () => {
       if (error) throw error
 
       // Update local state
-      const index = hotels.value.findIndex(h => h.id === editingHotel.value.id)
+      const index = hotels.value.findIndex((h) => h.id === editingHotel.value.id)
       if (index !== -1) {
         hotels.value[index] = { ...editingHotel.value, ...hotelData }
       }
     } else {
       // Create new hotel
-      const { data, error } = await supabase
-        .from('hotels')
-        .insert([hotelData])
-        .select()
-        .single()
+      const { data, error } = await supabase.from('hotels').insert([hotelData]).select().single()
 
       if (error) throw error
 
@@ -556,7 +644,7 @@ const manageRooms = (hotel: any) => {
 const toggleHotelStatus = async (hotel: any) => {
   try {
     const newStatus = !hotel.is_active
-    
+
     const { error } = await supabase
       .from('hotels')
       .update({ is_active: newStatus })
@@ -565,7 +653,7 @@ const toggleHotelStatus = async (hotel: any) => {
     if (error) throw error
 
     hotel.is_active = newStatus
-    
+
     alert(`Hotel ${newStatus ? 'activated' : 'deactivated'} successfully!`)
   } catch (error) {
     console.error('Failed to toggle hotel status:', error)

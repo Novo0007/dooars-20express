@@ -156,17 +156,19 @@ export const useHotelStore = defineStore('hotel', () => {
 
       if (data && data.length > 0) {
         // Transform data to match interface
-        featuredHotels.value = data.map(hotel => ({
+        featuredHotels.value = data.map((hotel) => ({
           id: hotel.id,
           name: hotel.name,
           location: hotel.location,
           price: 250, // Default price, could be calculated from rooms
           rating: hotel.rating || 4.5,
           badge: hotel.badge || 'Featured',
-          image: hotel.images?.[0] || 'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=500&h=300&fit=crop',
+          image:
+            hotel.images?.[0] ||
+            'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=500&h=300&fit=crop',
           coordinates: { lat: hotel.latitude || 0, lng: hotel.longitude || 0 },
           description: hotel.description || '',
-          amenities: hotel.amenities || []
+          amenities: hotel.amenities || [],
         }))
       } else {
         // No featured hotels found, use mock data

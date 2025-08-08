@@ -93,9 +93,9 @@
         <p v-if="errorMessage" class="text-sm text-red-600 dark:text-red-400">{{ errorMessage }}</p>
         <button
           @click="
-            showPromoInput = false;
-            promoCode = '';
-            errorMessage = '';
+            showPromoInput = false
+            promoCode = ''
+            errorMessage = ''
           "
           class="text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300 text-sm transition-colors duration-200"
         >
