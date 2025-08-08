@@ -613,9 +613,16 @@ const toggleFavorite = async () => {
     favoriteLoading.value = true
 
     if (isFavorite.value) {
-    await authStore.removeFavoriteHotel(hotel.value.id)
-  } else {
-    await authStore.addFavoriteHotel(hotel.value.id)
+      await authStore.removeFavoriteHotel(hotel.value.id)
+      isFavorite.value = false
+    } else {
+      await authStore.addFavoriteHotel(hotel.value.id)
+      isFavorite.value = true
+    }
+  } catch (error) {
+    console.error('Failed to toggle favorite:', error)
+  } finally {
+    favoriteLoading.value = false
   }
 }
 
@@ -632,6 +639,7 @@ onMounted(async () => {
   const hotelId = Number(route.params.id)
   if (hotelId) {
     await hotelStore.getHotelById(hotelId)
+    await checkIfFavorite()
   }
 })
 </script>
