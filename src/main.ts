@@ -7,6 +7,7 @@ import { createPinia } from 'pinia'
 import i18n from './i18n'
 import { useAppStore } from './stores/app'
 import { useAuthStore } from './stores/auth'
+import { useNotificationStore } from './stores/notification'
 import { logConfigStatus } from './utils/config'
 import { logger } from './utils/logger'
 
@@ -22,11 +23,21 @@ const app = createApp(App)
 
 // Global error handler
 app.config.errorHandler = (err, instance, info) => {
-  logger.error('Vue Error', {
-    error: err.message,
-    stack: err.stack,
+  console.error('Vue Error Details:', {
+    message: err?.message || 'Unknown error',
+    stack: err?.stack || 'No stack trace',
+    name: err?.name || 'Unknown',
+    info: info || 'No info',
+    component: instance?.$options?.name || instance?.$?.type?.name || 'Unknown Component',
+    props: instance?.$props || {},
+    error: err
+  })
+
+  logger.error('Vue Error: ' + (err?.message || 'Unknown error'), {
+    stack: err?.stack,
     info,
-    component: instance?.$options.name || 'Unknown'
+    component: instance?.$options?.name || instance?.$?.type?.name || 'Unknown Component',
+    errorName: err?.name
   })
 }
 
@@ -73,9 +84,10 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
             if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
               // New content is available, show notification
               logger.info('New app version available')
-              // Use notification system instead of confirm
-              const notificationStore = useNotificationStore()
-              notificationStore.info('New version available! Please refresh to update.', 'App Update', 0)
+              // Show browser notification for PWA updates
+              if (confirm('New version available! Refresh to update?')) {
+                window.location.reload()
+              }
             }
           })
         }

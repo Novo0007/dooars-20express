@@ -49,19 +49,71 @@ class Logger {
     const prefix = `[${entry.timestamp}] ${entry.level.toUpperCase()}`
     const message = entry.source ? `${prefix} [${entry.source}] ${entry.message}` : `${prefix} ${entry.message}`
 
+    // Properly serialize data for console output
+    const logData = entry.data ? this.serializeData(entry.data) : null
+
     switch (entry.level) {
       case 'debug':
-        console.debug(message, entry.data || '')
+        if (logData) console.debug(message, logData)
+        else console.debug(message)
         break
       case 'info':
-        console.info(message, entry.data || '')
+        if (logData) console.info(message, logData)
+        else console.info(message)
         break
       case 'warn':
-        console.warn(message, entry.data || '')
+        if (logData) console.warn(message, logData)
+        else console.warn(message)
         break
       case 'error':
-        console.error(message, entry.data || '')
+        if (logData) console.error(message, logData)
+        else console.error(message)
         break
+    }
+  }
+
+  private serializeData(data: any): any {
+    if (!data) return null
+
+    try {
+      // Handle Error objects specially
+      if (data instanceof Error) {
+        return {
+          name: data.name,
+          message: data.message,
+          stack: data.stack,
+          cause: data.cause
+        }
+      }
+
+      // Handle objects that might not serialize properly
+      if (typeof data === 'object') {
+        const serialized: any = {}
+        for (const [key, value] of Object.entries(data)) {
+          if (value instanceof Error) {
+            serialized[key] = {
+              name: value.name,
+              message: value.message,
+              stack: value.stack
+            }
+          } else if (typeof value === 'function') {
+            serialized[key] = '[Function]'
+          } else if (typeof value === 'object' && value !== null) {
+            try {
+              serialized[key] = JSON.parse(JSON.stringify(value))
+            } catch {
+              serialized[key] = '[Object - could not serialize]'
+            }
+          } else {
+            serialized[key] = value
+          }
+        }
+        return serialized
+      }
+
+      return data
+    } catch (error) {
+      return '[Data could not be serialized]'
     }
   }
 
