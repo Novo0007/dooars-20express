@@ -228,7 +228,14 @@ export const useBookingStore = defineStore('booking', () => {
     const endDate = new Date(checkOut)
     const duration = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24))
 
-    return hotel.price * duration * rooms
+    // Convert to INR if price is in USD (legacy data)
+    const priceInINR = hotel.price < 1000 ? convertPriceToINR(hotel.price) : hotel.price
+    const baseAmount = priceInINR * duration * rooms
+
+    // Calculate Indian taxes (12% GST)
+    const taxes = calculateIndianTaxes(baseAmount)
+
+    return taxes.finalAmount // Return price including taxes
   }
 
   return {
