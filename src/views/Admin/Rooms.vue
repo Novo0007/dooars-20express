@@ -531,6 +531,7 @@ import { supabase } from '@/lib/supabase'
 import { useNotificationStore } from '@/stores/notification'
 import { logger } from '@/utils/logger'
 import { testDatabaseConnection, testRoomsQuery } from '@/utils/dbConnectionTest'
+import { runAllErrorTests } from '@/utils/errorTestUtils'
 
 // State
 const rooms = ref<any[]>([])
@@ -647,8 +648,7 @@ const testConnection = async () => {
     } else {
       const allErrors = [...result.errors]
       if (roomsTest.error) {
-        const errorMessage =
-          typeof roomsTest.error === 'string' ? roomsTest.error : 'Rooms query failed'
+        const errorMessage = typeof roomsTest.error === 'string' ? roomsTest.error : 'Rooms query failed'
         allErrors.push(errorMessage)
       }
       notificationStore.error(`Issues found: ${allErrors.join('; ')}`, 'Database Test Failed')
