@@ -73,16 +73,13 @@ export async function testDatabaseConnection(): Promise<DatabaseTestResult> {
       } else if (typeof error === 'object' && error !== null) {
         // Handle Supabase error objects
         const supabaseError = error as any
-        errorMessage =
-          supabaseError.message || supabaseError.error_description || 'Supabase rooms error'
+        errorMessage = supabaseError.message || supabaseError.error_description || 'Supabase rooms error'
         errorDetails = `Code: ${supabaseError.code || 'N/A'}, Details: ${supabaseError.details || 'N/A'}`
       } else {
         errorMessage = String(error)
       }
 
-      result.errors.push(
-        `Rooms table exception: ${errorMessage}${errorDetails ? ` (${errorDetails})` : ''}`,
-      )
+      result.errors.push(`Rooms table exception: ${errorMessage}${errorDetails ? ` (${errorDetails})` : ''}`)
       logger.error('Rooms table exception', { error, errorMessage, errorDetails })
     }
   } catch (error) {
@@ -116,11 +113,25 @@ export async function testRoomsQuery(): Promise<{
       data: data || [],
     }
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : 'Rooms query exception'
-    logger.error('Rooms query exception', { error })
+    let errorMessage = 'Rooms query exception'
+    let errorDetails = ''
+
+    if (error instanceof Error) {
+      errorMessage = error.message
+      errorDetails = error.stack || ''
+    } else if (typeof error === 'object' && error !== null) {
+      // Handle Supabase error objects
+      const supabaseError = error as any
+      errorMessage = supabaseError.message || supabaseError.error_description || 'Supabase rooms query error'
+      errorDetails = `Code: ${supabaseError.code || 'N/A'}, Details: ${supabaseError.details || 'N/A'}, Hint: ${supabaseError.hint || 'N/A'}`
+    } else {
+      errorMessage = String(error)
+    }
+
+    logger.error('Rooms query exception', { error, errorMessage, errorDetails })
     return {
       success: false,
-      error: errorMessage,
+      error: `${errorMessage}${errorDetails ? ` (${errorDetails})` : ''}`,
     }
   }
 }
