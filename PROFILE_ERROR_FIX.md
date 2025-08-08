@@ -18,10 +18,11 @@ The error occurred because:
 ## 🛠️ **Fixes Applied**
 
 ### 1. **Added Email Field to Profile Form**
+
 ```javascript
 const profileForm = ref({
   full_name: '',
-  email: '',  // ✅ Added missing email field
+  email: '', // ✅ Added missing email field
   phone: '',
   date_of_birth: '',
   preferred_language: 'en',
@@ -31,12 +32,13 @@ const profileForm = ref({
 ```
 
 ### 2. **Updated Data Loading Function**
+
 ```javascript
 const loadProfileData = () => {
   if (authStore.user?.profile) {
     profileForm.value = {
       full_name: authStore.user.profile.full_name || '',
-      email: authStore.user.email || '',  // ✅ Load email from user object
+      email: authStore.user.email || '', // ✅ Load email from user object
       phone: authStore.user.profile.phone || '',
       // ... other fields
     }
@@ -45,6 +47,7 @@ const loadProfileData = () => {
 ```
 
 ### 3. **Added Email Input Field to Template**
+
 ```html
 <div>
   <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
@@ -64,6 +67,7 @@ const loadProfileData = () => {
 ```
 
 ### 4. **Improved Validation Logic**
+
 ```javascript
 // Validate required fields
 if (!profileForm.value.full_name?.trim()) {
@@ -75,11 +79,12 @@ if (!profileForm.value.full_name?.trim()) {
 ```
 
 ### 5. **Enhanced Initialization**
+
 ```javascript
 onMounted(() => {
   loadUserStats()
   loadProfileData()
-  
+
   // ✅ Ensure form is initialized even if profile data is not fully loaded
   if (!profileForm.value.email && authStore.user?.email) {
     profileForm.value.email = authStore.user.email

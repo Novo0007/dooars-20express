@@ -619,9 +619,12 @@ const saveHotel = async () => {
       rating: Number(hotelForm.value.rating) || 4.0,
       badge: hotelForm.value.badge || 'Featured',
       amenities: hotelForm.value.amenities || [],
-      images: imageUrls.value.split('\n').filter((url) => url.trim()).map(url => url.trim()),
+      images: imageUrls.value
+        .split('\n')
+        .filter((url) => url.trim())
+        .map((url) => url.trim()),
       is_active: true,
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     }
 
     if (editingHotel.value) {

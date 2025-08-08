@@ -19,49 +19,46 @@ export const testDatabaseConnection = async (): Promise<DBTestResult> => {
       return {
         success: false,
         message: `Database connection failed: ${error.message}`,
-        error
+        error,
       }
     }
 
     return {
       success: true,
       message: 'Database connection successful',
-      data: { count: data }
+      data: { count: data },
     }
   } catch (error) {
     return {
       success: false,
       message: `Connection test failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
-      error
+      error,
     }
   }
 }
 
 export const testTableAccess = async (tableName: string): Promise<DBTestResult> => {
   try {
-    const { data, error } = await supabase
-      .from(tableName)
-      .select('*')
-      .limit(1)
+    const { data, error } = await supabase.from(tableName).select('*').limit(1)
 
     if (error) {
       return {
         success: false,
         message: `Table '${tableName}' access failed: ${error.message}`,
-        error
+        error,
       }
     }
 
     return {
       success: true,
       message: `Table '${tableName}' accessible`,
-      data
+      data,
     }
   } catch (error) {
     return {
       success: false,
       message: `Table '${tableName}' test failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
-      error
+      error,
     }
   }
 }
@@ -69,7 +66,7 @@ export const testTableAccess = async (tableName: string): Promise<DBTestResult> 
 export const testHotelsTable = async (): Promise<DBTestResult> => {
   try {
     console.log('Testing hotels table access...')
-    
+
     // Test basic select
     const { data: hotels, error } = await supabase
       .from('hotels')
@@ -81,16 +78,16 @@ export const testHotelsTable = async (): Promise<DBTestResult> => {
       return {
         success: false,
         message: `Hotels table access failed: ${error.message}`,
-        error
+        error,
       }
     }
 
     console.log('Hotels table accessible, found:', hotels?.length || 0, 'hotels')
-    
+
     return {
       success: true,
       message: `Hotels table accessible with ${hotels?.length || 0} records`,
-      data: hotels
+      data: hotels,
     }
   } catch (error) {
     const errorMsg = error instanceof Error ? error.message : 'Unknown error'
@@ -98,7 +95,7 @@ export const testHotelsTable = async (): Promise<DBTestResult> => {
     return {
       success: false,
       message: `Hotels table test failed: ${errorMsg}`,
-      error
+      error,
     }
   }
 }
@@ -106,7 +103,7 @@ export const testHotelsTable = async (): Promise<DBTestResult> => {
 export const testRoomsTable = async (): Promise<DBTestResult> => {
   try {
     console.log('Testing rooms table access...')
-    
+
     const { data: rooms, error } = await supabase
       .from('rooms')
       .select('id, hotel_id, price_per_night')
@@ -117,16 +114,16 @@ export const testRoomsTable = async (): Promise<DBTestResult> => {
       return {
         success: false,
         message: `Rooms table access failed: ${error.message}`,
-        error
+        error,
       }
     }
 
     console.log('Rooms table accessible, found:', rooms?.length || 0, 'rooms')
-    
+
     return {
       success: true,
       message: `Rooms table accessible with ${rooms?.length || 0} records`,
-      data: rooms
+      data: rooms,
     }
   } catch (error) {
     const errorMsg = error instanceof Error ? error.message : 'Unknown error'
@@ -134,24 +131,24 @@ export const testRoomsTable = async (): Promise<DBTestResult> => {
     return {
       success: false,
       message: `Rooms table test failed: ${errorMsg}`,
-      error
+      error,
     }
   }
 }
 
 export const runFullDatabaseTest = async () => {
   console.log('🔍 Running full database connectivity test...')
-  
+
   const results = {
     connection: await testDatabaseConnection(),
     hotels: await testHotelsTable(),
-    rooms: await testRoomsTable()
+    rooms: await testRoomsTable(),
   }
-  
+
   console.log('📊 Database test results:', results)
-  
-  const allSuccess = Object.values(results).every(result => result.success)
-  
+
+  const allSuccess = Object.values(results).every((result) => result.success)
+
   if (allSuccess) {
     console.log('✅ All database tests passed!')
   } else {
@@ -162,6 +159,6 @@ export const runFullDatabaseTest = async () => {
       }
     })
   }
-  
+
   return results
 }

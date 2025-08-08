@@ -243,7 +243,9 @@
                   />
                   <div>
                     <div class="text-sm font-medium text-gray-900">{{ room.type }}</div>
-                    <div class="text-sm text-gray-500">{{ room.description || 'No description' }}</div>
+                    <div class="text-sm text-gray-500">
+                      {{ room.description || 'No description' }}
+                    </div>
                   </div>
                 </div>
               </td>
@@ -408,7 +410,9 @@
                 />
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Price per Night ($)</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1"
+                  >Price per Night ($)</label
+                >
                 <input
                   v-model.number="roomForm.price"
                   type="number"
@@ -478,7 +482,6 @@
                 placeholder="Room description..."
               ></textarea>
             </div>
-
 
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Amenities</label>
@@ -613,9 +616,7 @@ const filteredRooms = computed(() => {
 const totalPages = computed(() => Math.ceil(filteredRooms.value.length / itemsPerPage.value))
 
 const totalRooms = computed(() => rooms.value.length)
-const availableRooms = computed(
-  () => rooms.value.filter((room) => room.is_active).length,
-)
+const availableRooms = computed(() => rooms.value.filter((room) => room.is_active).length)
 const averagePrice = computed(() => {
   if (rooms.value.length === 0) return 0
   const total = rooms.value.reduce((sum, room) => sum + (room.price || 0), 0)
@@ -641,14 +642,11 @@ const testConnection = async () => {
     if (result.connected && result.tablesAccessible && roomsTest.success) {
       notificationStore.success(
         `Connected! Hotels: ${result.hotelsCount}, Rooms: ${result.roomsCount}`,
-        'Database Test Successful'
+        'Database Test Successful',
       )
     } else {
       const errors = result.errors.concat(roomsTest.error ? [roomsTest.error] : [])
-      notificationStore.error(
-        `Issues found: ${errors.join(', ')}`,
-        'Database Test Failed'
-      )
+      notificationStore.error(`Issues found: ${errors.join(', ')}`, 'Database Test Failed')
     }
   } catch (error) {
     logger.error('Database test exception', { error })
@@ -745,7 +743,10 @@ const toggleRoomStatus = async (room: any) => {
   const newStatus = !room.is_active
 
   try {
-    const { error } = await supabase.from('rooms').update({ is_active: newStatus }).eq('id', room.id)
+    const { error } = await supabase
+      .from('rooms')
+      .update({ is_active: newStatus })
+      .eq('id', room.id)
 
     if (error) throw error
     await fetchRooms()
@@ -790,9 +791,7 @@ const getCategoryClass = (category: string) => {
 }
 
 const getStatusClass = (isActive: boolean) => {
-  return isActive
-    ? 'bg-green-100 text-green-800'
-    : 'bg-red-100 text-red-800'
+  return isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
 }
 
 const previousPage = () => {

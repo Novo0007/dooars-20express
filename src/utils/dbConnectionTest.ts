@@ -15,7 +15,7 @@ export async function testDatabaseConnection(): Promise<DatabaseTestResult> {
     tablesAccessible: false,
     roomsCount: 0,
     hotelsCount: 0,
-    errors: []
+    errors: [],
   }
 
   try {
@@ -68,7 +68,6 @@ export async function testDatabaseConnection(): Promise<DatabaseTestResult> {
       result.errors.push(`Rooms table exception: ${errorMessage}`)
       logger.error('Rooms table exception', { error })
     }
-
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown connection error'
     result.errors.push(`Connection failed: ${errorMessage}`)
@@ -78,32 +77,33 @@ export async function testDatabaseConnection(): Promise<DatabaseTestResult> {
   return result
 }
 
-export async function testRoomsQuery(): Promise<{ success: boolean; data?: any[]; error?: string }> {
+export async function testRoomsQuery(): Promise<{
+  success: boolean
+  data?: any[]
+  error?: string
+}> {
   try {
-    const { data, error } = await supabase
-      .from('rooms')
-      .select('*')
-      .limit(5)
+    const { data, error } = await supabase.from('rooms').select('*').limit(5)
 
     if (error) {
       logger.error('Rooms query test failed', { error })
-      return { 
-        success: false, 
-        error: error.message || 'Unknown rooms query error' 
+      return {
+        success: false,
+        error: error.message || 'Unknown rooms query error',
       }
     }
 
     logger.info('Rooms query test successful', { recordCount: data?.length || 0 })
-    return { 
-      success: true, 
-      data: data || [] 
+    return {
+      success: true,
+      data: data || [],
     }
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Rooms query exception'
     logger.error('Rooms query exception', { error })
-    return { 
-      success: false, 
-      error: errorMessage 
+    return {
+      success: false,
+      error: errorMessage,
     }
   }
 }
