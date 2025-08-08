@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import type { Hotel } from './hotel'
 import { useAppStore } from './app'
+import { formatPrice, calculateIndianTaxes, convertPriceToINR } from '@/utils/currency'
 
 export interface BookingDetails {
   id?: string
