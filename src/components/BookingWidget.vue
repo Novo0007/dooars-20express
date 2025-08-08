@@ -95,19 +95,19 @@
       >
         <div class="flex justify-between text-sm">
           <span class="text-neutral-600 dark:text-neutral-400">
-            ${{ basePrice }} × {{ nights }}
+            {{ formatPrice(basePrice) }} × {{ nights }}
             {{ nights === 1 ? $t('booking.night') : $t('booking.nights') }} ×
             {{ bookingForm.rooms }}
             {{ bookingForm.rooms === 1 ? $t('booking.room') : $t('booking.rooms') }}
           </span>
-          <span class="text-neutral-800 dark:text-neutral-200">${{ subtotal }}</span>
+          <span class="text-neutral-800 dark:text-neutral-200">{{ formatPrice(subtotal) }}</span>
         </div>
 
         <div v-if="taxesAndFees > 0" class="flex justify-between text-sm">
           <span class="text-neutral-600 dark:text-neutral-400">{{
             $t('booking.taxesAndFees')
           }}</span>
-          <span class="text-neutral-800 dark:text-neutral-200">${{ taxesAndFees }}</span>
+          <span class="text-neutral-800 dark:text-neutral-200">{{ formatPrice(taxesAndFees) }}</span>
         </div>
 
         <div
