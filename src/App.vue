@@ -3,6 +3,7 @@
     <TheNavigation />
     <OfflineIndicator />
     <router-view />
+    <BottomNavigation />
     <LiveChatWidget />
     <PWAInstallPrompt />
     <AuthDebug />
@@ -13,6 +14,7 @@
 
 <script setup lang="ts">
 import TheNavigation from './components/TheNavigation.vue'
+import BottomNavigation from './components/BottomNavigation.vue'
 import LiveChatWidget from './components/LiveChatWidget.vue'
 import PWAInstallPrompt from './components/PWAInstallPrompt.vue'
 import OfflineIndicator from './components/OfflineIndicator.vue'
