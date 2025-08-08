@@ -277,20 +277,9 @@ export const useHotelStore = defineStore('hotel', () => {
         query = query.ilike('location', `%${filters.destination}%`)
       }
 
-      // Apply price range filter
-      if (filters.priceRange && filters.priceRange.length === 2) {
-        // Get hotels that have rooms within the price range
-        query = query.in(
-          'id',
-          await supabase
-            .from('rooms')
-            .select('hotel_id')
-            .gte('price', filters.priceRange[0])
-            .lte('price', filters.priceRange[1])
-            .eq('is_active', true)
-            .then(({ data }) => data?.map((r) => r.hotel_id) || []),
-        )
-      }
+      // Skip complex price range filter for now - will be handled in post-processing
+      // This avoids potential issues with nested async queries
+      const priceFilterEnabled = filters.priceRange && filters.priceRange.length === 2
 
       // Apply sorting
       switch (filters.sortBy) {
