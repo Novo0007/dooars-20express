@@ -215,6 +215,29 @@ export const useAuthStore = defineStore('auth', () => {
   const setUser = async (authUser: SupabaseUser, authSession: Session) => {
     session.value = authSession
 
+    // Test Supabase connection first
+    try {
+      console.log('Testing Supabase connection...')
+      const { data: testData, error: testError } = await supabase
+        .from('user_profiles')
+        .select('count')
+        .limit(1)
+
+      if (testError) {
+        console.error('Supabase connection test failed:', testError.message)
+        if (testError.message.includes('relation "public.user_profiles" does not exist')) {
+          console.warn('user_profiles table does not exist. Please run the database migrations.')
+        }
+        // Continue with basic user info
+        user.value = authUser
+        return
+      }
+    } catch (connectionError) {
+      console.error('Supabase connection error:', connectionError)
+      user.value = authUser
+      return
+    }
+
     // Fetch user profile
     try {
       console.log('Fetching profile for user:', authUser.id, authUser.email)
@@ -228,6 +251,33 @@ export const useAuthStore = defineStore('auth', () => {
       if (profileError && profileError.code !== 'PGRST116') {
         // PGRST116 = row not found, which is expected for new users
         console.error('Profile fetch error:', profileError.message || profileError.hint || JSON.stringify(profileError))
+
+        // Try to create a basic profile for new users
+        if (profileError.code === 'PGRST116') {
+          console.log('Creating basic profile for new user...')
+          const { data: newProfile, error: createError } = await supabase
+            .from('user_profiles')
+            .insert({
+              id: authUser.id,
+              email: authUser.email || '',
+              full_name: authUser.user_metadata?.full_name || null,
+              role: 'user'
+            })
+            .select()
+            .single()
+
+          if (createError) {
+            console.error('Failed to create user profile:', createError.message)
+          } else {
+            console.log('Created new user profile successfully')
+            user.value = {
+              ...authUser,
+              profile: newProfile,
+            }
+            return
+          }
+        }
+
         throw profileError
       }
 
@@ -250,6 +300,18 @@ export const useAuthStore = defineStore('auth', () => {
 
   const initializeAuth = async () => {
     try {
+      // Validate Supabase configuration
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+      const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+
+      if (!supabaseUrl || supabaseUrl === 'https://your-project.supabase.co' ||
+          !supabaseKey || supabaseKey === 'your-anon-key') {
+        console.error('Supabase configuration is missing or using default values. Please check your .env file.')
+        console.log('Current URL:', supabaseUrl)
+        isInitialized.value = true
+        return
+      }
+
       // Get current session
       const {
         data: { session: currentSession },
@@ -257,7 +319,7 @@ export const useAuthStore = defineStore('auth', () => {
       } = await supabase.auth.getSession()
 
       if (sessionError) {
-        console.error('Failed to get session:', sessionError)
+        console.error('Failed to get session:', sessionError.message || JSON.stringify(sessionError))
         return
       }
 
