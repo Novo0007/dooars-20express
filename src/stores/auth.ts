@@ -40,6 +40,86 @@ export const useAuthStore = defineStore('auth', () => {
     () => user.value?.profile?.role === 'admin' || user.value?.profile?.role === 'super_admin',
   )
 
+  const isSuperAdmin = computed(
+    () => user.value?.profile?.role === 'super_admin',
+  )
+
+  const userRole = computed(() => user.value?.profile?.role || 'user')
+
+  // Role-based permissions system
+  const permissions = computed(() => {
+    const role = userRole.value
+
+    const basePermissions = {
+      // Basic user permissions
+      'view_own_profile': true,
+      'edit_own_profile': true,
+      'view_hotels': true,
+      'create_booking': true,
+      'view_own_bookings': true,
+      'cancel_own_booking': true,
+      'add_favorites': true,
+      'leave_reviews': true,
+    }
+
+    const adminPermissions = {
+      ...basePermissions,
+      // Admin permissions
+      'view_admin_dashboard': true,
+      'view_all_users': true,
+      'edit_user_profiles': true,
+      'view_all_bookings': true,
+      'manage_bookings': true,
+      'manage_hotels': true,
+      'manage_rooms': true,
+      'view_reports': true,
+      'export_data': true,
+      'moderate_reviews': true,
+      'activate_deactivate_users': true,
+    }
+
+    const superAdminPermissions = {
+      ...adminPermissions,
+      // Super admin permissions
+      'manage_admin_users': true,
+      'delete_users': true,
+      'system_settings': true,
+      'backup_restore': true,
+      'invite_users': true,
+      'change_user_roles': true,
+      'delete_hotels': true,
+      'delete_bookings': true,
+    }
+
+    switch (role) {
+      case 'super_admin':
+        return superAdminPermissions
+      case 'admin':
+        return adminPermissions
+      case 'user':
+      default:
+        return basePermissions
+    }
+  })
+
+  const hasPermission = (permission: string) => {
+    return permissions.value[permission] || false
+  }
+
+  const canManageUser = (targetUser: any) => {
+    if (!isAdmin.value) return false
+
+    // Super admins can manage anyone
+    if (isSuperAdmin.value) return true
+
+    // Admins can manage regular users but not other admins
+    if (targetUser.role === 'admin' || targetUser.role === 'super_admin') {
+      return false
+    }
+
+    return true
+  }
+
   // Actions
   const login = async (email: string, password: string) => {
     loading.value = true
