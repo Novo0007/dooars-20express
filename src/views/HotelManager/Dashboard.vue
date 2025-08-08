@@ -347,14 +347,16 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/auth'
+import { useNotificationStore } from '@/stores/notification'
 import { supabase } from '@/lib/supabase'
 
 const authStore = useAuthStore()
+const notificationStore = useNotificationStore()
 
 // State
 const selectedHotel = ref<any>(null)
 const recentBookings = ref<any[]>([])
-const loading = ref(false)
+const loading = ref(true)
 
 const hotelStats = ref([
   {
@@ -430,6 +432,7 @@ const loadHotelData = async () => {
     await calculateHotelStats()
   } catch (error) {
     console.error('Error loading hotel data:', error)
+    notificationStore.error('Failed to load hotel data. Please try again.')
   } finally {
     loading.value = false
   }
@@ -485,6 +488,7 @@ const calculateHotelStats = async () => {
     hotelStats.value[3].value = availableRooms.toString()
   } catch (error) {
     console.error('Error calculating hotel stats:', error)
+    notificationStore.warning('Hotel statistics may not be up to date.')
   }
 }
 
