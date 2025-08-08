@@ -15,16 +15,7 @@ export const useAppStore = defineStore('app', () => {
 
   // Promo codes
   const appliedPromoCode = ref<string | null>(null)
-  const availPromoCodes = ref([
-    { code: 'SAVE20', discount: 20, type: 'percentage', description: '20% off on all bookings' },
-    { code: 'WELCOME50', discount: 50, type: 'fixed', description: '$50 off your first booking' },
-    {
-      code: 'SUMMER25',
-      discount: 25,
-      type: 'percentage',
-      description: '25% off summer destinations',
-    },
-  ])
+  const availPromoCodes = ref<any[]>([])
 
   // Offline state
   const isOffline = ref(!navigator.onLine)

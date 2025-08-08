@@ -104,43 +104,9 @@
       </div>
     </div>
 
-    <!-- Available Promo Codes (Development/Demo) -->
-    <div v-else-if="showAvailableCodes" class="space-y-3">
-      <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-3">Available codes for demo:</p>
-      <div class="grid gap-2">
-        <button
-          v-for="code in availableCodes"
-          :key="code.code"
-          @click="quickApplyCode(code.code)"
-          class="text-left p-3 border border-neutral-200 dark:border-neutral-600 rounded-lg hover:border-primary-300 dark:hover:border-primary-600 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors duration-200"
-        >
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="font-semibold text-neutral-800 dark:text-neutral-200">{{ code.code }}</p>
-              <p class="text-sm text-neutral-600 dark:text-neutral-400">{{ code.description }}</p>
-            </div>
-            <div class="text-primary-600 dark:text-primary-400 font-semibold">
-              {{ code.type === 'percentage' ? `${code.discount}%` : `$${code.discount}` }} off
-            </div>
-          </div>
-        </button>
-      </div>
-      <button
-        @click="showAvailableCodes = false"
-        class="text-sm text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300 transition-colors duration-200"
-      >
-        Hide codes
-      </button>
-    </div>
-
-    <!-- Show available codes toggle (Development) -->
-    <div v-else class="text-center">
-      <button
-        @click="showAvailableCodes = true"
-        class="text-xs text-neutral-400 dark:text-neutral-500 hover:text-neutral-600 dark:hover:text-neutral-400 transition-colors duration-200"
-      >
-        Show demo codes
-      </button>
+    <!-- No promo code applied -->
+    <div v-else class="text-center py-4">
+      <p class="text-sm text-neutral-500 dark:text-neutral-400">No promo code applied</p>
     </div>
   </div>
 </template>
