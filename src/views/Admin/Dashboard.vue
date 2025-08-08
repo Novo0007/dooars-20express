@@ -342,6 +342,7 @@ import { ref, onMounted, nextTick } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useNotificationStore } from '@/stores/notification'
 import { supabase } from '@/lib/supabase'
+import { logger } from '@/utils/logger'
 
 const authStore = useAuthStore()
 const notificationStore = useNotificationStore()
