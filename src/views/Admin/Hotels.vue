@@ -460,9 +460,13 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
+import { useNotificationStore } from '@/stores/notification'
 import { supabase } from '@/lib/supabase'
 
 const router = useRouter()
+const authStore = useAuthStore()
+const notificationStore = useNotificationStore()
 
 const loading = ref(true)
 const saving = ref(false)
