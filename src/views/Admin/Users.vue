@@ -681,6 +681,7 @@ const inviteForm = ref({
 
 const router = useRouter()
 const authStore = useAuthStore()
+const notificationStore = useNotificationStore()
 
 // Computed
 const filteredUsers = computed(() => {
@@ -871,7 +872,7 @@ const saveUserChanges = async () => {
     closeEditModal()
   } catch (error) {
     console.error('Error updating user:', error)
-    alert('Error updating user. Please try again.')
+    notificationStore.error('Error updating user. Please try again.')
   } finally {
     loading.value = false
   }
@@ -974,11 +975,11 @@ const sendInvite = async () => {
   try {
     // In a real app, this would send an invitation email
     // For now, we'll just show a success message
-    alert(`Invitation sent to ${inviteForm.value.email}`)
+    notificationStore.success(`Invitation sent to ${inviteForm.value.email}`)
     closeInviteModal()
   } catch (error) {
     console.error('Error sending invite:', error)
-    alert('Error sending invitation. Please try again.')
+    notificationStore.error('Error sending invitation. Please try again.')
   } finally {
     loading.value = false
   }
