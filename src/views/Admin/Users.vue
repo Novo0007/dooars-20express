@@ -520,7 +520,8 @@ const editForm = ref({
   is_active: true,
   phone: '',
   email_notifications: true,
-  marketing_emails: false
+  marketing_emails: false,
+  assigned_hotels: [] as any[]
 })
 
 const inviteForm = ref({
