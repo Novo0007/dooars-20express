@@ -1,8 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
 import Home from '../views/Home.vue'
 import Search from '../views/Search.vue'
 import HotelDetails from '../views/HotelDetails.vue'
 import Booking from '../views/Booking.vue'
+import Login from '../views/Login.vue'
+import Signup from '../views/Signup.vue'
 import Placeholder from '../views/Placeholder.vue'
 
 const router = createRouter({
@@ -29,39 +32,99 @@ const router = createRouter({
       path: '/booking',
       name: 'booking',
       component: Booking,
-      meta: { title: 'Booking' },
+      meta: { title: 'Booking', requiresAuth: true },
     },
     {
       path: '/booking-confirmation/:id',
       name: 'booking-confirmation',
       component: () => import('../views/BookingConfirmation.vue'),
-      meta: { title: 'Booking Confirmed' },
+      meta: { title: 'Booking Confirmed', requiresAuth: true },
     },
     {
       path: '/login',
       name: 'login',
-      component: Placeholder,
-      meta: { title: 'Login' },
+      component: Login,
+      meta: { title: 'Login', guest: true },
     },
     {
       path: '/signup',
       name: 'signup',
-      component: Placeholder,
-      meta: { title: 'Sign Up' },
+      component: Signup,
+      meta: { title: 'Sign Up', guest: true },
     },
     {
       path: '/profile',
       name: 'profile',
-      component: Placeholder,
-      meta: { title: 'My Profile' },
+      component: () => import('../views/Profile.vue'),
+      meta: { title: 'My Profile', requiresAuth: true },
+    },
+    {
+      path: '/favorites',
+      name: 'favorites',
+      component: () => import('../views/Favorites.vue'),
+      meta: { title: 'My Favorites', requiresAuth: true },
+    },
+    {
+      path: '/booking-history',
+      name: 'booking-history',
+      component: () => import('../views/BookingHistory.vue'),
+      meta: { title: 'Booking History', requiresAuth: true },
     },
     {
       path: '/admin',
       name: 'admin',
-      component: Placeholder,
-      meta: { title: 'Admin Dashboard' },
+      component: () => import('../views/Admin/Dashboard.vue'),
+      meta: { title: 'Admin Dashboard', requiresAuth: true, requiresAdmin: true },
+    },
+    {
+      path: '/admin/hotels',
+      name: 'admin-hotels',
+      component: () => import('../views/Admin/Hotels.vue'),
+      meta: { title: 'Manage Hotels', requiresAuth: true, requiresAdmin: true },
+    },
+    {
+      path: '/admin/bookings',
+      name: 'admin-bookings',
+      component: () => import('../views/Admin/Bookings.vue'),
+      meta: { title: 'Manage Bookings', requiresAuth: true, requiresAdmin: true },
+    },
+    {
+      path: '/admin/users',
+      name: 'admin-users',
+      component: () => import('../views/Admin/Users.vue'),
+      meta: { title: 'Manage Users', requiresAuth: true, requiresAdmin: true },
     },
   ],
+})
+
+// Navigation guards
+router.beforeEach(async (to, from, next) => {
+  const authStore = useAuthStore()
+
+  // Initialize auth if not already done
+  if (!authStore.user && !authStore.session) {
+    await authStore.initializeAuth()
+  }
+
+  // Check if route requires authentication
+  if (to.meta.requiresAuth && !authStore.isAuthenticated) {
+    next({ name: 'login', query: { redirect: to.fullPath } })
+    return
+  }
+
+  // Check if route requires admin privileges
+  if (to.meta.requiresAdmin && !authStore.isAdmin) {
+    next({ name: 'home' })
+    return
+  }
+
+  // Redirect authenticated users away from guest-only routes
+  if (to.meta.guest && authStore.isAuthenticated) {
+    next({ name: 'profile' })
+    return
+  }
+
+  next()
 })
 
 export default router
