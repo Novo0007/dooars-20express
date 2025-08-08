@@ -645,6 +645,30 @@ const occupancyRate = computed(() => {
 })
 
 // Methods
+const testErrorHandling = () => {
+  notificationStore.info('Running error handling tests...', 'Error Test')
+
+  try {
+    const allPassed = runAllErrorTests()
+
+    if (allPassed) {
+      notificationStore.success(
+        'All error handling tests passed! No [object Object] errors detected.',
+        'Error Test Successful'
+      )
+    } else {
+      notificationStore.warning(
+        'Some error handling tests failed. Check console for details.',
+        'Error Test Warning'
+      )
+    }
+  } catch (error) {
+    logger.error('Error test execution failed', { error })
+    const errorMessage = error instanceof Error ? error.message : 'Error test failed'
+    notificationStore.error(errorMessage, 'Error Test Failed')
+  }
+}
+
 const testConnection = async () => {
   notificationStore.info('Testing database connection...', 'Database Test')
 
