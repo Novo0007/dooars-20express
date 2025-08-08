@@ -3,12 +3,25 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Header -->
       <div class="mb-8">
-        <h1 class="text-3xl font-bold text-neutral-900 dark:text-neutral-100 mb-2">
-          Admin Dashboard
-        </h1>
-        <p class="text-neutral-600 dark:text-neutral-400">
-          Welcome to the Dooars Express management panel
-        </p>
+        <div class="flex items-center justify-between">
+          <div>
+            <h1 class="text-3xl font-bold text-neutral-900 dark:text-neutral-100 mb-2">
+              Admin Dashboard
+            </h1>
+            <p class="text-neutral-600 dark:text-neutral-400">
+              Welcome to the Dooars Express management panel
+            </p>
+          </div>
+          <div class="text-right">
+            <div class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium"
+                 :class="authStore.isSuperAdmin ? 'bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-400' : 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400'">
+              {{ authStore.userRole === 'super_admin' ? 'Super Admin' : 'Admin' }}
+            </div>
+            <p class="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+              {{ authStore.user?.profile?.full_name || authStore.user?.email }}
+            </p>
+          </div>
+        </div>
       </div>
 
       <!-- Quick Actions -->
