@@ -558,7 +558,9 @@ const loadHotels = async () => {
 
     hotels.value = data || []
   } catch (error) {
-    console.error('Failed to load hotels:', error)
+    logger.error('Failed to load hotels', { error })
+    const errorMessage = error instanceof Error ? error.message : 'Failed to load hotels'
+    notificationStore.error(errorMessage, 'Hotels Loading Error')
   } finally {
     loading.value = false
   }
@@ -683,8 +685,9 @@ const toggleHotelStatus = async (hotel: any) => {
 
     alert(`Hotel ${newStatus ? 'activated' : 'deactivated'} successfully!`)
   } catch (error) {
-    console.error('Failed to toggle hotel status:', error)
-    alert('Failed to update hotel status.')
+    logger.error('Failed to toggle hotel status', { error })
+    const errorMessage = error instanceof Error ? error.message : 'Failed to update hotel status'
+    notificationStore.error(errorMessage, 'Hotel Status Update Error')
   }
 }
 
