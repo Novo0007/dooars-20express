@@ -127,7 +127,7 @@ const XMarkIcon = defineComponent({
   }
 })
 
-import { useNotificationStore } from '../stores/notification'
+import { useNotificationStore } from '@/stores/notification'
 
 const notificationStore = useNotificationStore()
 const { notifications, removeNotification } = notificationStore
