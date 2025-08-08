@@ -37,6 +37,9 @@ export const useBookingStore = defineStore('booking', () => {
   const loading = ref(false)
   const error = ref<string | null>(null)
 
+  // Get app store instance
+  const appStore = useAppStore()
+
   // Computed
   const bookingTotal = computed(() => {
     if (!currentBooking.value || !currentBooking.value.totalPrice) return 0
@@ -44,9 +47,8 @@ export const useBookingStore = defineStore('booking', () => {
     let total = currentBooking.value.totalPrice
 
     // Apply discount if available
-    const { appliedDiscount } = useAppStore()
-    if (appliedDiscount.value) {
-      const discount = appliedDiscount.value
+    if (appStore.appliedDiscount) {
+      const discount = appStore.appliedDiscount
       if (discount.type === 'percentage') {
         total = total * (1 - discount.discount / 100)
       } else {
