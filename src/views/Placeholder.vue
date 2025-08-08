@@ -8,18 +8,18 @@
           </svg>
         </div>
         
-        <h1 class="text-3xl font-display font-bold text-neutral-800 mb-4">
-          {{ pageTitle }} Coming Soon
+        <h1 class="text-3xl font-display font-bold text-neutral-800 dark:text-neutral-200 mb-4">
+          {{ pageTitle }} {{ $t('placeholder.comingSoon') }}
         </h1>
-        
-        <p class="text-lg text-neutral-600 mb-8">
-          This page is under construction. We're working hard to bring you an amazing {{ pageTitle.toLowerCase() }} experience.
+
+        <p class="text-lg text-neutral-600 dark:text-neutral-400 mb-8">
+          {{ $t('placeholder.underConstruction', { feature: pageTitle.toLowerCase() }) }}
         </p>
-        
-        <div class="bg-primary-50 border border-primary-200 rounded-xl p-6 mb-8">
-          <h3 class="font-semibold text-primary-800 mb-2">Want to help us build this feature?</h3>
-          <p class="text-primary-700 text-sm">
-            Continue prompting with specific requirements for this page and we'll implement it for you!
+
+        <div class="bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 rounded-xl p-6 mb-8">
+          <h3 class="font-semibold text-primary-800 dark:text-primary-200 mb-2">{{ $t('placeholder.helpBuild') }}</h3>
+          <p class="text-primary-700 dark:text-primary-300 text-sm">
+            {{ $t('placeholder.continuePrompting') }}
           </p>
         </div>
         
