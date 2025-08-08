@@ -7,9 +7,7 @@
         {{ $t('booking.bookYourStay') }}
       </h3>
       <div v-if="selectedRoom" class="text-sm text-neutral-600 dark:text-neutral-400">
-        {{ selectedRoom.type }} - ${{ calculatePrice(selectedRoom.price) }}/{{
-          $t('home.featured.perNight')
-        }}
+        {{ selectedRoom.type }} - {{ formatPricePerNight(calculatePrice(selectedRoom.price)) }}
       </div>
     </div>
 
@@ -85,7 +83,7 @@
         >
           <option value="">{{ $t('booking.selectRoomType') }}</option>
           <option v-for="room in roomTypes" :key="room.id" :value="room.id">
-            {{ room.type }} - ${{ calculatePrice(room.price) }}
+            {{ room.type }} - {{ formatPrice(calculatePrice(room.price)) }}
           </option>
         </select>
       </div>

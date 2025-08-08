@@ -5,7 +5,7 @@ export const useAppStore = defineStore('app', () => {
   // Theme state
   const isDarkMode = ref(false)
   const language = ref('en')
-  const currency = ref('USD')
+  const currency = ref('INR')
 
   // Chat state
   const isChatOpen = ref(false)
