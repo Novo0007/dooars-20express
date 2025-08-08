@@ -6,6 +6,7 @@
     <LiveChatWidget />
     <PWAInstallPrompt />
     <AuthDebug />
+    <AdminAccessNotification />
   </div>
 </template>
 
