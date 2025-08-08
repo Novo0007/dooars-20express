@@ -145,6 +145,23 @@
                     <label
                       class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
                     >
+                      Email Address
+                    </label>
+                    <input
+                      v-model="profileForm.email"
+                      type="email"
+                      class="w-full px-4 py-3 border border-neutral-300 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-neutral-700 text-neutral-900 dark:text-neutral-100"
+                      placeholder="Enter your email address"
+                      readonly
+                    />
+                    <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-1">
+                      Email cannot be changed from here. Contact support if needed.
+                    </p>
+                  </div>
+                  <div>
+                    <label
+                      class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
+                    >
                       Phone Number
                     </label>
                     <input
@@ -473,9 +490,8 @@ const updateProfile = async () => {
     if (!profileForm.value.full_name?.trim()) {
       throw new Error('Full name is required')
     }
-    if (!profileForm.value.email?.trim()) {
-      throw new Error('Email is required')
-    }
+
+    // Email is always available from auth store, no need to validate form email
 
     // Update profile via auth store
     await authStore.updateProfile(profileForm.value)
