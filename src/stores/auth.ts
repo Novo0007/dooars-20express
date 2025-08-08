@@ -293,6 +293,28 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  const resendConfirmation = async (email: string) => {
+    loading.value = true
+    error.value = null
+
+    try {
+      const { error: resendError } = await supabase.auth.resend({
+        type: 'signup',
+        email: email,
+        options: {
+          emailRedirectTo: `${window.location.origin}/login`
+        }
+      })
+
+      if (resendError) throw resendError
+    } catch (err) {
+      error.value = err instanceof Error ? err.message : 'Failed to resend confirmation email'
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
   return {
     // State
     user,
