@@ -778,6 +778,7 @@ const getInitials = (name: string) => {
 const getRoleClass = (role: string) => {
   const classes = {
     'user': 'bg-gray-100 text-gray-800',
+    'hotel_manager': 'bg-green-100 text-green-800',
     'admin': 'bg-blue-100 text-blue-800',
     'super_admin': 'bg-purple-100 text-purple-800'
   }
@@ -787,6 +788,7 @@ const getRoleClass = (role: string) => {
 const getRoleLabel = (role: string) => {
   const labels = {
     'user': 'User',
+    'hotel_manager': 'Hotel Manager',
     'admin': 'Admin',
     'super_admin': 'Super Admin'
   }
