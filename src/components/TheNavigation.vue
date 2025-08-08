@@ -103,14 +103,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import ThemeToggle from './ThemeToggle.vue'
+import LanguageSelector from './LanguageSelector.vue'
 
+const { t } = useI18n()
 const mobileMenuOpen = ref(false)
 
-const navigation = [
-  { name: 'Home', href: '/' },
-  { name: 'Search', href: '/search' },
-  { name: 'My Bookings', href: '/profile' },
-]
+const navigation = computed(() => [
+  { name: t('nav.home'), href: '/' },
+  { name: t('nav.search'), href: '/search' },
+  { name: t('nav.bookings'), href: '/profile' },
+])
 </script>
