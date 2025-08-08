@@ -234,6 +234,7 @@ export const useAuthStore = defineStore('auth', () => {
       }
     } catch (err) {
       console.error('Failed to fetch user profile:', err)
+      // Even if profile fetch fails, set the basic user info
       user.value = authUser
     }
   }
