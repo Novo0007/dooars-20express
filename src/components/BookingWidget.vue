@@ -213,6 +213,7 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
+import { formatPrice, formatPricePerNight } from '../utils/currency'
 import { useI18n } from 'vue-i18n'
 import { useBookingStore } from '../stores/booking'
 import { useAuthStore } from '../stores/auth'

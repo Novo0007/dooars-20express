@@ -202,7 +202,7 @@
               <div class="flex items-center justify-between">
                 <div>
                   <span class="text-2xl font-bold text-primary-600 dark:text-primary-400"
-                    >${{ hotel.price }}</span
+                    >{{ formatPrice(hotel.price) }}</span
                   >
                   <span class="text-neutral-500 dark:text-neutral-400">{{
                     $t('home.featured.perNight')
