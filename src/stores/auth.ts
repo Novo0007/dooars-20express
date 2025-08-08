@@ -214,9 +214,11 @@ export const useAuthStore = defineStore('auth', () => {
 
   const setUser = async (authUser: SupabaseUser, authSession: Session) => {
     session.value = authSession
-    
+
     // Fetch user profile
     try {
+      console.log('Fetching profile for user:', authUser.id, authUser.email)
+
       const { data: profile, error: profileError } = await supabase
         .from('user_profiles')
         .select('*')
@@ -225,7 +227,14 @@ export const useAuthStore = defineStore('auth', () => {
 
       if (profileError && profileError.code !== 'PGRST116') {
         // PGRST116 = row not found, which is expected for new users
+        console.error('Profile fetch error:', profileError)
         throw profileError
+      }
+
+      if (profile) {
+        console.log('Found user profile:', profile.full_name, profile.role)
+      } else {
+        console.log('No profile found for user, will use basic auth data')
       }
 
       user.value = {
