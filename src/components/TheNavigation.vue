@@ -72,9 +72,15 @@
           {{ item.name }}
         </router-link>
         <div class="border-t border-neutral-200 dark:border-neutral-700 pt-3 mt-3">
-          <div class="flex items-center justify-between px-3 py-2 mb-2">
-            <span class="text-sm font-medium text-neutral-600 dark:text-neutral-300">Theme</span>
-            <ThemeToggle />
+          <div class="px-3 py-2 mb-2">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm font-medium text-neutral-600 dark:text-neutral-300">{{ $t('nav.theme') }}</span>
+              <ThemeToggle />
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-medium text-neutral-600 dark:text-neutral-300">Language</span>
+              <LanguageSelector />
+            </div>
           </div>
           <router-link
             to="/login"
