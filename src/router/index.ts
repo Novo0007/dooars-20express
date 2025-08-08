@@ -103,7 +103,11 @@ router.beforeEach(async (to, from, next) => {
 
   // Initialize auth if not already done
   if (!authStore.user && !authStore.session) {
-    await authStore.initializeAuth()
+    try {
+      await authStore.initializeAuth()
+    } catch (error) {
+      console.error('Failed to initialize auth:', error)
+    }
   }
 
   // Check if route requires authentication
