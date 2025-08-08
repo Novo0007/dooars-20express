@@ -377,6 +377,11 @@ const loadUserStats = async () => {
     }
   } catch (error) {
     console.error('Failed to load user stats:', error)
+    // Set default values even if there's an error
+    stats.value = {
+      totalBookings: 0,
+      favoriteHotels: 0
+    }
   }
 }
 
