@@ -299,7 +299,16 @@ export const useHotelStore = defineStore('hotel', () => {
 
       const { data, error: supabaseError } = await query.limit(20)
 
-      if (supabaseError) throw supabaseError
+      if (supabaseError) {
+        console.error('Supabase search error:', supabaseError)
+        throw new Error(`Hotel search failed: ${supabaseError.message} (Code: ${supabaseError.code || 'N/A'})`)
+      }
+
+      if (!data) {
+        console.warn('No data returned from hotel search')
+        searchResults.value = []
+        return
+      }
 
       // Transform data to match interface and calculate prices
       const transformedResults =
