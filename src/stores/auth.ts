@@ -590,12 +590,21 @@ export const useAuthStore = defineStore('auth', () => {
     userDisplayName,
     isAdmin,
     isSuperAdmin,
+    isHotelManager,
     userRole,
     permissions,
+    hotelAssignments,
+    assignedHotels,
 
     // Permission functions
     hasPermission,
     canManageUser,
+    canAccessHotel,
+
+    // Hotel assignment functions
+    fetchHotelAssignments,
+    assignUserToHotel,
+    removeUserFromHotel,
 
     // Actions
     login,
