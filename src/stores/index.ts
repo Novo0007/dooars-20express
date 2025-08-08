@@ -5,10 +5,7 @@ import type { Router } from 'vue-router'
 // Create pinia instance
 const pinia = createPinia()
 
-// Add router to pinia context for use in stores
-pinia.use(({ store }) => {
-  store.router = markRaw(useRouter())
-})
+// Note: Router injection is handled in main.ts after router creation
 
 export default pinia
 
