@@ -346,21 +346,35 @@ const calculateStats = async () => {
 
     const totalRevenue = revenueData?.reduce((sum, booking) => sum + (booking.final_price || 0), 0) || 0
 
-    // New customers this month
-    const startOfMonth = new Date()
-    startOfMonth.setDate(1)
-    startOfMonth.setHours(0, 0, 0, 0)
-
-    const { count: newCustomers } = await supabase
-      .from('user_profiles')
+    // Calculate occupancy rate
+    const { count: totalRooms } = await supabase
+      .from('rooms')
       .select('*', { count: 'exact', head: true })
-      .gte('created_at', startOfMonth.toISOString())
+      .eq('is_active', true)
+
+    const { count: bookedRooms } = await supabase
+      .from('bookings')
+      .select('*', { count: 'exact', head: true })
+      .eq('status', 'confirmed')
+      .lte('check_in', new Date().toISOString())
+      .gte('check_out', new Date().toISOString())
+
+    const occupancyRate = totalRooms ? Math.round((bookedRooms || 0) / totalRooms * 100) : 0
+
+    // Total users (only show if admin has permission)
+    let totalUsers = 0
+    if (authStore.hasPermission('view_all_users')) {
+      const { count: userCount } = await supabase
+        .from('user_profiles')
+        .select('*', { count: 'exact', head: true })
+      totalUsers = userCount || 0
+    }
 
     // Update stats
     stats.value[0].value = totalBookings?.toString() || '0'
     stats.value[1].value = `$${totalRevenue.toLocaleString()}`
-    stats.value[2].value = '75%' // Mock occupancy rate
-    stats.value[3].value = newCustomers?.toString() || '0'
+    stats.value[2].value = `${occupancyRate}%`
+    stats.value[3].value = totalUsers.toString()
 
   } catch (error) {
     console.error('Failed to calculate stats:', error)
