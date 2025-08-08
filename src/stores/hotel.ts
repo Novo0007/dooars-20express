@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { supabase } from '@/lib/supabase'
+import { useAppStore } from '@/stores/app'
 
 export interface Hotel {
   id: number
