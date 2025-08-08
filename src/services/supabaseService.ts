@@ -8,7 +8,7 @@ export class SupabaseService {
       .from('hotels')
       .select('*')
       .order('rating', { ascending: false })
-    
+
     if (error) throw error
     return data
   }
@@ -16,13 +16,15 @@ export class SupabaseService {
   static async getHotelById(id: number) {
     const { data, error } = await supabase
       .from('hotels')
-      .select(`
+      .select(
+        `
         *,
         rooms (*)
-      `)
+      `,
+      )
       .eq('id', id)
       .single()
-    
+
     if (error) throw error
     return data
   }
@@ -57,7 +59,7 @@ export class SupabaseService {
       .select('*')
       .eq('hotel_id', hotelId)
       .order('price', { ascending: true })
-    
+
     if (error) throw error
     return data
   }
@@ -69,18 +71,14 @@ export class SupabaseService {
       .select('*')
       .eq('hotel_id', hotelId)
       .order('created_at', { ascending: false })
-    
+
     if (error) throw error
     return data
   }
 
   static async createReview(review: Inserts<'reviews'>) {
-    const { data, error } = await supabase
-      .from('reviews')
-      .insert(review)
-      .select()
-      .single()
-    
+    const { data, error } = await supabase.from('reviews').insert(review).select().single()
+
     if (error) throw error
     return data
   }
@@ -90,13 +88,15 @@ export class SupabaseService {
     const { data, error } = await supabase
       .from('bookings')
       .insert(booking)
-      .select(`
+      .select(
+        `
         *,
         hotels (*),
         rooms (*)
-      `)
+      `,
+      )
       .single()
-    
+
     if (error) throw error
     return data
   }
@@ -104,14 +104,16 @@ export class SupabaseService {
   static async getBookingById(id: string) {
     const { data, error } = await supabase
       .from('bookings')
-      .select(`
+      .select(
+        `
         *,
         hotels (*),
         rooms (*)
-      `)
+      `,
+      )
       .eq('id', id)
       .single()
-    
+
     if (error) throw error
     return data
   }
@@ -119,14 +121,16 @@ export class SupabaseService {
   static async getUserBookings(userId: string) {
     const { data, error } = await supabase
       .from('bookings')
-      .select(`
+      .select(
+        `
         *,
         hotels (*),
         rooms (*)
-      `)
+      `,
+      )
       .eq('user_id', userId)
       .order('created_at', { ascending: false })
-    
+
     if (error) throw error
     return data
   }
@@ -138,7 +142,7 @@ export class SupabaseService {
       .eq('id', id)
       .select()
       .single()
-    
+
     if (error) throw error
     return data
   }
@@ -149,19 +153,15 @@ export class SupabaseService {
 
   // Utility methods
   static async uploadImage(file: File, bucket: string, path: string) {
-    const { data, error } = await supabase.storage
-      .from(bucket)
-      .upload(path, file)
-    
+    const { data, error } = await supabase.storage.from(bucket).upload(path, file)
+
     if (error) throw error
     return data
   }
 
   static getImageUrl(bucket: string, path: string) {
-    const { data } = supabase.storage
-      .from(bucket)
-      .getPublicUrl(path)
-    
+    const { data } = supabase.storage.from(bucket).getPublicUrl(path)
+
     return data.publicUrl
   }
 }

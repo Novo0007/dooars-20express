@@ -33,7 +33,7 @@ if ('serviceWorker' in navigator) {
     try {
       const registration = await navigator.serviceWorker.register('/sw.js')
       console.log('SW registered: ', registration)
-      
+
       // Listen for updates
       registration.addEventListener('updatefound', () => {
         const newWorker = registration.installing

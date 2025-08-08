@@ -1,11 +1,15 @@
 <template>
-  <div class="booking-widget bg-white dark:bg-neutral-800 rounded-xl shadow-soft border border-neutral-200 dark:border-neutral-700 p-6 sticky top-8">
+  <div
+    class="booking-widget bg-white dark:bg-neutral-800 rounded-xl shadow-soft border border-neutral-200 dark:border-neutral-700 p-6 sticky top-8"
+  >
     <div class="mb-6">
       <h3 class="text-xl font-display font-bold text-neutral-800 dark:text-neutral-200 mb-2">
         {{ $t('booking.bookYourStay') }}
       </h3>
       <div v-if="selectedRoom" class="text-sm text-neutral-600 dark:text-neutral-400">
-        {{ selectedRoom.type }} - ${{ calculatePrice(selectedRoom.price) }}/{{ $t('home.featured.perNight') }}
+        {{ selectedRoom.type }} - ${{ calculatePrice(selectedRoom.price) }}/{{
+          $t('home.featured.perNight')
+        }}
       </div>
     </div>
 
@@ -87,25 +91,38 @@
       </div>
 
       <!-- Price Breakdown -->
-      <div v-if="isValidBooking" class="border-t border-neutral-200 dark:border-neutral-700 pt-4 space-y-3">
+      <div
+        v-if="isValidBooking"
+        class="border-t border-neutral-200 dark:border-neutral-700 pt-4 space-y-3"
+      >
         <div class="flex justify-between text-sm">
           <span class="text-neutral-600 dark:text-neutral-400">
-            ${{ basePrice }} × {{ nights }} {{ nights === 1 ? $t('booking.night') : $t('booking.nights') }} × {{ bookingForm.rooms }} {{ bookingForm.rooms === 1 ? $t('booking.room') : $t('booking.rooms') }}
+            ${{ basePrice }} × {{ nights }}
+            {{ nights === 1 ? $t('booking.night') : $t('booking.nights') }} ×
+            {{ bookingForm.rooms }}
+            {{ bookingForm.rooms === 1 ? $t('booking.room') : $t('booking.rooms') }}
           </span>
           <span class="text-neutral-800 dark:text-neutral-200">${{ subtotal }}</span>
         </div>
 
         <div v-if="taxesAndFees > 0" class="flex justify-between text-sm">
-          <span class="text-neutral-600 dark:text-neutral-400">{{ $t('booking.taxesAndFees') }}</span>
+          <span class="text-neutral-600 dark:text-neutral-400">{{
+            $t('booking.taxesAndFees')
+          }}</span>
           <span class="text-neutral-800 dark:text-neutral-200">${{ taxesAndFees }}</span>
         </div>
 
-        <div v-if="hasDiscount" class="flex justify-between text-sm text-green-600 dark:text-green-400">
+        <div
+          v-if="hasDiscount"
+          class="flex justify-between text-sm text-green-600 dark:text-green-400"
+        >
           <span>{{ $t('booking.discount') }} ({{ appliedDiscount.code }})</span>
           <span>-${{ discountAmount }}</span>
         </div>
 
-        <div class="border-t border-neutral-200 dark:border-neutral-700 pt-3 flex justify-between font-semibold">
+        <div
+          class="border-t border-neutral-200 dark:border-neutral-700 pt-3 flex justify-between font-semibold"
+        >
           <span class="text-neutral-800 dark:text-neutral-200">{{ $t('booking.total') }}</span>
           <span class="text-xl text-primary-600 dark:text-primary-400">${{ totalPrice }}</span>
         </div>
@@ -127,14 +144,22 @@
         class="w-full py-3 bg-primary-600 hover:bg-primary-700 disabled:bg-neutral-300 dark:disabled:bg-neutral-600 text-white font-semibold rounded-lg transition-colors duration-200 disabled:cursor-not-allowed"
       >
         <span v-if="loading" class="flex items-center justify-center">
-          <svg class="animate-spin w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          <svg
+            class="animate-spin w-5 h-5 mr-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+            />
           </svg>
           {{ $t('booking.processing') }}
         </span>
-        <span v-else>
-          {{ $t('booking.bookNow') }} - ${{ totalPrice }}
-        </span>
+        <span v-else> {{ $t('booking.bookNow') }} - ${{ totalPrice }} </span>
       </button>
 
       <!-- Login Notice -->
@@ -158,14 +183,28 @@
       </div>
 
       <!-- Safety Notice -->
-      <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-3">
+      <div
+        class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-3"
+      >
         <div class="flex items-start space-x-2">
-          <svg class="w-5 h-5 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          <svg
+            class="w-5 h-5 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+            />
           </svg>
           <div class="text-sm text-green-800 dark:text-green-200">
             <div class="font-medium mb-1">{{ $t('booking.safetyNotice') }}</div>
-            <div class="text-green-700 dark:text-green-300">{{ $t('booking.freeCancellation') }}</div>
+            <div class="text-green-700 dark:text-green-300">
+              {{ $t('booking.freeCancellation') }}
+            </div>
           </div>
         </div>
       </div>
@@ -203,7 +242,7 @@ const bookingForm = ref({
   checkOut: '',
   guests: 2,
   rooms: 1,
-  roomType: props.selectedRoom?.id || ''
+  roomType: props.selectedRoom?.id || '',
 })
 
 const today = computed(() => {
@@ -220,7 +259,7 @@ const minCheckoutDate = computed(() => {
 const maxGuests = computed(() => {
   if (props.selectedRoom) return props.selectedRoom.max_guests || 4
   if (bookingForm.value.roomType) {
-    const room = props.roomTypes.find(r => r.id === bookingForm.value.roomType)
+    const room = props.roomTypes.find((r) => r.id === bookingForm.value.roomType)
     return room?.max_guests || 4
   }
   return 8 // Default max
@@ -229,7 +268,7 @@ const maxGuests = computed(() => {
 const maxRooms = computed(() => {
   if (props.selectedRoom) return props.selectedRoom.available_count || 1
   if (bookingForm.value.roomType) {
-    const room = props.roomTypes.find(r => r.id === bookingForm.value.roomType)
+    const room = props.roomTypes.find((r) => r.id === bookingForm.value.roomType)
     return room?.available_count || 1
   }
   return 3 // Default max
@@ -238,7 +277,7 @@ const maxRooms = computed(() => {
 const selectedRoomData = computed(() => {
   if (props.selectedRoom) return props.selectedRoom
   if (bookingForm.value.roomType) {
-    return props.roomTypes.find(r => r.id === bookingForm.value.roomType)
+    return props.roomTypes.find((r) => r.id === bookingForm.value.roomType)
   }
   return props.roomTypes[0] // Default to first room type
 })
@@ -270,7 +309,7 @@ const discountAmount = computed(() => {
   if (!hasDiscount.value) return 0
   const discount = appliedDiscount.value!
   const baseAmount = subtotal.value + taxesAndFees.value
-  
+
   if (discount.type === 'percentage') {
     return Math.round(baseAmount * (discount.discount / 100))
   } else {
@@ -283,11 +322,13 @@ const totalPrice = computed(() => {
 })
 
 const isValidBooking = computed(() => {
-  return bookingForm.value.checkIn && 
-         bookingForm.value.checkOut && 
-         nights.value > 0 && 
-         selectedRoomData.value &&
-         bookingForm.value.guests <= maxGuests.value
+  return (
+    bookingForm.value.checkIn &&
+    bookingForm.value.checkOut &&
+    nights.value > 0 &&
+    selectedRoomData.value &&
+    bookingForm.value.guests <= maxGuests.value
+  )
 })
 
 const isAuthenticated = computed(() => authStore.isAuthenticated)
@@ -295,7 +336,7 @@ const isAuthenticated = computed(() => authStore.isAuthenticated)
 const calculatePrice = (price: number): number => {
   const discount = appStore.appliedDiscount
   if (!discount) return price
-  
+
   if (discount.type === 'percentage') {
     return Math.round(price * (1 - discount.discount / 100))
   } else {
@@ -307,7 +348,7 @@ const validateDates = () => {
   if (bookingForm.value.checkIn && bookingForm.value.checkOut) {
     const checkIn = new Date(bookingForm.value.checkIn)
     const checkOut = new Date(bookingForm.value.checkOut)
-    
+
     if (checkOut <= checkIn) {
       // Reset checkout date
       const newCheckout = new Date(checkIn)
@@ -319,15 +360,18 @@ const validateDates = () => {
 
 const initiateBooking = async () => {
   if (!isValidBooking.value) return
-  
+
   if (!isAuthenticated.value) {
     // Store booking intent and redirect to login
-    sessionStorage.setItem('bookingIntent', JSON.stringify({
-      hotelId: props.hotel.id,
-      roomId: selectedRoomData.value.id,
-      ...bookingForm.value,
-      totalPrice: totalPrice.value
-    }))
+    sessionStorage.setItem(
+      'bookingIntent',
+      JSON.stringify({
+        hotelId: props.hotel.id,
+        roomId: selectedRoomData.value.id,
+        ...bookingForm.value,
+        totalPrice: totalPrice.value,
+      }),
+    )
     router.push('/login')
     return
   }
@@ -350,13 +394,13 @@ const initiateBooking = async () => {
         firstName: '',
         lastName: '',
         email: '',
-        phone: ''
-      }
+        phone: '',
+      },
     }
 
     // Start booking process
     bookingStore.startBooking(props.hotel, bookingData)
-    
+
     // Navigate to booking page
     router.push('/booking')
   } catch (error) {
@@ -367,11 +411,15 @@ const initiateBooking = async () => {
 }
 
 // Watch for selected room changes
-watch(() => props.selectedRoom, (newRoom) => {
-  if (newRoom) {
-    bookingForm.value.roomType = newRoom.id
-  }
-}, { immediate: true })
+watch(
+  () => props.selectedRoom,
+  (newRoom) => {
+    if (newRoom) {
+      bookingForm.value.roomType = newRoom.id
+    }
+  },
+  { immediate: true },
+)
 
 // Set default dates
 const setDefaultDates = () => {
@@ -380,7 +428,7 @@ const setDefaultDates = () => {
   tomorrow.setDate(tomorrow.getDate() + 1)
   const dayAfter = new Date(today)
   dayAfter.setDate(dayAfter.getDate() + 2)
-  
+
   if (!bookingForm.value.checkIn) {
     bookingForm.value.checkIn = tomorrow.toISOString().split('T')[0]
   }

@@ -39,9 +39,9 @@ export const useBookingStore = defineStore('booking', () => {
   // Computed
   const bookingTotal = computed(() => {
     if (!currentBooking.value || !currentBooking.value.totalPrice) return 0
-    
+
     let total = currentBooking.value.totalPrice
-    
+
     // Apply discount if available
     const { appliedDiscount } = useAppStore()
     if (appliedDiscount.value) {
@@ -52,22 +52,22 @@ export const useBookingStore = defineStore('booking', () => {
         total = Math.max(0, total - discount.discount)
       }
     }
-    
+
     return total
   })
 
   const bookingDuration = computed(() => {
     if (!currentBooking.value?.checkIn || !currentBooking.value?.checkOut) return 0
-    
+
     const checkIn = new Date(currentBooking.value.checkIn)
     const checkOut = new Date(currentBooking.value.checkOut)
-    
+
     return Math.ceil((checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60 * 24))
   })
 
   const upcomingBookings = computed(() => {
     const now = new Date()
-    return userBookings.value.filter(booking => {
+    return userBookings.value.filter((booking) => {
       const checkIn = new Date(booking.checkIn)
       return checkIn > now && booking.status === 'confirmed'
     })
@@ -75,7 +75,7 @@ export const useBookingStore = defineStore('booking', () => {
 
   const pastBookings = computed(() => {
     const now = new Date()
-    return userBookings.value.filter(booking => {
+    return userBookings.value.filter((booking) => {
       const checkOut = new Date(booking.checkOut)
       return checkOut < now && booking.status === 'confirmed'
     })
@@ -96,48 +96,53 @@ export const useBookingStore = defineStore('booking', () => {
         firstName: '',
         lastName: '',
         email: '',
-        phone: ''
+        phone: '',
       },
       status: 'draft',
-      createdAt: new Date()
+      createdAt: new Date(),
     }
-    
+
     // Calculate final price
     currentBooking.value.finalPrice = bookingTotal.value
   }
 
   const updateBookingDetails = (details: Partial<BookingDetails>) => {
     if (!currentBooking.value) return
-    
+
     Object.assign(currentBooking.value, details)
-    
+
     // Recalculate total price
-    if (currentBooking.value.hotel && currentBooking.value.checkIn && currentBooking.value.checkOut) {
+    if (
+      currentBooking.value.hotel &&
+      currentBooking.value.checkIn &&
+      currentBooking.value.checkOut
+    ) {
       const duration = bookingDuration.value
-      currentBooking.value.totalPrice = currentBooking.value.hotel.price * duration * (currentBooking.value.rooms || 1)
+      currentBooking.value.totalPrice =
+        currentBooking.value.hotel.price * duration * (currentBooking.value.rooms || 1)
       currentBooking.value.finalPrice = bookingTotal.value
     }
   }
 
   const updateGuestInfo = (guestInfo: Partial<BookingDetails['guestInfo']>) => {
     if (!currentBooking.value) return
-    
+
     currentBooking.value.guestInfo = {
       ...currentBooking.value.guestInfo,
-      ...guestInfo
+      ...guestInfo,
     }
   }
 
   const confirmBooking = async () => {
     if (!currentBooking.value) throw new Error('No booking in progress')
-    
+
     loading.value = true
     error.value = null
-    
+
     try {
       // Generate booking ID
       const bookingId = `WS${Date.now()}`
-      
+
       // Create final booking object
       const finalBooking: BookingDetails = {
         ...currentBooking.value,
@@ -146,19 +151,19 @@ export const useBookingStore = defineStore('booking', () => {
         paymentInfo: {
           method: 'razorpay',
           status: 'completed',
-          transactionId: `txn_${Date.now()}`
-        }
+          transactionId: `txn_${Date.now()}`,
+        },
       } as BookingDetails
-      
+
       // Mock API call to confirm booking
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
+      await new Promise((resolve) => setTimeout(resolve, 1000))
+
       // Add to user bookings
       userBookings.value.push(finalBooking)
-      
+
       // Clear current booking
       currentBooking.value = null
-      
+
       return finalBooking
     } catch (err) {
       error.value = err instanceof Error ? err.message : 'Booking failed'
@@ -171,17 +176,17 @@ export const useBookingStore = defineStore('booking', () => {
   const cancelBooking = async (bookingId: string) => {
     loading.value = true
     error.value = null
-    
+
     try {
       // Mock API call
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
+      await new Promise((resolve) => setTimeout(resolve, 1000))
+
       // Update booking status
-      const booking = userBookings.value.find(b => b.id === bookingId)
+      const booking = userBookings.value.find((b) => b.id === bookingId)
       if (booking) {
         booking.status = 'cancelled'
       }
-      
+
       return true
     } catch (err) {
       error.value = err instanceof Error ? err.message : 'Cancellation failed'
@@ -194,14 +199,13 @@ export const useBookingStore = defineStore('booking', () => {
   const fetchUserBookings = async () => {
     loading.value = true
     error.value = null
-    
+
     try {
       // Mock API call - replace with actual implementation
-      await new Promise(resolve => setTimeout(resolve, 500))
-      
+      await new Promise((resolve) => setTimeout(resolve, 500))
+
       // Mock data would be fetched here
       // userBookings.value = await api.getUserBookings()
-      
     } catch (err) {
       error.value = err instanceof Error ? err.message : 'Failed to fetch bookings'
     } finally {
@@ -215,11 +219,11 @@ export const useBookingStore = defineStore('booking', () => {
 
   const calculatePrice = (hotel: Hotel, checkIn: string, checkOut: string, rooms: number = 1) => {
     if (!checkIn || !checkOut) return 0
-    
+
     const startDate = new Date(checkIn)
     const endDate = new Date(checkOut)
     const duration = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24))
-    
+
     return hotel.price * duration * rooms
   }
 
@@ -229,13 +233,13 @@ export const useBookingStore = defineStore('booking', () => {
     userBookings,
     loading,
     error,
-    
+
     // Computed
     bookingTotal,
     bookingDuration,
     upcomingBookings,
     pastBookings,
-    
+
     // Actions
     startBooking,
     updateBookingDetails,
@@ -244,6 +248,6 @@ export const useBookingStore = defineStore('booking', () => {
     cancelBooking,
     fetchUserBookings,
     clearCurrentBooking,
-    calculatePrice
+    calculatePrice,
   }
 })

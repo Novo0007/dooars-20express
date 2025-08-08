@@ -5,7 +5,7 @@
       :style="{ width: width, height: height }"
       class="rounded-lg overflow-hidden shadow-medium border border-neutral-200 dark:border-neutral-700"
     ></div>
-    
+
     <!-- Loading overlay -->
     <div
       v-if="loading"
@@ -13,7 +13,12 @@
     >
       <div class="flex items-center space-x-2 text-neutral-600 dark:text-neutral-300">
         <svg class="animate-spin w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+          />
         </svg>
         <span class="text-sm font-medium">Loading map...</span>
       </div>
@@ -45,7 +50,7 @@ const props = withDefaults(defineProps<MapProps>(), {
   markers: () => [],
   width: '100%',
   height: '400px',
-  showControls: true
+  showControls: true,
 })
 
 const emit = defineEmits<{
@@ -71,7 +76,7 @@ const createHotelIcon = () => {
     className: 'custom-hotel-marker',
     iconSize: [32, 32],
     iconAnchor: [16, 16],
-    popupAnchor: [0, -16]
+    popupAnchor: [0, -16],
   })
 }
 
@@ -82,13 +87,13 @@ const initializeMap = async () => {
     // Create map
     map = L.map(mapContainer.value, {
       zoomControl: props.showControls,
-      attributionControl: true
+      attributionControl: true,
     }).setView(props.center, props.zoom)
 
     // Add tile layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors',
-      maxZoom: 19
+      maxZoom: 19,
     }).addTo(map)
 
     // Create marker group
@@ -116,7 +121,7 @@ const updateMarkers = () => {
   // Add new markers
   props.markers.forEach((markerData, index) => {
     const marker = L.marker(markerData.position, {
-      icon: createHotelIcon()
+      icon: createHotelIcon(),
     }).addTo(markerGroup!)
 
     // Add popup if title or description provided
@@ -147,11 +152,14 @@ const updateMarkers = () => {
 watch(() => props.markers, updateMarkers, { deep: true })
 
 // Watch for center changes
-watch(() => props.center, (newCenter) => {
-  if (map) {
-    map.setView(newCenter, props.zoom)
-  }
-})
+watch(
+  () => props.center,
+  (newCenter) => {
+    if (map) {
+      map.setView(newCenter, props.zoom)
+    }
+  },
+)
 
 onMounted(async () => {
   await nextTick()

@@ -11,57 +11,57 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
     },
     {
       path: '/search',
       name: 'search',
       component: Search,
-      meta: { title: 'Search Hotels' }
+      meta: { title: 'Search Hotels' },
     },
     {
       path: '/hotel/:id',
       name: 'hotel-details',
       component: HotelDetails,
-      meta: { title: 'Hotel Details' }
+      meta: { title: 'Hotel Details' },
     },
     {
       path: '/booking',
       name: 'booking',
       component: Booking,
-      meta: { title: 'Booking' }
+      meta: { title: 'Booking' },
     },
     {
       path: '/booking-confirmation/:id',
       name: 'booking-confirmation',
       component: () => import('../views/BookingConfirmation.vue'),
-      meta: { title: 'Booking Confirmed' }
+      meta: { title: 'Booking Confirmed' },
     },
     {
       path: '/login',
       name: 'login',
       component: Placeholder,
-      meta: { title: 'Login' }
+      meta: { title: 'Login' },
     },
     {
       path: '/signup',
       name: 'signup',
       component: Placeholder,
-      meta: { title: 'Sign Up' }
+      meta: { title: 'Sign Up' },
     },
     {
       path: '/profile',
       name: 'profile',
       component: Placeholder,
-      meta: { title: 'My Profile' }
+      meta: { title: 'My Profile' },
     },
     {
       path: '/admin',
       name: 'admin',
       component: Placeholder,
-      meta: { title: 'Admin Dashboard' }
-    }
-  ]
+      meta: { title: 'Admin Dashboard' },
+    },
+  ],
 })
 
 export default router

@@ -6,17 +6,24 @@ export const useAppStore = defineStore('app', () => {
   const isDarkMode = ref(false)
   const language = ref('en')
   const currency = ref('USD')
-  
+
   // Chat state
   const isChatOpen = ref(false)
-  const chatMessages = ref<Array<{ id: string; text: string; sender: 'user' | 'agent'; timestamp: Date }>>([])
-  
+  const chatMessages = ref<
+    Array<{ id: string; text: string; sender: 'user' | 'agent'; timestamp: Date }>
+  >([])
+
   // Promo codes
   const appliedPromoCode = ref<string | null>(null)
   const availPromoCodes = ref([
     { code: 'SAVE20', discount: 20, type: 'percentage', description: '20% off on all bookings' },
     { code: 'WELCOME50', discount: 50, type: 'fixed', description: '$50 off your first booking' },
-    { code: 'SUMMER25', discount: 25, type: 'percentage', description: '25% off summer destinations' }
+    {
+      code: 'SUMMER25',
+      discount: 25,
+      type: 'percentage',
+      description: '25% off summer destinations',
+    },
   ])
 
   // Offline state
@@ -24,10 +31,10 @@ export const useAppStore = defineStore('app', () => {
   const cachedSearchResults = ref<any[]>([])
 
   // Computed
-  const currentTheme = computed(() => isDarkMode.value ? 'dark' : 'light')
+  const currentTheme = computed(() => (isDarkMode.value ? 'dark' : 'light'))
   const appliedDiscount = computed(() => {
     if (!appliedPromoCode.value) return null
-    return availPromoCodes.value.find(code => code.code === appliedPromoCode.value)
+    return availPromoCodes.value.find((code) => code.code === appliedPromoCode.value)
   })
 
   // Actions
@@ -56,13 +63,13 @@ export const useAppStore = defineStore('app', () => {
       id: Date.now().toString(),
       text,
       sender,
-      timestamp: new Date()
+      timestamp: new Date(),
     }
     chatMessages.value.push(message)
   }
 
   const applyPromoCode = (code: string) => {
-    const validCode = availPromoCodes.value.find(promo => promo.code === code.toUpperCase())
+    const validCode = availPromoCodes.value.find((promo) => promo.code === code.toUpperCase())
     if (validCode) {
       appliedPromoCode.value = code.toUpperCase()
       return true
@@ -86,21 +93,21 @@ export const useAppStore = defineStore('app', () => {
     const savedTheme = localStorage.getItem('theme')
     const savedLanguage = localStorage.getItem('language')
     const savedCurrency = localStorage.getItem('currency')
-    
+
     if (savedTheme) {
       isDarkMode.value = savedTheme === 'dark'
     } else {
       isDarkMode.value = window.matchMedia('(prefers-color-scheme: dark)').matches
     }
-    
+
     if (savedLanguage) {
       language.value = savedLanguage
     }
-    
+
     if (savedCurrency) {
       currency.value = savedCurrency
     }
-    
+
     updateThemeClass()
   }
 
@@ -135,11 +142,11 @@ export const useAppStore = defineStore('app', () => {
     availPromoCodes,
     isOffline,
     cachedSearchResults,
-    
+
     // Computed
     currentTheme,
     appliedDiscount,
-    
+
     // Actions
     toggleDarkMode,
     setLanguage,
@@ -151,6 +158,6 @@ export const useAppStore = defineStore('app', () => {
     initializeTheme,
     updateOfflineStatus,
     cacheSearchResults,
-    loadCachedResults
+    loadCachedResults,
   }
 })

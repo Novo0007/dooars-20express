@@ -24,20 +24,20 @@ export default defineConfig({
           {
             src: 'pwa-192x192.png',
             sizes: '192x192',
-            type: 'image/png'
-          },
-          {
-            src: 'pwa-512x512.png',
-            sizes: '512x512',
-            type: 'image/png'
+            type: 'image/png',
           },
           {
             src: 'pwa-512x512.png',
             sizes: '512x512',
             type: 'image/png',
-            purpose: 'any maskable'
-          }
-        ]
+          },
+          {
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any maskable',
+          },
+        ],
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,json,vue,ts,woff2}'],
@@ -49,12 +49,12 @@ export default defineConfig({
               cacheName: 'api-cache',
               expiration: {
                 maxEntries: 100,
-                maxAgeSeconds: 60 * 60 * 24 // 24 hours
+                maxAgeSeconds: 60 * 60 * 24, // 24 hours
               },
               cacheKeyWillBeUsed: async ({ request }) => {
                 return `${request.url}?timestamp=${Date.now()}`
-              }
-            }
+              },
+            },
           },
           {
             urlPattern: /^https:\/\/images\.unsplash\.com\/.*/,
@@ -63,9 +63,9 @@ export default defineConfig({
               cacheName: 'images-cache',
               expiration: {
                 maxEntries: 50,
-                maxAgeSeconds: 60 * 60 * 24 * 7 // 7 days
-              }
-            }
+                maxAgeSeconds: 60 * 60 * 24 * 7, // 7 days
+              },
+            },
           },
           {
             urlPattern: /^https:\/\/.*\.tile\.openstreetmap\.org\/.*/,
@@ -74,12 +74,12 @@ export default defineConfig({
               cacheName: 'map-tiles-cache',
               expiration: {
                 maxEntries: 200,
-                maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
-              }
-            }
-          }
-        ]
-      }
-    })
+                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
+              },
+            },
+          },
+        ],
+      },
+    }),
   ],
 })

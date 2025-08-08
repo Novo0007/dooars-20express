@@ -42,7 +42,7 @@ export const useHotelStore = defineStore('hotel', () => {
     priceRange: [0, 1000],
     rating: 0,
     amenities: [],
-    sortBy: 'rating'
+    sortBy: 'rating',
   })
   const loading = ref(false)
   const error = ref<string | null>(null)
@@ -54,46 +54,47 @@ export const useHotelStore = defineStore('hotel', () => {
       name: 'Paris',
       properties: '1,200+',
       image: 'https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=400&h=500&fit=crop',
-      coordinates: { lat: 48.8566, lng: 2.3522 }
+      coordinates: { lat: 48.8566, lng: 2.3522 },
     },
     {
       id: 2,
       name: 'Tokyo',
       properties: '800+',
       image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=500&fit=crop',
-      coordinates: { lat: 35.6762, lng: 139.6503 }
+      coordinates: { lat: 35.6762, lng: 139.6503 },
     },
     {
       id: 3,
       name: 'Bali',
       properties: '650+',
       image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=400&h=500&fit=crop',
-      coordinates: { lat: -8.3405, lng: 115.0920 }
+      coordinates: { lat: -8.3405, lng: 115.092 },
     },
     {
       id: 4,
       name: 'London',
       properties: '900+',
       image: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=400&h=500&fit=crop',
-      coordinates: { lat: 51.5074, lng: -0.1278 }
-    }
+      coordinates: { lat: 51.5074, lng: -0.1278 },
+    },
   ])
 
   // Computed
   const filteredHotels = computed(() => {
     let filtered = [...searchResults.value]
-    
+
     // Filter by price range
-    filtered = filtered.filter(hotel => 
-      hotel.price >= searchFilters.value.priceRange[0] && 
-      hotel.price <= searchFilters.value.priceRange[1]
+    filtered = filtered.filter(
+      (hotel) =>
+        hotel.price >= searchFilters.value.priceRange[0] &&
+        hotel.price <= searchFilters.value.priceRange[1],
     )
-    
+
     // Filter by rating
     if (searchFilters.value.rating > 0) {
-      filtered = filtered.filter(hotel => hotel.rating >= searchFilters.value.rating)
+      filtered = filtered.filter((hotel) => hotel.rating >= searchFilters.value.rating)
     }
-    
+
     // Sort
     switch (searchFilters.value.sortBy) {
       case 'price':
@@ -106,7 +107,7 @@ export const useHotelStore = defineStore('hotel', () => {
         // TODO: Implement distance sorting based on coordinates
         break
     }
-    
+
     return filtered
   })
 
@@ -114,12 +115,12 @@ export const useHotelStore = defineStore('hotel', () => {
   const fetchHotels = async () => {
     loading.value = true
     error.value = null
-    
+
     try {
       // Mock API call - replace with actual API
       const response = await fetch('/api/hotels')
       if (!response.ok) throw new Error('Failed to fetch hotels')
-      
+
       const data = await response.json()
       hotels.value = data
     } catch (err) {
@@ -133,7 +134,7 @@ export const useHotelStore = defineStore('hotel', () => {
   const fetchFeaturedHotels = async () => {
     loading.value = true
     error.value = null
-    
+
     try {
       // Mock data for now
       featuredHotels.value = [
@@ -144,10 +145,12 @@ export const useHotelStore = defineStore('hotel', () => {
           price: 450,
           rating: 4.9,
           badge: 'Luxury',
-          image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=500&h=300&fit=crop',
+          image:
+            'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=500&h=300&fit=crop',
           coordinates: { lat: 3.2028, lng: 73.2207 },
-          description: 'Luxury overwater resort with stunning ocean views and world-class amenities.',
-          amenities: ['Private Pool', 'Spa', 'Restaurant', 'Bar', 'WiFi', 'Room Service']
+          description:
+            'Luxury overwater resort with stunning ocean views and world-class amenities.',
+          amenities: ['Private Pool', 'Spa', 'Restaurant', 'Bar', 'WiFi', 'Room Service'],
         },
         {
           id: 2,
@@ -156,10 +159,11 @@ export const useHotelStore = defineStore('hotel', () => {
           price: 320,
           rating: 4.8,
           badge: 'Featured',
-          image: 'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=500&h=300&fit=crop',
+          image:
+            'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=500&h=300&fit=crop',
           coordinates: { lat: 46.8182, lng: 8.2275 },
           description: 'Cozy mountain retreat with breathtaking alpine views and rustic charm.',
-          amenities: ['Fireplace', 'Spa', 'Restaurant', 'Ski Access', 'WiFi', 'Balcony']
+          amenities: ['Fireplace', 'Spa', 'Restaurant', 'Ski Access', 'WiFi', 'Balcony'],
         },
         {
           id: 3,
@@ -168,11 +172,13 @@ export const useHotelStore = defineStore('hotel', () => {
           price: 280,
           rating: 4.7,
           badge: 'Popular',
-          image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500&h=300&fit=crop',
-          coordinates: { lat: 40.7128, lng: -74.0060 },
-          description: 'Modern hotel in the heart of Manhattan with easy access to major attractions.',
-          amenities: ['Gym', 'Business Center', 'Restaurant', 'Bar', 'WiFi', 'Concierge']
-        }
+          image:
+            'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500&h=300&fit=crop',
+          coordinates: { lat: 40.7128, lng: -74.006 },
+          description:
+            'Modern hotel in the heart of Manhattan with easy access to major attractions.',
+          amenities: ['Gym', 'Business Center', 'Restaurant', 'Bar', 'WiFi', 'Concierge'],
+        },
       ]
     } catch (err) {
       error.value = err instanceof Error ? err.message : 'Unknown error'
@@ -185,25 +191,24 @@ export const useHotelStore = defineStore('hotel', () => {
   const searchHotels = async (filters: Partial<SearchFilters>) => {
     loading.value = true
     error.value = null
-    
+
     try {
       // Update search filters
       Object.assign(searchFilters.value, filters)
-      
+
       // Mock search - replace with actual API call
-      const mockResults = featuredHotels.value.filter(hotel => {
+      const mockResults = featuredHotels.value.filter((hotel) => {
         if (filters.destination) {
           return hotel.location.toLowerCase().includes(filters.destination.toLowerCase())
         }
         return true
       })
-      
+
       searchResults.value = mockResults
-      
+
       // Cache results for offline use
       const { cacheSearchResults } = useAppStore()
       cacheSearchResults(mockResults)
-      
     } catch (err) {
       error.value = err instanceof Error ? err.message : 'Unknown error'
       console.error('Error searching hotels:', err)
@@ -215,19 +220,19 @@ export const useHotelStore = defineStore('hotel', () => {
   const getHotelById = async (id: number) => {
     loading.value = true
     error.value = null
-    
+
     try {
       // Check featured hotels first
-      const hotel = featuredHotels.value.find(h => h.id === id)
+      const hotel = featuredHotels.value.find((h) => h.id === id)
       if (hotel) {
         selectedHotel.value = hotel
         return hotel
       }
-      
+
       // Mock API call for individual hotel
       const response = await fetch(`/api/hotels/${id}`)
       if (!response.ok) throw new Error('Hotel not found')
-      
+
       const data = await response.json()
       selectedHotel.value = data
       return data
@@ -254,7 +259,7 @@ export const useHotelStore = defineStore('hotel', () => {
       priceRange: [0, 1000],
       rating: 0,
       amenities: [],
-      sortBy: 'rating'
+      sortBy: 'rating',
     }
   }
 
@@ -268,16 +273,16 @@ export const useHotelStore = defineStore('hotel', () => {
     loading,
     error,
     popularDestinations,
-    
+
     // Computed
     filteredHotels,
-    
+
     // Actions
     fetchHotels,
     fetchFeaturedHotels,
     searchHotels,
     getHotelById,
     updateSearchFilters,
-    clearSearch
+    clearSearch,
   }
 })
