@@ -560,10 +560,8 @@ const lowestPrice = computed(() => {
   return Math.min(...roomTypes.value.map((room) => calculateRoomPrice(room.price)))
 })
 
-const isFavorite = computed(() => {
-  if (!authStore.user || !hotel.value) return false
-  return authStore.user.favoriteHotels.includes(hotel.value.id)
-})
+const isFavorite = ref(false)
+const favoriteLoading = ref(false)
 
 const calculateRoomPrice = (price: number): number => {
   const discount = appStore.appliedDiscount
@@ -594,10 +592,27 @@ const formatDate = (dateString: string): string => {
   })
 }
 
-const toggleFavorite = async () => {
-  if (!authStore.user || !hotel.value) return
+const checkIfFavorite = async () => {
+  if (!authStore.isAuthenticated || !hotel.value) {
+    isFavorite.value = false
+    return
+  }
 
-  if (isFavorite.value) {
+  try {
+    const favorites = await authStore.getUserFavorites()
+    isFavorite.value = favorites.includes(hotel.value.id)
+  } catch (error) {
+    console.error('Failed to check favorite status:', error)
+  }
+}
+
+const toggleFavorite = async () => {
+  if (!authStore.isAuthenticated || !hotel.value) return
+
+  try {
+    favoriteLoading.value = true
+
+    if (isFavorite.value) {
     await authStore.removeFavoriteHotel(hotel.value.id)
   } else {
     await authStore.addFavoriteHotel(hotel.value.id)
