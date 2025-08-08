@@ -499,6 +499,13 @@ export const useAuthStore = defineStore('auth', () => {
     isAuthenticated,
     userDisplayName,
     isAdmin,
+    isSuperAdmin,
+    userRole,
+    permissions,
+
+    // Permission functions
+    hasPermission,
+    canManageUser,
 
     // Actions
     login,
