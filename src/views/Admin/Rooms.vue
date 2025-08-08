@@ -511,6 +511,7 @@ import { ref, computed, onMounted } from 'vue'
 import { supabase } from '@/lib/supabase'
 import { useNotificationStore } from '@/stores/notification'
 import { logger } from '@/utils/logger'
+import { testDatabaseConnection, testRoomsQuery } from '@/utils/dbConnectionTest'
 
 // State
 const rooms = ref<any[]>([])
