@@ -18,8 +18,8 @@
             v-for="item in navigation" 
             :key="item.name"
             :to="item.href" 
-            class="text-neutral-600 hover:text-primary-600 px-3 py-2 text-sm font-medium transition-colors duration-200"
-            :class="{ 'text-primary-600 font-semibold': $route.path === item.href }"
+            class="text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 px-3 py-2 text-sm font-medium transition-colors duration-200"
+            :class="{ 'text-primary-600 dark:text-primary-400 font-semibold': $route.path === item.href }"
           >
             {{ item.name }}
           </router-link>
