@@ -13,12 +13,12 @@ const samplePrices = [
   { name: 'Budget Hotel', usd: 25, inr: Math.round(25 * USD_TO_INR_RATE) },
   { name: 'Mid-range Hotel', usd: 75, inr: Math.round(75 * USD_TO_INR_RATE) },
   { name: 'Luxury Hotel', usd: 200, inr: Math.round(200 * USD_TO_INR_RATE) },
-  { name: 'Premium Resort', usd: 500, inr: Math.round(500 * USD_TO_INR_RATE) }
+  { name: 'Premium Resort', usd: 500, inr: Math.round(500 * USD_TO_INR_RATE) },
 ]
 
 console.log('\n📊 Price conversion examples:')
 console.log('================================')
-samplePrices.forEach(price => {
+samplePrices.forEach((price) => {
   console.log(`${price.name}: $${price.usd} → ₹${price.inr.toLocaleString('en-IN')}`)
 })
 

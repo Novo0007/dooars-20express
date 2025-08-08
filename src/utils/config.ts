@@ -16,12 +16,17 @@ export const validateEnvironment = (): ConfigValidation => {
     'VITE_SUPABASE_ANON_KEY',
     'VITE_RAZORPAY_KEY_ID',
     'VITE_APP_NAME',
-    'VITE_APP_URL'
+    'VITE_APP_URL',
   ]
 
-  requiredEnvVars.forEach(varName => {
+  requiredEnvVars.forEach((varName) => {
     const value = import.meta.env[varName]
-    if (!value || value === 'your-project.supabase.co' || value === 'your-anon-key' || value === 'rzp_test_sample') {
+    if (
+      !value ||
+      value === 'your-project.supabase.co' ||
+      value === 'your-anon-key' ||
+      value === 'rzp_test_sample'
+    ) {
       errors.push(`Missing or invalid environment variable: ${varName}`)
     }
   })
@@ -41,7 +46,7 @@ export const validateEnvironment = (): ConfigValidation => {
   return {
     isValid: errors.length === 0,
     errors,
-    warnings
+    warnings,
   }
 }
 
@@ -61,40 +66,41 @@ export const getAppConfig = () => {
     environment: import.meta.env.MODE,
     supabase: {
       url: import.meta.env.VITE_SUPABASE_URL,
-      hasValidKey: !!import.meta.env.VITE_SUPABASE_ANON_KEY && 
-                   import.meta.env.VITE_SUPABASE_ANON_KEY !== 'your-anon-key'
+      hasValidKey:
+        !!import.meta.env.VITE_SUPABASE_ANON_KEY &&
+        import.meta.env.VITE_SUPABASE_ANON_KEY !== 'your-anon-key',
     },
     razorpay: {
       keyId: import.meta.env.VITE_RAZORPAY_KEY_ID,
-      isLive: import.meta.env.VITE_RAZORPAY_KEY_ID?.startsWith('rzp_live_')
-    }
+      isLive: import.meta.env.VITE_RAZORPAY_KEY_ID?.startsWith('rzp_live_'),
+    },
   }
 }
 
 export const logConfigStatus = () => {
   const validation = validateEnvironment()
   const config = getAppConfig()
-  
+
   console.group('🔧 App Configuration')
   console.log('Environment:', config.environment)
   console.log('App Name:', config.name)
   console.log('App URL:', config.url)
   console.log('Supabase configured:', config.supabase.hasValidKey)
   console.log('Razorpay mode:', config.razorpay.isLive ? 'LIVE' : 'TEST')
-  
+
   if (validation.errors.length > 0) {
     console.group('❌ Configuration Errors')
-    validation.errors.forEach(error => console.error(error))
+    validation.errors.forEach((error) => console.error(error))
     console.groupEnd()
   }
-  
+
   if (validation.warnings.length > 0) {
     console.group('⚠️ Configuration Warnings')
-    validation.warnings.forEach(warning => console.warn(warning))
+    validation.warnings.forEach((warning) => console.warn(warning))
     console.groupEnd()
   }
-  
+
   console.groupEnd()
-  
+
   return validation
 }

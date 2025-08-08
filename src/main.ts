@@ -30,14 +30,14 @@ app.config.errorHandler = (err, instance, info) => {
     info: info || 'No info',
     component: instance?.$options?.name || instance?.$?.type?.name || 'Unknown Component',
     props: instance?.$props || {},
-    error: err
+    error: err,
   })
 
   logger.error('Vue Error: ' + (err?.message || 'Unknown error'), {
     stack: err?.stack,
     info,
     component: instance?.$options?.name || instance?.$?.type?.name || 'Unknown Component',
-    errorName: err?.name
+    errorName: err?.name,
   })
 }
 
@@ -66,7 +66,7 @@ if (savedLanguage) {
 logger.info('App started successfully', {
   environment: import.meta.env.MODE,
   version: import.meta.env.VITE_APP_VERSION || '1.0.0',
-  url: window.location.href
+  url: window.location.href,
 })
 
 // Register PWA service worker

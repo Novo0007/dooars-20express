@@ -17,7 +17,7 @@ export const useNotificationStore = defineStore('notification', () => {
     const newNotification: Notification = {
       id,
       duration: 5000,
-      ...notification
+      ...notification,
     }
 
     notifications.value.push(newNotification)
@@ -33,7 +33,7 @@ export const useNotificationStore = defineStore('notification', () => {
   }
 
   const removeNotification = (id: string) => {
-    const index = notifications.value.findIndex(n => n.id === id)
+    const index = notifications.value.findIndex((n) => n.id === id)
     if (index > -1) {
       notifications.value.splice(index, 1)
     }
@@ -68,6 +68,6 @@ export const useNotificationStore = defineStore('notification', () => {
     success,
     error,
     warning,
-    info
+    info,
   }
 })

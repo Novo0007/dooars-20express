@@ -3,7 +3,9 @@
 export const useResponsive = () => {
   // Detect mobile device
   const isMobile = () => {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent,
+    )
   }
 
   // Get screen size category
@@ -31,10 +33,10 @@ export const useResponsive = () => {
     const mobile = isMobile()
     const sizeMap = {
       xs: mobile ? 'text-sm' : 'text-xs',
-      sm: mobile ? 'text-base' : 'text-sm', 
+      sm: mobile ? 'text-base' : 'text-sm',
       base: mobile ? 'text-lg' : 'text-base',
       lg: mobile ? 'text-xl' : 'text-lg',
-      xl: mobile ? 'text-2xl' : 'text-xl'
+      xl: mobile ? 'text-2xl' : 'text-xl',
     }
     return sizeMap[size]
   }
@@ -47,7 +49,7 @@ export const useResponsive = () => {
       sm: mobile ? 'p-3' : 'p-2',
       base: mobile ? 'p-4' : 'p-3',
       lg: mobile ? 'p-6' : 'p-4',
-      xl: mobile ? 'p-8' : 'p-6'
+      xl: mobile ? 'p-8' : 'p-6',
     }
     return sizeMap[size]
   }
@@ -58,7 +60,7 @@ export const useResponsive = () => {
     prefersReducedMotion,
     getTouchTargetSize,
     getFontSize,
-    getSpacing
+    getSpacing,
   }
 }
 
@@ -68,7 +70,7 @@ export const useIndianMobile = () => {
   const formatIndianPhoneNumber = (phone: string) => {
     // Remove all non-digits
     const digits = phone.replace(/\D/g, '')
-    
+
     // Handle different formats
     if (digits.length === 10) {
       // Format: 98765 43210
@@ -77,7 +79,7 @@ export const useIndianMobile = () => {
       // Format: +91 98765 43210
       return `+91 ${digits.slice(2, 7)} ${digits.slice(7)}`
     }
-    
+
     return phone // Return original if can't format
   }
 
@@ -87,7 +89,7 @@ export const useIndianMobile = () => {
       style: 'currency',
       currency: 'INR',
       minimumFractionDigits: 0,
-      maximumFractionDigits: 2
+      maximumFractionDigits: 2,
     }).format(amount)
   }
 
@@ -107,7 +109,7 @@ export const useIndianMobile = () => {
     parts.push(address.city)
     parts.push(address.state)
     parts.push(address.pincode)
-    
+
     return parts.filter(Boolean).join(', ')
   }
 
@@ -128,18 +130,47 @@ export const useIndianMobile = () => {
     { name: 'Canara Bank', upiHandle: '@canara' },
     { name: 'Union Bank of India', upiHandle: '@unionbank' },
     { name: 'IDBI Bank', upiHandle: '@idbi' },
-    { name: 'Yes Bank', upiHandle: '@yes' }
+    { name: 'Yes Bank', upiHandle: '@yes' },
   ]
 
   // Get Indian states and UTs
   const getIndianStates = () => [
-    'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh',
-    'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jharkhand', 'Karnataka',
-    'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram',
-    'Nagaland', 'Odisha', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu',
-    'Telangana', 'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal',
-    'Andaman and Nicobar Islands', 'Chandigarh', 'Dadra and Nagar Haveli and Daman and Diu',
-    'Delhi', 'Jammu and Kashmir', 'Ladakh', 'Lakshadweep', 'Puducherry'
+    'Andhra Pradesh',
+    'Arunachal Pradesh',
+    'Assam',
+    'Bihar',
+    'Chhattisgarh',
+    'Goa',
+    'Gujarat',
+    'Haryana',
+    'Himachal Pradesh',
+    'Jharkhand',
+    'Karnataka',
+    'Kerala',
+    'Madhya Pradesh',
+    'Maharashtra',
+    'Manipur',
+    'Meghalaya',
+    'Mizoram',
+    'Nagaland',
+    'Odisha',
+    'Punjab',
+    'Rajasthan',
+    'Sikkim',
+    'Tamil Nadu',
+    'Telangana',
+    'Tripura',
+    'Uttar Pradesh',
+    'Uttarakhand',
+    'West Bengal',
+    'Andaman and Nicobar Islands',
+    'Chandigarh',
+    'Dadra and Nagar Haveli and Daman and Diu',
+    'Delhi',
+    'Jammu and Kashmir',
+    'Ladakh',
+    'Lakshadweep',
+    'Puducherry',
   ]
 
   return {
@@ -148,7 +179,7 @@ export const useIndianMobile = () => {
     formatIndianAddress,
     validatePincode,
     getIndianBanks,
-    getIndianStates
+    getIndianStates,
   }
 }
 
@@ -156,10 +187,10 @@ export const useIndianMobile = () => {
 export const breakpoints = {
   xs: '0px',
   sm: '640px',
-  md: '768px', 
+  md: '768px',
   lg: '1024px',
   xl: '1280px',
-  '2xl': '1536px'
+  '2xl': '1536px',
 }
 
 // Common mobile-first responsive classes
@@ -167,8 +198,11 @@ export const responsiveClasses = {
   container: 'w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8',
   grid: 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6',
   card: 'bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden',
-  button: 'inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2',
-  input: 'block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:border-blue-500',
+  button:
+    'inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2',
+  input:
+    'block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:border-blue-500',
   modal: 'fixed inset-0 z-50 overflow-y-auto p-4 sm:p-6 md:p-20',
-  modalContent: 'mx-auto max-w-xl transform divide-y divide-gray-100 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all'
+  modalContent:
+    'mx-auto max-w-xl transform divide-y divide-gray-100 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all',
 }

@@ -146,8 +146,12 @@
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Mobile-specific spacing */
@@ -222,15 +226,15 @@
   .mobile-table {
     display: block;
   }
-  
+
   .mobile-table thead {
     display: none;
   }
-  
+
   .mobile-table tbody {
     display: block;
   }
-  
+
   .mobile-table tr {
     display: block;
     margin-bottom: 16px;
@@ -239,7 +243,7 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     padding: 16px;
   }
-  
+
   .mobile-table td {
     display: flex;
     justify-content: space-between;
@@ -247,11 +251,11 @@
     padding: 8px 0;
     border-bottom: 1px solid #f1f5f9;
   }
-  
+
   .mobile-table td:last-child {
     border-bottom: none;
   }
-  
+
   .mobile-table td::before {
     content: attr(data-label);
     font-weight: 500;
@@ -268,11 +272,11 @@
   .mobile-list-item:active {
     transform: none;
   }
-  
+
   .mobile-drawer {
     transition: none;
   }
-  
+
   .mobile-spinner {
     animation: none;
   }
@@ -283,7 +287,7 @@
   .mobile-input {
     border-width: 3px;
   }
-  
+
   .mobile-button {
     border: 2px solid currentColor;
   }

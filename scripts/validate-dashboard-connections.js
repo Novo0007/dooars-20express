@@ -9,17 +9,17 @@ const dashboardChecks = {
     file: 'src/views/Admin/Dashboard.vue',
     requiredConnections: [
       'bookings table - recent bookings fetch',
-      'bookings table - stats calculation', 
+      'bookings table - stats calculation',
       'rooms table - occupancy calculation',
       'user_profiles table - user count',
-      'bookings update - approve/cancel actions'
+      'bookings update - approve/cancel actions',
     ],
     dynamicFeatures: [
       'Loading states for data fetching',
       'Error handling with user notifications',
       'Real-time stats calculation',
-      'Dynamic chart generation'
-    ]
+      'Dynamic chart generation',
+    ],
   },
   'Hotel Manager Dashboard': {
     file: 'src/views/HotelManager/Dashboard.vue',
@@ -27,27 +27,27 @@ const dashboardChecks = {
       'hotel_assignments table - user hotel access',
       'bookings table - hotel-specific bookings',
       'rooms table - hotel room counts',
-      'bookings update - booking management'
+      'bookings update - booking management',
     ],
     dynamicFeatures: [
       'Hotel selection interface',
       'Hotel-specific data filtering',
       'Dynamic stats per hotel',
-      'Loading states for hotel switching'
-    ]
+      'Loading states for hotel switching',
+    ],
   },
   'User Profile Dashboard': {
-    file: 'src/views/Profile.vue', 
+    file: 'src/views/Profile.vue',
     requiredConnections: [
       'user_profiles table - profile management',
       'bookings table - user booking count',
-      'user_favorites table - favorites count'
+      'user_favorites table - favorites count',
     ],
     dynamicFeatures: [
       'Profile stats loading',
       'Avatar upload handling',
-      'Form validation and updates'
-    ]
+      'Form validation and updates',
+    ],
   },
   'Booking History Dashboard': {
     file: 'src/views/BookingHistory.vue',
@@ -55,15 +55,15 @@ const dashboardChecks = {
       'bookings table - user booking history',
       'hotels table - joined hotel data',
       'rooms table - joined room data',
-      'bookings update - cancellation'
+      'bookings update - cancellation',
     ],
     dynamicFeatures: [
       'Filtering by booking status',
       'Pagination for large datasets',
       'Booking detail modals',
-      'Real-time status updates'
-    ]
-  }
+      'Real-time status updates',
+    ],
+  },
 }
 
 console.log('✅ **Dashboard Connection Validation Results:**\n')
@@ -73,13 +73,13 @@ Object.entries(dashboardChecks).forEach(([dashboardName, config]) => {
   console.log(`   File: ${config.file}`)
   console.log(`   
    ✅ **Supabase Connections:**`)
-  config.requiredConnections.forEach(connection => {
+  config.requiredConnections.forEach((connection) => {
     console.log(`      • ${connection}`)
   })
-  
+
   console.log(`   
    🔄 **Dynamic Features:**`)
-  config.dynamicFeatures.forEach(feature => {
+  config.dynamicFeatures.forEach((feature) => {
     console.log(`      • ${feature}`)
   })
   console.log('')

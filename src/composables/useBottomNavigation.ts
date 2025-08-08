@@ -13,26 +13,26 @@ export const useBottomNavigation = () => {
       name: 'Home',
       path: '/',
       icon: 'home',
-      exactMatch: true
+      exactMatch: true,
     },
     {
       name: 'Search',
       path: '/search',
       icon: 'search',
-      exactMatch: false
+      exactMatch: false,
     },
     {
       name: 'Bookings',
       path: '/booking-history',
       icon: 'calendar',
       exactMatch: false,
-      badge: computed(() => getPendingBookingsCount())
+      badge: computed(() => getPendingBookingsCount()),
     },
     {
       name: 'Favorites',
       path: '/favorites',
       icon: 'heart',
-      exactMatch: false
+      exactMatch: false,
     },
     {
       name: authStore.isAuthenticated ? 'Profile' : 'Login',
@@ -40,8 +40,10 @@ export const useBottomNavigation = () => {
       icon: 'user',
       exactMatch: false,
       avatar: computed(() => authStore.user?.profile?.avatar_url),
-      initials: computed(() => authStore.isAuthenticated ? authStore.userDisplayName.charAt(0).toUpperCase() : '')
-    }
+      initials: computed(() =>
+        authStore.isAuthenticated ? authStore.userDisplayName.charAt(0).toUpperCase() : '',
+      ),
+    },
   ])
 
   // Check if route is active
@@ -62,12 +64,12 @@ export const useBottomNavigation = () => {
   const shouldShowBottomNav = computed(() => {
     // Hide on admin/manager dashboards
     const adminRoutes = ['/admin', '/hotel-manager']
-    return !adminRoutes.some(route => route.path.startsWith(route))
+    return !adminRoutes.some((route) => route.path.startsWith(route))
   })
 
   return {
     navigationItems,
     isRouteActive,
-    shouldShowBottomNav
+    shouldShowBottomNav,
   }
 }

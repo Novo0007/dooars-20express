@@ -45,7 +45,7 @@ export class IndianPaymentService {
         script.src = 'https://checkout.razorpay.com/v1/checkout.js'
         script.async = true
         document.head.appendChild(script)
-        
+
         await new Promise((resolve, reject) => {
           script.onload = resolve
           script.onerror = reject
@@ -66,7 +66,7 @@ export class IndianPaymentService {
         type: 'razorpay',
         icon: '💳',
         description: 'Card, UPI, NetBanking, Wallets',
-        enabled: this.isInitialized.value && !!this.razorpayKey
+        enabled: this.isInitialized.value && !!this.razorpayKey,
       },
       {
         id: 'upi',
@@ -74,7 +74,7 @@ export class IndianPaymentService {
         type: 'upi',
         icon: '📱',
         description: 'PhonePe, GooglePay, Paytm, BHIM',
-        enabled: true
+        enabled: true,
       },
       {
         id: 'netbanking',
@@ -82,7 +82,7 @@ export class IndianPaymentService {
         type: 'netbanking',
         icon: '🏦',
         description: 'All major Indian banks',
-        enabled: true
+        enabled: true,
       },
       {
         id: 'cards',
@@ -90,7 +90,7 @@ export class IndianPaymentService {
         type: 'card',
         icon: '💳',
         description: 'Visa, Mastercard, RuPay',
-        enabled: true
+        enabled: true,
       },
       {
         id: 'wallets',
@@ -98,8 +98,8 @@ export class IndianPaymentService {
         type: 'wallet',
         icon: '💰',
         description: 'Paytm, Amazon Pay, FreeCharge',
-        enabled: true
-      }
+        enabled: true,
+      },
     ]
   }
 
@@ -109,7 +109,7 @@ export class IndianPaymentService {
       return {
         success: false,
         orderId: request.orderId,
-        error: 'Razorpay not initialized'
+        error: 'Razorpay not initialized',
       }
     }
 
@@ -124,24 +124,24 @@ export class IndianPaymentService {
         prefill: {
           name: request.customerName,
           email: request.customerEmail,
-          contact: request.customerPhone
+          contact: request.customerPhone,
         },
         theme: {
-          color: '#3B82F6'
+          color: '#3B82F6',
         },
         method: {
           upi: true,
           card: true,
           netbanking: true,
           wallet: true,
-          paylater: true
+          paylater: true,
         },
         handler: (response: any) => {
           resolve({
             success: true,
             paymentId: response.razorpay_payment_id,
             orderId: response.razorpay_order_id,
-            signature: response.razorpay_signature
+            signature: response.razorpay_signature,
           })
         },
         modal: {
@@ -149,10 +149,10 @@ export class IndianPaymentService {
             resolve({
               success: false,
               orderId: request.orderId,
-              error: 'Payment cancelled by user'
+              error: 'Payment cancelled by user',
             })
-          }
-        }
+          },
+        },
       }
 
       const razorpay = new window.Razorpay(options)
@@ -164,7 +164,7 @@ export class IndianPaymentService {
   generateUPIUrl(request: PaymentRequest, upiId: string): string {
     const { amount, customerName, orderId, description } = request
     const amountInRupees = (amount / 100).toFixed(2)
-    
+
     return `upi://pay?pa=${upiId}&pn=Dooars Express&tr=${orderId}&am=${amountInRupees}&cu=INR&tn=${encodeURIComponent(description)}`
   }
 
@@ -180,21 +180,24 @@ export class IndianPaymentService {
       style: 'currency',
       currency: 'INR',
       minimumFractionDigits: 0,
-      maximumFractionDigits: 2
+      maximumFractionDigits: 2,
     })
     return formatter.format(amount / 100) // Convert from paise to rupees
   }
 
   // Get GST calculation for hotel bookings
-  calculateGST(amount: number, gstRate: number = 12): { cgst: number; sgst: number; igst: number; total: number } {
+  calculateGST(
+    amount: number,
+    gstRate: number = 12,
+  ): { cgst: number; sgst: number; igst: number; total: number } {
     const baseAmount = amount / (1 + gstRate / 100)
     const gstAmount = amount - baseAmount
-    
+
     return {
       cgst: gstAmount / 2, // Central GST
-      sgst: gstAmount / 2, // State GST  
-      igst: gstAmount,     // Integrated GST (for inter-state)
-      total: amount
+      sgst: gstAmount / 2, // State GST
+      igst: gstAmount, // Integrated GST (for inter-state)
+      total: amount,
     }
   }
 
@@ -205,13 +208,13 @@ export class IndianPaymentService {
       const response = await fetch('/api/verify-payment', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           paymentId,
           orderId,
-          signature
-        })
+          signature,
+        }),
       })
 
       const result = await response.json()

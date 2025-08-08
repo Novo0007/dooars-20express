@@ -25,7 +25,7 @@ class Logger {
       level,
       message,
       data,
-      source
+      source,
     }
 
     // Store in memory (limited to maxLogs)
@@ -47,7 +47,9 @@ class Logger {
 
   private consoleLog(entry: LogEntry) {
     const prefix = `[${entry.timestamp}] ${entry.level.toUpperCase()}`
-    const message = entry.source ? `${prefix} [${entry.source}] ${entry.message}` : `${prefix} ${entry.message}`
+    const message = entry.source
+      ? `${prefix} [${entry.source}] ${entry.message}`
+      : `${prefix} ${entry.message}`
 
     // Properly serialize data for console output
     const logData = entry.data ? this.serializeData(entry.data) : null
@@ -82,7 +84,7 @@ class Logger {
           name: data.name,
           message: data.message,
           stack: data.stack,
-          cause: data.cause
+          cause: data.cause,
         }
       }
 
@@ -94,7 +96,7 @@ class Logger {
             serialized[key] = {
               name: value.name,
               message: value.message,
-              stack: value.stack
+              stack: value.stack,
             }
           } else if (typeof value === 'function') {
             serialized[key] = '[Function]'
@@ -123,12 +125,12 @@ class Logger {
       // For now, just store in localStorage as fallback
       const errorLogs = JSON.parse(localStorage.getItem('error_logs') || '[]')
       errorLogs.push(entry)
-      
+
       // Keep only last 50 error logs
       if (errorLogs.length > 50) {
         errorLogs.splice(0, errorLogs.length - 50)
       }
-      
+
       localStorage.setItem('error_logs', JSON.stringify(errorLogs))
     } catch (error) {
       console.error('Failed to log error to monitoring service:', error)
@@ -153,11 +155,15 @@ class Logger {
 
   // Convenience methods for common scenarios
   apiError(endpoint: string, error: any) {
-    this.error(`API Error: ${endpoint}`, {
-      error: error.message || error,
-      stack: error.stack,
-      endpoint
-    }, 'API')
+    this.error(
+      `API Error: ${endpoint}`,
+      {
+        error: error.message || error,
+        stack: error.stack,
+        endpoint,
+      },
+      'API',
+    )
   }
 
   userAction(action: string, data?: any) {
@@ -175,7 +181,7 @@ class Logger {
   // Get logs for debugging
   getLogs(level?: LogLevel): LogEntry[] {
     if (level) {
-      return this.logs.filter(log => log.level === level)
+      return this.logs.filter((log) => log.level === level)
     }
     return [...this.logs]
   }
@@ -196,11 +202,15 @@ export const logger = new Logger()
 
 // Error boundary helper
 export const handleGlobalError = (error: Error, source?: string) => {
-  logger.error('Unhandled Error', {
-    message: error.message,
-    stack: error.stack,
-    source
-  }, 'GLOBAL')
+  logger.error(
+    'Unhandled Error',
+    {
+      message: error.message,
+      stack: error.stack,
+      source,
+    },
+    'GLOBAL',
+  )
 }
 
 // Setup global error handlers
