@@ -406,6 +406,29 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  const refreshUserProfile = async () => {
+    if (!user.value) return
+
+    try {
+      const { data: profile, error: profileError } = await supabase
+        .from('user_profiles')
+        .select('*')
+        .eq('id', user.value.id)
+        .single()
+
+      if (profileError) throw profileError
+
+      if (profile) {
+        user.value = {
+          ...user.value,
+          profile: profile,
+        }
+      }
+    } catch (err) {
+      console.error('Failed to refresh user profile:', err)
+    }
+  }
+
   return {
     // State
     user,
@@ -428,6 +451,7 @@ export const useAuthStore = defineStore('auth', () => {
     getUserFavorites,
     initializeAuth,
     resetPassword,
+    refreshUserProfile,
     updatePassword,
     resendConfirmation,
   }
