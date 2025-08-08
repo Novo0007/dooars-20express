@@ -176,8 +176,9 @@ export const useHotelStore = defineStore('hotel', () => {
         // Don't throw error, just proceed to mock data
       }
     } catch (err) {
-      error.value = err instanceof Error ? err.message : 'Unknown error'
-      console.error('Error fetching featured hotels, using mock data:', err)
+      const errorMessage = err instanceof Error ? err.message : 'Unknown error occurred'
+      error.value = errorMessage
+      console.error('Error fetching featured hotels, using mock data:', errorMessage, err instanceof Error ? err.stack : err)
 
       // Fallback to mock data
       featuredHotels.value = [
