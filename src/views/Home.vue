@@ -219,8 +219,8 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="feature.icon" />
               </svg>
             </div>
-            <h3 class="font-display font-bold text-xl text-neutral-800 mb-4">{{ feature.title }}</h3>
-            <p class="text-neutral-600">{{ feature.description }}</p>
+            <h3 class="font-display font-bold text-xl text-neutral-800 dark:text-neutral-200 mb-4">{{ getFeatureTitle(feature.id) }}</h3>
+            <p class="text-neutral-600 dark:text-neutral-400">{{ getFeatureDescription(feature.id) }}</p>
           </div>
         </div>
       </div>
