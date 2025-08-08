@@ -463,6 +463,7 @@ import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useNotificationStore } from '@/stores/notification'
 import { supabase } from '@/lib/supabase'
+import { logger } from '@/utils/logger'
 
 const router = useRouter()
 const authStore = useAuthStore()
