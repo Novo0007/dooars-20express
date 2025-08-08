@@ -455,7 +455,9 @@ const fetchBookings = async (page = 1, append = false) => {
     hasMoreBookings.value = (count || 0) > page * pageSize
     currentPage.value = page
   } catch (error) {
-    console.error('Failed to fetch bookings:', error)
+    logger.error('Failed to fetch bookings', { error })
+    const errorMessage = error instanceof Error ? error.message : 'Failed to fetch bookings'
+    notificationStore.error(errorMessage, 'Bookings Loading Error')
     // Ensure we have empty array on error
     if (!append) {
       bookings.value = []
@@ -556,8 +558,9 @@ const cancelBooking = async (booking: Booking) => {
       bookings.value[index].status = 'cancelled'
     }
   } catch (error) {
-    console.error('Failed to cancel booking:', error)
-    alert('Failed to cancel booking. Please try again.')
+    logger.error('Failed to cancel booking', { error, bookingId })
+    const errorMessage = error instanceof Error ? error.message : 'Failed to cancel booking'
+    notificationStore.error(errorMessage, 'Booking Cancellation Error')
   }
 }
 
