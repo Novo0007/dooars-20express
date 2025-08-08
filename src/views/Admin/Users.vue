@@ -692,6 +692,7 @@ const saveUserChanges = async () => {
 
   loading.value = true
   try {
+    // Update user profile
     const { error } = await supabase
       .from('user_profiles')
       .update({
@@ -707,6 +708,14 @@ const saveUserChanges = async () => {
 
     if (error) throw error
 
+    // Update hotel assignments if user is hotel manager
+    if (editForm.value.role === 'hotel_manager') {
+      await updateHotelAssignments(editingUser.value.id, editForm.value.assigned_hotels)
+    } else {
+      // Remove all hotel assignments if user is no longer hotel manager
+      await clearHotelAssignments(editingUser.value.id)
+    }
+
     await fetchUsers()
     closeEditModal()
   } catch (error) {
@@ -715,6 +724,57 @@ const saveUserChanges = async () => {
   } finally {
     loading.value = false
   }
+}
+
+const updateHotelAssignments = async (userId: string, assignments: any[]) => {
+  try {
+    // First, deactivate all existing assignments
+    await supabase
+      .from('hotel_assignments')
+      .update({ is_active: false })
+      .eq('user_id', userId)
+
+    // Then, create/reactivate assignments for selected hotels
+    for (const assignment of assignments) {
+      if (assignment.hotel_id) {
+        await supabase
+          .from('hotel_assignments')
+          .upsert({
+            user_id: userId,
+            hotel_id: assignment.hotel_id,
+            role: assignment.role || 'manager',
+            is_active: true,
+            assigned_by: authStore.user?.id
+          })
+      }
+    }
+  } catch (error) {
+    console.error('Error updating hotel assignments:', error)
+    throw error
+  }
+}
+
+const clearHotelAssignments = async (userId: string) => {
+  try {
+    await supabase
+      .from('hotel_assignments')
+      .update({ is_active: false })
+      .eq('user_id', userId)
+  } catch (error) {
+    console.error('Error clearing hotel assignments:', error)
+  }
+}
+
+const addHotelAssignment = () => {
+  editForm.value.assigned_hotels.push({
+    hotel_id: '',
+    role: 'manager',
+    is_active: true
+  })
+}
+
+const removeHotelAssignment = (index: number) => {
+  editForm.value.assigned_hotels.splice(index, 1)
 }
 
 const toggleUserStatus = async (user: any) => {
