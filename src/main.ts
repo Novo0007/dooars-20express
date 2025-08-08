@@ -6,6 +6,7 @@ import router from './router'
 import { createPinia } from 'pinia'
 import i18n from './i18n'
 import { useAppStore } from './stores/app'
+import { useAuthStore } from './stores/auth'
 
 const pinia = createPinia()
 
@@ -20,6 +21,10 @@ app.mount('#app')
 // Initialize app store and theme
 const appStore = useAppStore()
 appStore.initializeTheme()
+
+// Initialize auth store
+const authStore = useAuthStore()
+authStore.initializeAuth()
 
 // Set initial language
 const savedLanguage = appStore.language
