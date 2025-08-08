@@ -472,39 +472,23 @@ const loading = computed(() => hotelStore.loading)
 const hotel = computed(() => hotelStore.selectedHotel)
 const hasDiscount = computed(() => !!appStore.appliedDiscount)
 
-// Mock data for room types and reviews
-const roomTypes = ref([
-  {
-    id: 1,
-    type: 'Deluxe Ocean View',
-    price: 450,
-    description: 'Spacious room with panoramic ocean views and private balcony',
-    amenities: ['Ocean View', 'Private Balcony', 'King Bed', 'Mini Bar', 'WiFi'],
-    max_guests: 2,
-    available_count: 3,
-    images: ['https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=800&h=600&fit=crop'],
-  },
-  {
-    id: 2,
-    type: 'Premium Suite',
-    price: 650,
-    description: 'Luxurious suite with separate living area and premium amenities',
-    amenities: ['Separate Living Room', 'Premium View', 'King Bed', 'Kitchenette', 'Premium WiFi'],
-    max_guests: 4,
-    available_count: 2,
-    images: ['https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=600&fit=crop'],
-  },
-  {
-    id: 3,
-    type: 'Standard Room',
-    price: 320,
-    description: 'Comfortable room with modern amenities and city view',
-    amenities: ['City View', 'Queen Bed', 'Work Desk', 'WiFi', 'Air Conditioning'],
-    max_guests: 2,
-    available_count: 5,
-    images: ['https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&h=600&fit=crop'],
-  },
-])
+// Computed property for room types from hotel data
+const roomTypes = computed(() => {
+  if (!hotel.value?.rooms) {
+    return []
+  }
+
+  return hotel.value.rooms.filter(room => room.is_active).map(room => ({
+    id: room.id,
+    type: room.type,
+    price: room.price,
+    description: room.description || `Comfortable ${room.type.toLowerCase()} with modern amenities`,
+    amenities: room.amenities || ['WiFi', 'Air Conditioning', 'TV'],
+    max_guests: room.max_guests || 2,
+    available_count: room.available_count || 0,
+    images: room.images || ['https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=600&fit=crop'],
+  }))
+})
 
 const reviews = ref([
   {
