@@ -159,6 +159,12 @@ router.beforeEach(async (to, from, next) => {
     return
   }
 
+  // Check if route requires hotel manager privileges
+  if (to.meta.requiresHotelManager && !authStore.isHotelManager) {
+    next({ name: 'home' })
+    return
+  }
+
   // Redirect authenticated users away from guest-only routes
   if (to.meta.guest && authStore.isAuthenticated) {
     next({ name: 'profile' })
