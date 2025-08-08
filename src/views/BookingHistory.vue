@@ -350,6 +350,7 @@ interface Booking {
 }
 
 const authStore = useAuthStore()
+const notificationStore = useNotificationStore()
 
 const loading = ref(true)
 const bookings = ref<Booking[]>([])
