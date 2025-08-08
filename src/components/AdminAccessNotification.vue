@@ -82,12 +82,17 @@ const dismiss = () => {
 }
 
 // Check if user should see this notification
-onMounted(() => {
+onMounted(async () => {
   // Show if user is authenticated but not showing as admin yet
   // This is for users who just got admin access
   const userEmail = authStore.user?.email
   if (userEmail === 'mynameisjyotirmoy@gmail.com' && !authStore.isAdmin) {
-    showNotification.value = true
+    // Try to refresh the profile first
+    await authStore.refreshUserProfile()
+    // If still not admin, show notification
+    if (!authStore.isAdmin) {
+      showNotification.value = true
+    }
   }
 })
 </script>
