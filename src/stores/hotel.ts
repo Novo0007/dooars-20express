@@ -238,22 +238,97 @@ export const useHotelStore = defineStore('hotel', () => {
       // Update search filters
       Object.assign(searchFilters.value, filters)
 
-      // Mock search - replace with actual API call
-      const mockResults = featuredHotels.value.filter((hotel) => {
-        if (filters.destination) {
-          return hotel.location.toLowerCase().includes(filters.destination.toLowerCase())
-        }
-        return true
-      })
+      // Build query based on filters
+      let query = supabase
+        .from('hotels')
+        .select(`
+          *,
+          rooms (
+            id,
+            type,
+            price,
+            max_guests,
+            available_count,
+            is_active
+          )
+        `)
+        .eq('is_active', true)
 
-      searchResults.value = mockResults
+      // Apply destination filter
+      if (filters.destination) {
+        query = query.ilike('location', `%${filters.destination}%`)
+      }
+
+      // Apply price range filter
+      if (filters.priceRange && filters.priceRange.length === 2) {
+        // Get hotels that have rooms within the price range
+        query = query.in('id',
+          await supabase
+            .from('rooms')
+            .select('hotel_id')
+            .gte('price', filters.priceRange[0])
+            .lte('price', filters.priceRange[1])
+            .eq('is_active', true)
+            .then(({ data }) => data?.map(r => r.hotel_id) || [])
+        )
+      }
+
+      // Apply sorting
+      switch (filters.sortBy) {
+        case 'price':
+          query = query.order('id') // Will sort by lowest room price later
+          break
+        case 'rating':
+          query = query.order('rating', { ascending: false })
+          break
+        case 'distance':
+          // TODO: Implement distance-based sorting using coordinates
+          query = query.order('created_at', { ascending: false })
+          break
+        default:
+          query = query.order('rating', { ascending: false })
+      }
+
+      const { data, error: supabaseError } = await query.limit(20)
+
+      if (supabaseError) throw supabaseError
+
+      // Transform data to match interface and calculate prices
+      const transformedResults = data?.map((hotel) => {
+        const roomPrices = hotel.rooms?.filter(r => r.is_active).map(r => r.price) || []
+        const minPrice = roomPrices.length > 0 ? Math.min(...roomPrices) : 3000
+
+        return {
+          id: hotel.id,
+          name: hotel.name,
+          location: hotel.location,
+          price: minPrice,
+          rating: hotel.rating || 4.5,
+          badge: hotel.badge || (hotel.featured ? 'Featured' : ''),
+          image: hotel.images?.[0] || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500&h=300&fit=crop',
+          coordinates: { lat: hotel.latitude || 0, lng: hotel.longitude || 0 },
+          description: hotel.description || '',
+          amenities: hotel.amenities || [],
+          rooms: hotel.rooms || []
+        }
+      }) || []
+
+      // Sort by price if needed (after transformation)
+      if (filters.sortBy === 'price') {
+        transformedResults.sort((a, b) => a.price - b.price)
+      }
+
+      searchResults.value = transformedResults
 
       // Cache results for offline use
       const { cacheSearchResults } = useAppStore()
-      cacheSearchResults(mockResults)
+      cacheSearchResults(transformedResults)
     } catch (err) {
       error.value = err instanceof Error ? err.message : 'Unknown error'
       console.error('Error searching hotels:', err)
+
+      // Fallback to empty results instead of mock data
+      searchResults.value = []
     } finally {
       loading.value = false
     }
