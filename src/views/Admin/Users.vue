@@ -106,6 +106,7 @@
           >
             <option value="">All Roles</option>
             <option value="user">User</option>
+            <option value="hotel_manager">Hotel Manager</option>
             <option value="admin">Admin</option>
             <option value="super_admin">Super Admin</option>
           </select>
@@ -347,6 +348,7 @@
                   class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="user">User</option>
+                  <option value="hotel_manager">Hotel Manager</option>
                   <option value="admin">Admin</option>
                   <option value="super_admin">Super Admin</option>
                 </select>
@@ -448,6 +450,7 @@
                 class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="user">User</option>
+                <option value="hotel_manager">Hotel Manager</option>
                 <option value="admin">Admin</option>
                 <option value="super_admin">Super Admin</option>
               </select>
