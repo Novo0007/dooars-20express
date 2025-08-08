@@ -230,6 +230,46 @@
         </div>
       </div>
     </div>
+
+    <!-- Email Confirmation Modal -->
+    <div v-if="showEmailConfirmation" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+      <div class="bg-white dark:bg-neutral-800 rounded-2xl shadow-xl max-w-md w-full p-6">
+        <div class="text-center mb-6">
+          <div class="w-16 h-16 bg-green-100 dark:bg-green-900/20 rounded-full mx-auto mb-4 flex items-center justify-center">
+            <svg class="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-neutral-900 dark:text-neutral-100 mb-2">
+            Account Created Successfully!
+          </h3>
+          <p class="text-neutral-600 dark:text-neutral-400 mb-4">
+            We've sent a confirmation email to verify your account. Please check your inbox and click the confirmation link to complete your registration.
+          </p>
+          <p class="text-sm text-neutral-500 dark:text-neutral-400 mb-6">
+            Email: <strong>{{ signupEmail }}</strong>
+          </p>
+        </div>
+
+        <div class="space-y-3">
+          <button
+            @click="handleResendConfirmation"
+            :disabled="authStore.loading"
+            class="w-full bg-primary-600 hover:bg-primary-700 disabled:bg-neutral-400 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200"
+          >
+            <span v-if="authStore.loading">Sending...</span>
+            <span v-else>Resend Confirmation Email</span>
+          </button>
+          <router-link
+            to="/login"
+            @click="showEmailConfirmation = false"
+            class="block w-full text-center px-4 py-3 border border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors duration-200"
+          >
+            Go to Sign In
+          </router-link>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
