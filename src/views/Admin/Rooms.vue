@@ -537,11 +537,14 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { supabase } from '@/lib/supabase'
+import { useNotificationStore } from '@/stores/notification'
+import { logger } from '@/utils/logger'
 
 // State
 const rooms = ref<any[]>([])
 const hotels = ref<any[]>([])
 const loading = ref(false)
+const notificationStore = useNotificationStore()
 const showModal = ref(false)
 const isEditing = ref(false)
 const currentPage = ref(1)
@@ -644,7 +647,9 @@ const fetchRooms = async () => {
     if (error) throw error
     rooms.value = data || []
   } catch (error) {
-    console.error('Error fetching rooms:', error)
+    logger.error('Error fetching rooms', { error })
+    const errorMessage = error instanceof Error ? error.message : 'Failed to load rooms'
+    notificationStore.error(errorMessage, 'Rooms Loading Error')
   }
 }
 
@@ -655,7 +660,9 @@ const fetchHotels = async () => {
     if (error) throw error
     hotels.value = data || []
   } catch (error) {
-    console.error('Error fetching hotels:', error)
+    logger.error('Error fetching hotels', { error })
+    const errorMessage = error instanceof Error ? error.message : 'Failed to load hotels'
+    notificationStore.error(errorMessage, 'Hotels Loading Error')
   }
 }
 
@@ -698,17 +705,20 @@ const saveRoom = async () => {
       const { error } = await supabase.from('rooms').update(roomData).eq('id', roomForm.value.id)
 
       if (error) throw error
+      notificationStore.success('Room updated successfully')
     } else {
       const { error } = await supabase.from('rooms').insert([roomData])
 
       if (error) throw error
+      notificationStore.success('Room created successfully')
     }
 
     await fetchRooms()
     closeModal()
   } catch (error) {
-    console.error('Error saving room:', error)
-    alert('Error saving room. Please try again.')
+    logger.error('Error saving room', { error, roomData: roomForm.value })
+    const errorMessage = error instanceof Error ? error.message : 'Failed to save room'
+    notificationStore.error(errorMessage, 'Room Save Error')
   } finally {
     loading.value = false
   }
@@ -722,8 +732,11 @@ const toggleRoomStatus = async (room: any) => {
 
     if (error) throw error
     await fetchRooms()
+    notificationStore.success(`Room status updated to ${newStatus}`)
   } catch (error) {
-    console.error('Error updating room status:', error)
+    logger.error('Error updating room status', { error, roomId: room.id, newStatus })
+    const errorMessage = error instanceof Error ? error.message : 'Failed to update room status'
+    notificationStore.error(errorMessage, 'Status Update Error')
   }
 }
 
@@ -735,8 +748,11 @@ const deleteRoom = async (roomId: string) => {
 
     if (error) throw error
     await fetchRooms()
+    notificationStore.success('Room deleted successfully')
   } catch (error) {
-    console.error('Error deleting room:', error)
+    logger.error('Error deleting room', { error, roomId })
+    const errorMessage = error instanceof Error ? error.message : 'Failed to delete room'
+    notificationStore.error(errorMessage, 'Room Deletion Error')
   }
 }
 
