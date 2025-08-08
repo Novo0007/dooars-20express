@@ -1,0 +1,205 @@
+{
+  "hotels": [
+    {
+      "id": 1,
+      "name": "Ocean View Resort",
+      "location": "Maldives",
+      "price": 450,
+      "rating": 4.9,
+      "badge": "Luxury",
+      "image": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=500&h=300&fit=crop",
+      "coordinates": { "lat": 3.2028, "lng": 73.2207 },
+      "description": "Luxury overwater resort with stunning ocean views and world-class amenities.",
+      "amenities": ["Private Pool", "Spa", "Restaurant", "Bar", "WiFi", "Room Service", "Diving Center", "Fitness Center"],
+      "images": [
+        "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=800&h=600&fit=crop"
+      ],
+      "rooms": [
+        {
+          "type": "Overwater Villa",
+          "price": 450,
+          "description": "Spacious villa with direct ocean access",
+          "amenities": ["Private Pool", "Ocean View", "King Bed"],
+          "maxGuests": 2
+        },
+        {
+          "type": "Beach Suite",
+          "price": 350,
+          "description": "Elegant suite steps from the beach",
+          "amenities": ["Beach Access", "Ocean View", "Queen Bed"],
+          "maxGuests": 2
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Mountain Lodge",
+      "location": "Swiss Alps, Switzerland",
+      "price": 320,
+      "rating": 4.8,
+      "badge": "Featured",
+      "image": "https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=500&h=300&fit=crop",
+      "coordinates": { "lat": 46.8182, "lng": 8.2275 },
+      "description": "Cozy mountain retreat with breathtaking alpine views and rustic charm.",
+      "amenities": ["Fireplace", "Spa", "Restaurant", "Ski Access", "WiFi", "Balcony", "Hiking Trails", "Mountain Views"],
+      "images": [
+        "https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop"
+      ],
+      "rooms": [
+        {
+          "type": "Alpine Suite",
+          "price": 320,
+          "description": "Luxury suite with mountain panorama",
+          "amenities": ["Fireplace", "Mountain View", "King Bed"],
+          "maxGuests": 2
+        },
+        {
+          "type": "Cozy Cabin",
+          "price": 220,
+          "description": "Rustic cabin with modern amenities",
+          "amenities": ["Fireplace", "Garden View", "Queen Bed"],
+          "maxGuests": 2
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "City Center Hotel",
+      "location": "New York, USA",
+      "price": 280,
+      "rating": 4.7,
+      "badge": "Popular",
+      "image": "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500&h=300&fit=crop",
+      "coordinates": { "lat": 40.7128, "lng": -74.0060 },
+      "description": "Modern hotel in the heart of Manhattan with easy access to major attractions.",
+      "amenities": ["Gym", "Business Center", "Restaurant", "Bar", "WiFi", "Concierge", "Rooftop Terrace", "24/7 Service"],
+      "images": [
+        "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=800&h=600&fit=crop"
+      ],
+      "rooms": [
+        {
+          "type": "Executive Suite",
+          "price": 380,
+          "description": "Spacious suite with city skyline views",
+          "amenities": ["City View", "Living Room", "King Bed"],
+          "maxGuests": 3
+        },
+        {
+          "type": "Standard Room",
+          "price": 280,
+          "description": "Comfortable room with modern amenities",
+          "amenities": ["City View", "Work Desk", "Queen Bed"],
+          "maxGuests": 2
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Santorini Sunset Villa",
+      "location": "Santorini, Greece",
+      "price": 380,
+      "rating": 4.9,
+      "badge": "Romantic",
+      "image": "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=500&h=300&fit=crop",
+      "coordinates": { "lat": 36.3932, "lng": 25.4615 },
+      "description": "Stunning villa overlooking the Aegean Sea with infinity pool and sunset views.",
+      "amenities": ["Infinity Pool", "Sunset Views", "Private Terrace", "Spa", "WiFi", "Breakfast", "Hot Tub", "Wine Cellar"],
+      "images": [
+        "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1544024663-274167469b96?w=800&h=600&fit=crop"
+      ],
+      "rooms": [
+        {
+          "type": "Sunset Villa",
+          "price": 380,
+          "description": "Private villa with infinity pool",
+          "amenities": ["Infinity Pool", "Sunset View", "King Bed"],
+          "maxGuests": 4
+        }
+      ]
+    }
+  ],
+  "bookings": [
+    {
+      "id": "WS1234567890",
+      "userId": "1",
+      "hotelId": 1,
+      "checkIn": "2024-02-15",
+      "checkOut": "2024-02-20",
+      "guests": 2,
+      "rooms": 1,
+      "roomType": "Overwater Villa",
+      "totalPrice": 2250,
+      "finalPrice": 2250,
+      "status": "confirmed",
+      "createdAt": "2024-01-15T10:30:00Z"
+    }
+  ],
+  "reviews": [
+    {
+      "id": 1,
+      "hotelId": 1,
+      "userId": "1",
+      "rating": 5,
+      "comment": "Absolutely stunning resort! The overwater villa was a dream come true.",
+      "date": "2024-01-20T14:30:00Z",
+      "userName": "Sarah Johnson",
+      "userAvatar": "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=50&h=50&fit=crop&crop=face"
+    },
+    {
+      "id": 2,
+      "hotelId": 1,
+      "userId": "2",
+      "rating": 5,
+      "comment": "Perfect honeymoon destination. Service was impeccable!",
+      "date": "2024-01-18T16:45:00Z",
+      "userName": "Michael Chen",
+      "userAvatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=50&h=50&fit=crop&crop=face"
+    }
+  ],
+  "destinations": [
+    {
+      "id": 1,
+      "name": "Paris",
+      "country": "France",
+      "properties": 1200,
+      "image": "https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=400&h=500&fit=crop",
+      "coordinates": { "lat": 48.8566, "lng": 2.3522 },
+      "description": "The City of Light offers romance, culture, and world-class cuisine."
+    },
+    {
+      "id": 2,
+      "name": "Tokyo",
+      "country": "Japan",
+      "properties": 800,
+      "image": "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=500&fit=crop",
+      "coordinates": { "lat": 35.6762, "lng": 139.6503 },
+      "description": "A fascinating blend of ancient traditions and cutting-edge technology."
+    },
+    {
+      "id": 3,
+      "name": "Bali",
+      "country": "Indonesia",
+      "properties": 650,
+      "image": "https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=400&h=500&fit=crop",
+      "coordinates": { "lat": -8.3405, "lng": 115.0920 },
+      "description": "Tropical paradise with stunning beaches, temples, and rice terraces."
+    },
+    {
+      "id": 4,
+      "name": "London",
+      "country": "United Kingdom",
+      "properties": 900,
+      "image": "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=400&h=500&fit=crop",
+      "coordinates": { "lat": 51.5074, "lng": -0.1278 },
+      "description": "Historic capital with iconic landmarks, museums, and vibrant culture."
+    }
+  ]
+}
