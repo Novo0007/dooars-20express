@@ -188,9 +188,51 @@ export interface Database {
             phone: string
             specialRequests?: string
           }
+      user_profiles: {
+        Row: {
+          id: string
+          email: string
+          full_name: string | null
+          avatar_url: string | null
+          phone: string | null
+          date_of_birth: string | null
+          preferred_language: string
+          role: 'user' | 'admin' | 'super_admin'
+          is_active: boolean
+          email_notifications: boolean
+          marketing_emails: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id: string
+          email: string
+          full_name?: string | null
+          avatar_url?: string | null
+          phone?: string | null
+          date_of_birth?: string | null
+          preferred_language?: string
+          role?: 'user' | 'admin' | 'super_admin'
+          is_active?: boolean
+          email_notifications?: boolean
+          marketing_emails?: boolean
+        }
+        Update: {
+          email?: string
+          full_name?: string | null
+          avatar_url?: string | null
+          phone?: string | null
+          date_of_birth?: string | null
+          preferred_language?: string
+          role?: 'user' | 'admin' | 'super_admin'
+          is_active?: boolean
+          email_notifications?: boolean
+          marketing_emails?: boolean
         }
       }
     }
+  }
+}
   }
 }
 
