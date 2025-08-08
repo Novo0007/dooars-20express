@@ -117,7 +117,7 @@
           <div 
             v-for="hotel in featuredHotels" 
             :key="hotel.id"
-            class="group bg-white rounded-2xl shadow-soft hover:shadow-medium transition-all duration-300 transform hover:-translate-y-2 cursor-pointer"
+            class="group bg-white dark:bg-neutral-800 rounded-2xl shadow-soft hover:shadow-medium transition-all duration-300 transform hover:-translate-y-2 cursor-pointer"
             @click="goToHotel(hotel.id)"
           >
             <div class="relative overflow-hidden rounded-t-2xl">
