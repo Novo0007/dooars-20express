@@ -117,12 +117,15 @@ export const useHotelStore = defineStore('hotel', () => {
     error.value = null
 
     try {
-      // Mock API call - replace with actual API
-      const response = await fetch('/api/hotels')
-      if (!response.ok) throw new Error('Failed to fetch hotels')
+      const { data, error: supabaseError } = await supabase
+        .from('hotels')
+        .select('*')
+        .eq('is_active', true)
+        .order('created_at', { ascending: false })
 
-      const data = await response.json()
-      hotels.value = data
+      if (supabaseError) throw supabaseError
+
+      hotels.value = data || []
     } catch (err) {
       error.value = err instanceof Error ? err.message : 'Unknown error'
       console.error('Error fetching hotels:', err)
