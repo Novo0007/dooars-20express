@@ -227,7 +227,7 @@ export const useAuthStore = defineStore('auth', () => {
 
       if (profileError && profileError.code !== 'PGRST116') {
         // PGRST116 = row not found, which is expected for new users
-        console.error('Profile fetch error:', profileError)
+        console.error('Profile fetch error:', profileError.message || profileError.hint || JSON.stringify(profileError))
         throw profileError
       }
 
@@ -242,7 +242,7 @@ export const useAuthStore = defineStore('auth', () => {
         profile: profile || undefined,
       }
     } catch (err) {
-      console.error('Failed to fetch user profile:', err)
+      console.error('Failed to fetch user profile:', err instanceof Error ? err.message : JSON.stringify(err))
       // Even if profile fetch fails, set the basic user info
       user.value = authUser
     }
