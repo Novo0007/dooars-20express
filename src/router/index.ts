@@ -106,6 +106,31 @@ const router = createRouter({
       component: () => import('../views/Admin/Reports.vue'),
       meta: { title: 'Reports & Analytics', requiresAuth: true, requiresAdmin: true },
     },
+    // Hotel Manager Routes
+    {
+      path: '/hotel-manager',
+      name: 'hotel-manager',
+      component: () => import('../views/HotelManager/Dashboard.vue'),
+      meta: { title: 'Hotel Manager Dashboard', requiresAuth: true, requiresHotelManager: true },
+    },
+    {
+      path: '/hotel-manager/bookings',
+      name: 'hotel-manager-bookings',
+      component: () => import('../views/HotelManager/Bookings.vue'),
+      meta: { title: 'Manage Bookings', requiresAuth: true, requiresHotelManager: true },
+    },
+    {
+      path: '/hotel-manager/rooms',
+      name: 'hotel-manager-rooms',
+      component: () => import('../views/HotelManager/Rooms.vue'),
+      meta: { title: 'Manage Rooms', requiresAuth: true, requiresHotelManager: true },
+    },
+    {
+      path: '/hotel-manager/reports',
+      name: 'hotel-manager-reports',
+      component: () => import('../views/HotelManager/Reports.vue'),
+      meta: { title: 'Hotel Reports', requiresAuth: true, requiresHotelManager: true },
+    },
   ],
 })
 
