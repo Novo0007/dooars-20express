@@ -462,9 +462,12 @@ import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { supabase } from '@/lib/supabase'
+import { useNotificationStore } from '@/stores/notification'
+import { logger } from '@/utils/logger'
 
 const route = useRoute()
 const authStore = useAuthStore()
+const notificationStore = useNotificationStore()
 
 // State
 const selectedHotelId = ref('')
@@ -510,7 +513,9 @@ const fetchRooms = async () => {
     if (error) throw error
     rooms.value = data || []
   } catch (error) {
-    console.error('Error fetching rooms:', error)
+    logger.error('Error fetching rooms', { error, hotelId: selectedHotelId.value })
+    const errorMessage = error instanceof Error ? error.message : 'Failed to load rooms'
+    notificationStore.error(errorMessage, 'Rooms Loading Error')
   } finally {
     loading.value = false
   }
@@ -555,17 +560,20 @@ const saveRoom = async () => {
       const { error } = await supabase.from('rooms').update(roomData).eq('id', editingRoom.value.id)
 
       if (error) throw error
+      notificationStore.success('Room updated successfully')
     } else {
       const { error } = await supabase.from('rooms').insert([roomData])
 
       if (error) throw error
+      notificationStore.success('Room created successfully')
     }
 
     await fetchRooms()
     closeModal()
   } catch (error) {
-    console.error('Error saving room:', error)
-    alert('Error saving room. Please try again.')
+    logger.error('Error saving room', { error, roomData })
+    const errorMessage = error instanceof Error ? error.message : 'Failed to save room'
+    notificationStore.error(errorMessage, 'Room Save Error')
   } finally {
     loading.value = false
   }
@@ -580,8 +588,11 @@ const toggleRoomStatus = async (room: any) => {
 
     if (error) throw error
     await fetchRooms()
+    notificationStore.success(`Room ${room.is_active ? 'deactivated' : 'activated'} successfully`)
   } catch (error) {
-    console.error('Error updating room status:', error)
+    logger.error('Error updating room status', { error, roomId: room.id })
+    const errorMessage = error instanceof Error ? error.message : 'Failed to update room status'
+    notificationStore.error(errorMessage, 'Status Update Error')
   }
 }
 
