@@ -274,15 +274,40 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
 import ThemeToggle from './ThemeToggle.vue'
 import LanguageSelector from './LanguageSelector.vue'
 
 const { t } = useI18n()
+const router = useRouter()
+const authStore = useAuthStore()
+
 const mobileMenuOpen = ref(false)
+const showUserMenu = ref(false)
 
 const navigation = computed(() => [
   { name: t('nav.home'), href: '/' },
   { name: t('nav.search'), href: '/search' },
   { name: t('nav.bookings'), href: '/profile' },
 ])
+
+const handleLogout = async () => {
+  try {
+    await authStore.logout()
+    showUserMenu.value = false
+    mobileMenuOpen.value = false
+    router.push('/')
+  } catch (error) {
+    console.error('Logout failed:', error)
+  }
+}
+
+// Close user menu when clicking outside
+document.addEventListener('click', (event) => {
+  const target = event.target as HTMLElement
+  if (!target.closest('.relative')) {
+    showUserMenu.value = false
+  }
+})
 </script>
