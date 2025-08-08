@@ -139,6 +139,45 @@ export const useHotelStore = defineStore('hotel', () => {
     loading.value = true
     error.value = null
 
+    const mockData = [
+      {
+        id: 1,
+        name: 'Ocean View Resort',
+        location: 'Maldives',
+        price: 450,
+        rating: 4.9,
+        badge: 'Luxury',
+        image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=500&h=300&fit=crop',
+        coordinates: { lat: 3.2028, lng: 73.2207 },
+        description: 'Luxury overwater resort with stunning ocean views and world-class amenities.',
+        amenities: ['Private Pool', 'Spa', 'Restaurant', 'Bar', 'WiFi', 'Room Service'],
+      },
+      {
+        id: 2,
+        name: 'Mountain Lodge',
+        location: 'Swiss Alps, Switzerland',
+        price: 320,
+        rating: 4.8,
+        badge: 'Featured',
+        image: 'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=500&h=300&fit=crop',
+        coordinates: { lat: 46.8182, lng: 8.2275 },
+        description: 'Cozy mountain retreat with breathtaking alpine views and rustic charm.',
+        amenities: ['Fireplace', 'Spa', 'Restaurant', 'Ski Access', 'WiFi', 'Balcony'],
+      },
+      {
+        id: 3,
+        name: 'City Center Hotel',
+        location: 'New York, USA',
+        price: 280,
+        rating: 4.7,
+        badge: 'Popular',
+        image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500&h=300&fit=crop',
+        coordinates: { lat: 40.7128, lng: -74.006 },
+        description: 'Modern hotel in the heart of Manhattan with easy access to major attractions.',
+        amenities: ['Gym', 'Business Center', 'Restaurant', 'Bar', 'WiFi', 'Concierge'],
+      },
+    ]
+
     try {
       // Try to fetch from Supabase first
       const { data, error: supabaseError } = await supabase
@@ -151,7 +190,9 @@ export const useHotelStore = defineStore('hotel', () => {
 
       if (supabaseError) {
         console.warn('Supabase error, falling back to mock data:', supabaseError.message)
-        throw supabaseError
+        // Set mock data and continue, don't throw
+        featuredHotels.value = mockData
+        return
       }
 
       if (data && data.length > 0) {
@@ -170,64 +211,18 @@ export const useHotelStore = defineStore('hotel', () => {
           description: hotel.description || '',
           amenities: hotel.amenities || [],
         }))
-        return // Successfully loaded from database
+      } else {
+        // No featured hotels found in database, use mock data
+        console.log('No featured hotels found in database, using mock data')
+        featuredHotels.value = mockData
       }
-
-      // No featured hotels found in database, use mock data
-      console.log('No featured hotels found in database, using mock data')
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Unknown error occurred'
       error.value = errorMessage
-      console.error(
-        'Error fetching featured hotels, using mock data:',
-        errorMessage,
-        err instanceof Error ? err.stack : err,
-      )
+      console.error('Error fetching featured hotels, using mock data:', errorMessage)
 
-      // Fallback to mock data
-      featuredHotels.value = [
-        {
-          id: 1,
-          name: 'Ocean View Resort',
-          location: 'Maldives',
-          price: 450,
-          rating: 4.9,
-          badge: 'Luxury',
-          image:
-            'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=500&h=300&fit=crop',
-          coordinates: { lat: 3.2028, lng: 73.2207 },
-          description:
-            'Luxury overwater resort with stunning ocean views and world-class amenities.',
-          amenities: ['Private Pool', 'Spa', 'Restaurant', 'Bar', 'WiFi', 'Room Service'],
-        },
-        {
-          id: 2,
-          name: 'Mountain Lodge',
-          location: 'Swiss Alps, Switzerland',
-          price: 320,
-          rating: 4.8,
-          badge: 'Featured',
-          image:
-            'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=500&h=300&fit=crop',
-          coordinates: { lat: 46.8182, lng: 8.2275 },
-          description: 'Cozy mountain retreat with breathtaking alpine views and rustic charm.',
-          amenities: ['Fireplace', 'Spa', 'Restaurant', 'Ski Access', 'WiFi', 'Balcony'],
-        },
-        {
-          id: 3,
-          name: 'City Center Hotel',
-          location: 'New York, USA',
-          price: 280,
-          rating: 4.7,
-          badge: 'Popular',
-          image:
-            'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500&h=300&fit=crop',
-          coordinates: { lat: 40.7128, lng: -74.006 },
-          description:
-            'Modern hotel in the heart of Manhattan with easy access to major attractions.',
-          amenities: ['Gym', 'Business Center', 'Restaurant', 'Bar', 'WiFi', 'Concierge'],
-        },
-      ]
+      // Always provide mock data as fallback
+      featuredHotels.value = mockData
     } finally {
       loading.value = false
     }
