@@ -343,17 +343,35 @@ const handleSignup = async () => {
   if (!validateForm()) return
 
   try {
-    await authStore.signup({
+    const result = await authStore.signup({
       email: form.value.email,
       password: form.value.password,
       full_name: form.value.fullName,
       phone: form.value.phone || undefined
     })
-    
-    // Redirect to profile or welcome page
-    router.push('/profile')
+
+    // Check if user needs email confirmation
+    if (result && result.user && !result.session) {
+      signupEmail.value = form.value.email
+      showEmailConfirmation.value = true
+    } else {
+      // User is automatically signed in
+      router.push('/profile')
+    }
   } catch (error) {
     console.error('Signup failed:', error)
+  }
+}
+
+const handleResendConfirmation = async () => {
+  if (!signupEmail.value) return
+
+  try {
+    await authStore.resendConfirmation(signupEmail.value)
+    alert('Confirmation email sent! Please check your inbox and click the confirmation link.')
+  } catch (error) {
+    console.error('Failed to resend confirmation:', error)
+    alert('Failed to resend confirmation email. Please try again.')
   }
 }
 </script>
