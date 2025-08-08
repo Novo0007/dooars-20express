@@ -17,11 +17,11 @@
       <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
         <div class="text-center mb-12">
           <h1 class="text-4xl lg:text-6xl font-display font-bold text-white mb-6 animate-fade-in">
-            Discover Your Perfect
-            <span class="text-accent-300">Getaway</span>
+            {{ $t('home.hero.title') }}
+            <span class="text-accent-300">{{ $t('home.hero.titleAccent') }}</span>
           </h1>
           <p class="text-xl lg:text-2xl text-primary-100 mb-8 animate-slide-up">
-            Book amazing hotels and create unforgettable memories around the world
+            {{ $t('home.hero.subtitle') }}
           </p>
         </div>
 
