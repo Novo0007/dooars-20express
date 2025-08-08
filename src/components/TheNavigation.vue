@@ -27,6 +27,7 @@
 
         <!-- Desktop Auth Buttons -->
         <div class="hidden md:flex items-center space-x-4">
+          <ThemeToggle />
           <router-link 
             to="/login" 
             class="text-neutral-600 hover:text-primary-600 px-3 py-2 text-sm font-medium transition-colors duration-200"
