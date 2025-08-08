@@ -111,21 +111,22 @@ export const testRoomsTable = async (): Promise<DBTestResult> => {
 
     if (error) {
       let errorMessage = 'Unknown rooms table error'
-    let errorDetails = ''
+      let errorDetails = ''
 
-    if (error instanceof Error) {
-      errorMessage = error.message
-      errorDetails = error.stack || ''
-    } else if (typeof error === 'object' && error !== null) {
-      // Handle Supabase error objects
-      const supabaseError = error as any
-      errorMessage = supabaseError.message || supabaseError.error_description || 'Supabase rooms error'
-      errorDetails = `Code: ${supabaseError.code || 'N/A'}, Details: ${supabaseError.details || 'N/A'}, Hint: ${supabaseError.hint || 'N/A'}`
-    } else {
-      errorMessage = String(error)
-    }
+      if (error instanceof Error) {
+        errorMessage = error.message
+        errorDetails = error.stack || ''
+      } else if (typeof error === 'object' && error !== null) {
+        // Handle Supabase error objects
+        const supabaseError = error as any
+        errorMessage =
+          supabaseError.message || supabaseError.error_description || 'Supabase rooms error'
+        errorDetails = `Code: ${supabaseError.code || 'N/A'}, Details: ${supabaseError.details || 'N/A'}, Hint: ${supabaseError.hint || 'N/A'}`
+      } else {
+        errorMessage = String(error)
+      }
 
-    console.error('Rooms table error:', errorMessage, errorDetails ? `(${errorDetails})` : '')
+      console.error('Rooms table error:', errorMessage, errorDetails ? `(${errorDetails})` : '')
       return {
         success: false,
         message: `Rooms table access failed: ${error.message}`,

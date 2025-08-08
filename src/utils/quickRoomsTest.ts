@@ -3,20 +3,17 @@ import { supabase } from '@/lib/supabase'
 // Quick test to identify rooms table issues
 export async function quickRoomsTest() {
   console.log('🚀 Quick Rooms Test Starting...')
-  
+
   try {
     // Test 1: Basic table access
     console.log('1️⃣ Testing basic rooms table access...')
-    const { data: basicData, error: basicError } = await supabase
-      .from('rooms')
-      .select('*')
-      .limit(1)
-    
+    const { data: basicData, error: basicError } = await supabase.from('rooms').select('*').limit(1)
+
     if (basicError) {
       console.error('❌ Basic access failed:', basicError)
       return { success: false, error: basicError.message }
     }
-    
+
     console.log('✅ Basic access works, sample data:', basicData)
 
     // Test 2: Count query
@@ -24,7 +21,7 @@ export async function quickRoomsTest() {
     const { count, error: countError } = await supabase
       .from('rooms')
       .select('*', { count: 'exact', head: true })
-    
+
     if (countError) {
       console.error('❌ Count query failed:', countError)
     } else {
@@ -37,7 +34,7 @@ export async function quickRoomsTest() {
       .from('rooms')
       .select('id, type, price, max_guests, available_count, is_active')
       .limit(1)
-    
+
     if (fieldsError) {
       console.error('❌ Fields test failed:', fieldsError)
     } else {
@@ -48,16 +45,18 @@ export async function quickRoomsTest() {
     console.log('4️⃣ Testing hotel relationship...')
     const { data: relationData, error: relationError } = await supabase
       .from('rooms')
-      .select(`
+      .select(
+        `
         id,
         hotel_id,
         hotels (
           id,
           name
         )
-      `)
+      `,
+      )
       .limit(1)
-    
+
     if (relationError) {
       console.error('❌ Hotel relationship failed:', relationError)
     } else {
@@ -68,7 +67,8 @@ export async function quickRoomsTest() {
     console.log('5️⃣ Testing complex query from hotel store...')
     const { data: complexData, error: complexError } = await supabase
       .from('hotels')
-      .select(`
+      .select(
+        `
         *,
         rooms (
           id,
@@ -78,10 +78,11 @@ export async function quickRoomsTest() {
           available_count,
           is_active
         )
-      `)
+      `,
+      )
       .eq('is_active', true)
       .limit(1)
-    
+
     if (complexError) {
       console.error('❌ Complex query failed:', complexError)
       return { success: false, error: complexError.message }
@@ -91,7 +92,6 @@ export async function quickRoomsTest() {
 
     console.log('🎉 All tests passed!')
     return { success: true, message: 'All rooms tests passed' }
-
   } catch (error) {
     console.error('💥 Test exception:', error)
     return { success: false, error: String(error) }

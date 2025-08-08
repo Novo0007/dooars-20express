@@ -301,7 +301,9 @@ export const useHotelStore = defineStore('hotel', () => {
 
       if (supabaseError) {
         console.error('Supabase search error:', supabaseError)
-        throw new Error(`Hotel search failed: ${supabaseError.message} (Code: ${supabaseError.code || 'N/A'})`)
+        throw new Error(
+          `Hotel search failed: ${supabaseError.message} (Code: ${supabaseError.code || 'N/A'})`,
+        )
       }
 
       if (!data) {

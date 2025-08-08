@@ -19,7 +19,7 @@ export async function diagnosticRoomsTable(): Promise<RoomsDiagnosticResult> {
     sampleRecords: [],
     schema: [],
     errors: [],
-    warnings: []
+    warnings: [],
   }
 
   try {
@@ -51,10 +51,8 @@ export async function diagnosticRoomsTable(): Promise<RoomsDiagnosticResult> {
 
     // Test 2: Get record count
     console.log('📊 Step 2: Getting record count...')
-    const { count } = await supabase
-      .from('rooms')
-      .select('*', { count: 'exact', head: true })
-    
+    const { count } = await supabase.from('rooms').select('*', { count: 'exact', head: true })
+
     result.recordCount = count || 0
     console.log(`📈 Found ${result.recordCount} records`)
 
@@ -74,15 +72,20 @@ export async function diagnosticRoomsTable(): Promise<RoomsDiagnosticResult> {
 
     // Test 4: Test specific fields we expect
     console.log('🧪 Step 4: Testing expected fields...')
-    const expectedFields = ['id', 'hotel_id', 'type', 'price', 'max_guests', 'available_count', 'is_active']
-    
+    const expectedFields = [
+      'id',
+      'hotel_id',
+      'type',
+      'price',
+      'max_guests',
+      'available_count',
+      'is_active',
+    ]
+
     for (const field of expectedFields) {
       try {
-        const { data, error } = await supabase
-          .from('rooms')
-          .select(field)
-          .limit(1)
-        
+        const { data, error } = await supabase.from('rooms').select(field).limit(1)
+
         if (error) {
           result.errors.push(`Field '${field}' test failed: ${error.message}`)
         } else {
@@ -98,14 +101,16 @@ export async function diagnosticRoomsTable(): Promise<RoomsDiagnosticResult> {
     try {
       const { data: relationData, error: relationError } = await supabase
         .from('rooms')
-        .select(`
+        .select(
+          `
           id,
           hotel_id,
           hotels (
             id,
             name
           )
-        `)
+        `,
+        )
         .limit(1)
 
       if (relationError) {
@@ -116,7 +121,6 @@ export async function diagnosticRoomsTable(): Promise<RoomsDiagnosticResult> {
     } catch (err) {
       result.warnings.push(`Hotel relationship exception: ${err}`)
     }
-
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown diagnostic error'
     result.errors.push(`Diagnostic exception: ${errorMessage}`)
@@ -141,12 +145,12 @@ export function printDiagnosticReport(result: RoomsDiagnosticResult) {
 
   if (result.errors.length > 0) {
     console.log('\n❌ ERRORS:')
-    result.errors.forEach(error => console.log(`  - ${error}`))
+    result.errors.forEach((error) => console.log(`  - ${error}`))
   }
 
   if (result.warnings.length > 0) {
     console.log('\n⚠️ WARNINGS:')
-    result.warnings.forEach(warning => console.log(`  - ${warning}`))
+    result.warnings.forEach((warning) => console.log(`  - ${warning}`))
   }
 
   console.log('\n================================\n')
