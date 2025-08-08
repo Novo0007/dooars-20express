@@ -385,7 +385,7 @@
 import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { supabase } from '../lib/supabase'
-import { formatPrice } from '../utils/currency'
+import { formatPrice, formatPricePerNight } from '../utils/currency'
 import { useNotificationStore } from '../stores/notification'
 import { runFullDatabaseTest } from '../utils/dbTest'
 
