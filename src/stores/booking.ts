@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import type { Hotel } from './hotel'
+import { useAppStore } from './app'
 
 export interface BookingDetails {
   id?: string
