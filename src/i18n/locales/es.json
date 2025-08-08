@@ -1,0 +1,97 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "search": "Buscar",
+    "bookings": "Mis Reservas",
+    "signin": "Iniciar Sesión",
+    "signup": "Registrarse",
+    "theme": "Tema"
+  },
+  "home": {
+    "hero": {
+      "title": "Descubre Tu",
+      "titleAccent": "Escapada Perfecta",
+      "subtitle": "Reserva hoteles increíbles y crea recuerdos inolvidables alrededor del mundo"
+    },
+    "search": {
+      "destination": "Destino",
+      "destinationPlaceholder": "¿A dónde quieres ir?",
+      "checkin": "Entrada",
+      "checkout": "Salida",
+      "guests": "Huéspedes",
+      "guestOptions": {
+        "1": "1 Huésped",
+        "2": "2 Huéspedes",
+        "3": "3 Huéspedes",
+        "4": "4 Huéspedes",
+        "5+": "5+ Huéspedes"
+      },
+      "searchButton": "Buscar Hoteles"
+    },
+    "featured": {
+      "title": "Hoteles Destacados",
+      "subtitle": "Descubre nuestra selección de hoteles de lujo y propiedades boutique",
+      "viewDetails": "Ver Detalles",
+      "perNight": "/noche"
+    },
+    "destinations": {
+      "title": "Destinos Populares",
+      "subtitle": "Explora los destinos de viaje más buscados del mundo",
+      "properties": "propiedades"
+    },
+    "features": {
+      "title": "¿Por Qué Elegir WanderStay?",
+      "subtitle": "Hacemos que reservar viajes sea simple, seguro y gratificante",
+      "priceGuarantee": {
+        "title": "Garantía del Mejor Precio",
+        "description": "¿Encuentras el mismo hotel por menos? Igualaremos el precio y te daremos un 5% adicional de descuento."
+      },
+      "support": {
+        "title": "Soporte 24/7",
+        "description": "Nuestros expertos en viajes están disponibles las 24 horas para ayudarte con cualquier pregunta."
+      },
+      "secure": {
+        "title": "Reserva Segura",
+        "description": "Tu información personal y de pago está protegida con encriptación estándar de la industria."
+      }
+    }
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "retry": "Reintentar",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "save": "Guardar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "close": "Cerrar",
+    "open": "Abrir"
+  },
+  "booking": {
+    "title": "Reserva Tu Estadía",
+    "guestInfo": "Información del Huésped",
+    "paymentInfo": "Información de Pago",
+    "bookingSummary": "Resumen de Reserva",
+    "total": "Total",
+    "discount": "Descuento",
+    "finalPrice": "Precio Final",
+    "confirmBooking": "Confirmar Reserva"
+  },
+  "chat": {
+    "title": "Chat en Vivo",
+    "placeholder": "Escribe tu mensaje...",
+    "send": "Enviar",
+    "startConversation": "Inicia una conversación con nuestro equipo de soporte"
+  },
+  "placeholder": {
+    "comingSoon": "Próximamente",
+    "underConstruction": "Esta página está en construcción. Estamos trabajando arduamente para brindarte una experiencia increíble de {feature}.",
+    "helpBuild": "¿Quieres ayudarnos a construir esta funcionalidad?",
+    "continuePrompting": "¡Continúa solicitando requisitos específicos para esta página y la implementaremos para ti!",
+    "backToHome": "Volver al Inicio"
+  }
+}
