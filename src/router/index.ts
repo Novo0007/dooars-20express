@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Search from '../views/Search.vue'
+import HotelDetails from '../views/HotelDetails.vue'
+import Booking from '../views/Booking.vue'
 import Placeholder from '../views/Placeholder.vue'
 
 const router = createRouter({
@@ -20,13 +22,13 @@ const router = createRouter({
     {
       path: '/hotel/:id',
       name: 'hotel-details',
-      component: Placeholder,
+      component: HotelDetails,
       meta: { title: 'Hotel Details' }
     },
     {
       path: '/booking',
       name: 'booking',
-      component: Placeholder,
+      component: Booking,
       meta: { title: 'Booking' }
     },
     {
