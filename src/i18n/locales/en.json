@@ -40,7 +40,7 @@
       "properties": "properties"
     },
     "features": {
-      "title": "Why Choose WanderStay?",
+      "title": "Why Choose Dooars Express?",
       "subtitle": "We make travel booking simple, secure, and rewarding",
       "priceGuarantee": {
         "title": "Best Price Guarantee",
@@ -183,7 +183,7 @@
   },
   "confirmation": {
     "bookingConfirmed": "Booking Confirmed!",
-    "thankYou": "Thank you for choosing WanderStay",
+    "thankYou": "Thank you for choosing Dooars Express",
     "confirmationNumber": "Confirmation Number",
     "bookingDetails": "Booking Details",
     "paymentSummary": "Payment Summary",
