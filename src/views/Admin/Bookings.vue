@@ -478,6 +478,7 @@ import { supabase } from '@/lib/supabase'
 import { useNotificationStore } from '@/stores/notification'
 import { logger } from '@/utils/logger'
 
+const notificationStore = useNotificationStore()
 const loading = ref(true)
 const bookings = ref<any[]>([])
 const selectedBooking = ref<any>(null)
