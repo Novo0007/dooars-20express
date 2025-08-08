@@ -632,6 +632,37 @@ const refreshUsers = () => {
   fetchUsers()
 }
 
+const fetchHotels = async () => {
+  try {
+    const { data, error } = await supabase
+      .from('hotels')
+      .select('id, name, location')
+      .eq('is_active', true)
+      .order('name')
+
+    if (error) throw error
+    hotels.value = data || []
+  } catch (error) {
+    console.error('Error fetching hotels:', error)
+  }
+}
+
+const fetchUserHotelAssignments = async (userId: string) => {
+  try {
+    const { data, error } = await supabase
+      .from('hotel_assignments')
+      .select('*, hotel:hotels(id, name, location)')
+      .eq('user_id', userId)
+      .eq('is_active', true)
+
+    if (error) throw error
+    return data || []
+  } catch (error) {
+    console.error('Error fetching user hotel assignments:', error)
+    return []
+  }
+}
+
 const editUser = (user: any) => {
   editingUser.value = user
   editForm.value = {
