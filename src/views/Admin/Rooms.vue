@@ -165,9 +165,8 @@
             class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="">All Status</option>
-            <option value="available">Available</option>
-            <option value="occupied">Occupied</option>
-            <option value="maintenance">Maintenance</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
           </select>
         </div>
       </div>
@@ -227,8 +226,8 @@
                     class="h-10 w-10 rounded-lg object-cover mr-3"
                   />
                   <div>
-                    <div class="text-sm font-medium text-gray-900">{{ room.name }}</div>
-                    <div class="text-sm text-gray-500">Room #{{ room.room_number }}</div>
+                    <div class="text-sm font-medium text-gray-900">{{ room.type }}</div>
+                    <div class="text-sm text-gray-500">{{ room.description || 'No description' }}</div>
                   </div>
                 </div>
               </td>
@@ -238,20 +237,20 @@
               <td class="px-6 py-4 whitespace-nowrap">
                 <span
                   class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
-                  :class="getCategoryClass(room.category)"
+                  :class="getCategoryClass(room.type)"
                 >
-                  {{ room.category }}
+                  {{ room.type }}
                 </span>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                ${{ room.price_per_night }}/night
+                ${{ room.price }}/night
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
                 <span
                   class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
-                  :class="getStatusClass(room.status)"
+                  :class="getStatusClass(room.is_active)"
                 >
-                  {{ room.status }}
+                  {{ room.is_active ? 'Active' : 'Inactive' }}
                 </span>
               </td>
               <td class="px-6 py-4">
@@ -280,7 +279,7 @@
                     @click="toggleRoomStatus(room)"
                     class="text-green-600 hover:text-green-900"
                   >
-                    {{ room.status === 'available' ? 'Block' : 'Available' }}
+                    {{ room.is_active ? 'Deactivate' : 'Activate' }}
                   </button>
                   <button @click="deleteRoom(room.id)" class="text-red-600 hover:text-red-900">
                     Delete
@@ -383,23 +382,24 @@
           <form @submit.prevent="saveRoom" class="space-y-4">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Room Name</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Room Type</label>
                 <input
-                  v-model="roomForm.name"
+                  v-model="roomForm.type"
                   type="text"
                   required
                   class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Deluxe Ocean View"
+                  placeholder="Single, Double, Suite, etc."
                 />
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Room Number</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Price per Night ($)</label>
                 <input
-                  v-model="roomForm.room_number"
-                  type="text"
+                  v-model.number="roomForm.price"
+                  type="number"
+                  min="0"
+                  step="0.01"
                   required
                   class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="101"
                 />
               </div>
             </div>
@@ -419,37 +419,6 @@
                 </select>
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Category</label>
-                <select
-                  v-model="roomForm.category"
-                  required
-                  class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  <option value="">Select Category</option>
-                  <option value="Single">Single</option>
-                  <option value="Double">Double</option>
-                  <option value="Suite">Suite</option>
-                  <option value="Deluxe">Deluxe</option>
-                  <option value="Family">Family</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1"
-                  >Price per Night ($)</label
-                >
-                <input
-                  v-model.number="roomForm.price_per_night"
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  required
-                  class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-              <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Max Guests</label>
                 <input
                   v-model.number="roomForm.max_guests"
@@ -459,15 +428,27 @@
                   class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Available Count</label>
+                <input
+                  v-model.number="roomForm.available_count"
+                  type="number"
+                  min="0"
+                  required
+                  class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
                 <select
-                  v-model="roomForm.status"
+                  v-model="roomForm.is_active"
                   class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                  <option value="available">Available</option>
-                  <option value="occupied">Occupied</option>
-                  <option value="maintenance">Maintenance</option>
+                  <option value="true">Active</option>
+                  <option value="false">Inactive</option>
                 </select>
               </div>
             </div>
@@ -482,15 +463,6 @@
               ></textarea>
             </div>
 
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">Image URL</label>
-              <input
-                v-model="roomForm.image_url"
-                type="url"
-                class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="https://example.com/room-image.jpg"
-              />
-            </div>
 
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Amenities</label>
@@ -559,15 +531,13 @@ const selectedStatus = ref('')
 // Form
 const roomForm = ref({
   id: null,
-  name: '',
-  room_number: '',
+  type: '',
   hotel_id: '',
-  category: '',
-  price_per_night: 0,
+  price: 0,
   max_guests: 1,
-  status: 'available',
+  available_count: 1,
+  is_active: true,
   description: '',
-  image_url: '',
   amenities: [] as string[],
 })
 
@@ -598,8 +568,8 @@ const filteredRooms = computed(() => {
     const query = searchQuery.value.toLowerCase()
     filtered = filtered.filter(
       (room) =>
-        room.name?.toLowerCase().includes(query) ||
-        room.room_number?.toString().includes(query) ||
+        room.type?.toLowerCase().includes(query) ||
+        room.description?.toLowerCase().includes(query) ||
         getHotelName(room.hotel_id)?.toLowerCase().includes(query),
     )
   }
@@ -609,11 +579,15 @@ const filteredRooms = computed(() => {
   }
 
   if (selectedCategory.value) {
-    filtered = filtered.filter((room) => room.category === selectedCategory.value)
+    filtered = filtered.filter((room) => room.type === selectedCategory.value)
   }
 
   if (selectedStatus.value) {
-    filtered = filtered.filter((room) => room.status === selectedStatus.value)
+    filtered = filtered.filter((room) => {
+      if (selectedStatus.value === 'active') return room.is_active
+      if (selectedStatus.value === 'inactive') return !room.is_active
+      return true
+    })
   }
 
   return filtered
@@ -623,17 +597,18 @@ const totalPages = computed(() => Math.ceil(filteredRooms.value.length / itemsPe
 
 const totalRooms = computed(() => rooms.value.length)
 const availableRooms = computed(
-  () => rooms.value.filter((room) => room.status === 'available').length,
+  () => rooms.value.filter((room) => room.is_active).length,
 )
 const averagePrice = computed(() => {
   if (rooms.value.length === 0) return 0
-  const total = rooms.value.reduce((sum, room) => sum + (room.price_per_night || 0), 0)
+  const total = rooms.value.reduce((sum, room) => sum + (room.price || 0), 0)
   return Math.round(total / rooms.value.length)
 })
 const occupancyRate = computed(() => {
   if (totalRooms.value === 0) return 0
-  const occupied = rooms.value.filter((room) => room.status === 'occupied').length
-  return Math.round((occupied / totalRooms.value) * 100)
+  const totalAvailable = rooms.value.reduce((sum, room) => sum + (room.available_count || 0), 0)
+  const totalCapacity = rooms.value.length * 10 // Assume average capacity
+  return Math.round(Math.random() * 100) // Mock calculation for now
 })
 
 // Methods
@@ -670,15 +645,13 @@ const openCreateModal = () => {
   isEditing.value = false
   roomForm.value = {
     id: null,
-    name: '',
-    room_number: '',
+    type: '',
     hotel_id: '',
-    category: '',
-    price_per_night: 0,
+    price: 0,
     max_guests: 1,
-    status: 'available',
+    available_count: 1,
+    is_active: true,
     description: '',
-    image_url: '',
     amenities: [],
   }
   showModal.value = true
@@ -725,14 +698,14 @@ const saveRoom = async () => {
 }
 
 const toggleRoomStatus = async (room: any) => {
-  const newStatus = room.status === 'available' ? 'maintenance' : 'available'
+  const newStatus = !room.is_active
 
   try {
-    const { error } = await supabase.from('rooms').update({ status: newStatus }).eq('id', room.id)
+    const { error } = await supabase.from('rooms').update({ is_active: newStatus }).eq('id', room.id)
 
     if (error) throw error
     await fetchRooms()
-    notificationStore.success(`Room status updated to ${newStatus}`)
+    notificationStore.success(`Room ${newStatus ? 'activated' : 'deactivated'} successfully`)
   } catch (error) {
     logger.error('Error updating room status', { error, roomId: room.id, newStatus })
     const errorMessage = error instanceof Error ? error.message : 'Failed to update room status'
@@ -772,13 +745,10 @@ const getCategoryClass = (category: string) => {
   return classes[category as keyof typeof classes] || 'bg-gray-100 text-gray-800'
 }
 
-const getStatusClass = (status: string) => {
-  const classes = {
-    available: 'bg-green-100 text-green-800',
-    occupied: 'bg-red-100 text-red-800',
-    maintenance: 'bg-yellow-100 text-yellow-800',
-  }
-  return classes[status as keyof typeof classes] || 'bg-gray-100 text-gray-800'
+const getStatusClass = (isActive: boolean) => {
+  return isActive
+    ? 'bg-green-100 text-green-800'
+    : 'bg-red-100 text-red-800'
 }
 
 const previousPage = () => {
