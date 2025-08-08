@@ -13,5 +13,10 @@ import TheNavigation from './components/TheNavigation.vue'
 #app {
   min-height: 100vh;
   background-color: #f8fafc;
+  transition: background-color 0.3s ease;
+}
+
+:root.dark #app {
+  background-color: #0f172a;
 }
 </style>
