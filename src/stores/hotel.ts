@@ -140,91 +140,99 @@ export const useHotelStore = defineStore('hotel', () => {
     loading.value = true
     error.value = null
 
-    const mockData = [
-      {
-        id: 1,
-        name: 'Ocean View Resort',
-        location: 'Maldives',
-        price: 450,
-        rating: 4.9,
-        badge: 'Luxury',
-        image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=500&h=300&fit=crop',
-        coordinates: { lat: 3.2028, lng: 73.2207 },
-        description: 'Luxury overwater resort with stunning ocean views and world-class amenities.',
-        amenities: ['Private Pool', 'Spa', 'Restaurant', 'Bar', 'WiFi', 'Room Service'],
-      },
-      {
-        id: 2,
-        name: 'Mountain Lodge',
-        location: 'Swiss Alps, Switzerland',
-        price: 320,
-        rating: 4.8,
-        badge: 'Featured',
-        image: 'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=500&h=300&fit=crop',
-        coordinates: { lat: 46.8182, lng: 8.2275 },
-        description: 'Cozy mountain retreat with breathtaking alpine views and rustic charm.',
-        amenities: ['Fireplace', 'Spa', 'Restaurant', 'Ski Access', 'WiFi', 'Balcony'],
-      },
-      {
-        id: 3,
-        name: 'City Center Hotel',
-        location: 'New York, USA',
-        price: 280,
-        rating: 4.7,
-        badge: 'Popular',
-        image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500&h=300&fit=crop',
-        coordinates: { lat: 40.7128, lng: -74.006 },
-        description:
-          'Modern hotel in the heart of Manhattan with easy access to major attractions.',
-        amenities: ['Gym', 'Business Center', 'Restaurant', 'Bar', 'WiFi', 'Concierge'],
-      },
-    ]
-
     try {
-      // Try to fetch from Supabase first
+      // Fetch featured hotels with their rooms data
       const { data, error: supabaseError } = await supabase
         .from('hotels')
-        .select('*')
+        .select(`
+          *,
+          rooms (
+            id,
+            type,
+            price,
+            max_guests,
+            available_count,
+            is_active
+          )
+        `)
         .eq('is_active', true)
         .eq('featured', true)
         .order('rating', { ascending: false })
         .limit(6)
 
       if (supabaseError) {
-        console.warn('Supabase error, falling back to mock data:', supabaseError.message)
-        // Set mock data and continue, don't throw
-        featuredHotels.value = mockData
-        return
+        console.warn('Supabase error:', supabaseError.message)
+        throw supabaseError
       }
 
       if (data && data.length > 0) {
-        // Transform data to match interface
-        featuredHotels.value = data.map((hotel) => ({
-          id: hotel.id,
-          name: hotel.name,
-          location: hotel.location,
-          price: 250, // Default price, could be calculated from rooms
-          rating: hotel.rating || 4.5,
-          badge: hotel.badge || 'Featured',
-          image:
-            hotel.images?.[0] ||
-            'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=500&h=300&fit=crop',
-          coordinates: { lat: hotel.latitude || 0, lng: hotel.longitude || 0 },
-          description: hotel.description || '',
-          amenities: hotel.amenities || [],
-        }))
+        // Transform data to match interface with real room prices
+        featuredHotels.value = data.map((hotel) => {
+          const roomPrices = hotel.rooms?.filter(r => r.is_active).map(r => r.price) || []
+          const minPrice = roomPrices.length > 0 ? Math.min(...roomPrices) : 3000
+
+          return {
+            id: hotel.id,
+            name: hotel.name,
+            location: hotel.location,
+            price: minPrice, // Use actual minimum room price
+            rating: hotel.rating || 4.5,
+            badge: hotel.badge || 'Featured',
+            image: hotel.images?.[0] || 'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=500&h=300&fit=crop',
+            coordinates: { lat: hotel.latitude || 0, lng: hotel.longitude || 0 },
+            description: hotel.description || '',
+            amenities: hotel.amenities || [],
+            rooms: hotel.rooms || []
+          }
+        })
       } else {
-        // No featured hotels found in database, use mock data
-        console.log('No featured hotels found in database, using mock data')
-        featuredHotels.value = mockData
+        // No featured hotels found, fetch regular hotels
+        console.log('No featured hotels found, fetching regular hotels')
+        const { data: regularHotels, error: regularError } = await supabase
+          .from('hotels')
+          .select(`
+            *,
+            rooms (
+              id,
+              type,
+              price,
+              max_guests,
+              available_count,
+              is_active
+            )
+          `)
+          .eq('is_active', true)
+          .order('rating', { ascending: false })
+          .limit(6)
+
+        if (!regularError && regularHotels) {
+          featuredHotels.value = regularHotels.map((hotel) => {
+            const roomPrices = hotel.rooms?.filter(r => r.is_active).map(r => r.price) || []
+            const minPrice = roomPrices.length > 0 ? Math.min(...roomPrices) : 3000
+
+            return {
+              id: hotel.id,
+              name: hotel.name,
+              location: hotel.location,
+              price: minPrice,
+              rating: hotel.rating || 4.5,
+              badge: hotel.badge || '',
+              image: hotel.images?.[0] || 'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=500&h=300&fit=crop',
+              coordinates: { lat: hotel.latitude || 0, lng: hotel.longitude || 0 },
+              description: hotel.description || '',
+              amenities: hotel.amenities || [],
+              rooms: hotel.rooms || []
+            }
+          })
+        } else {
+          featuredHotels.value = []
+        }
       }
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Unknown error occurred'
       error.value = errorMessage
-      console.error('Error fetching featured hotels, using mock data:', errorMessage)
-
-      // Always provide mock data as fallback
-      featuredHotels.value = mockData
+      console.error('Error fetching featured hotels:', errorMessage)
+      featuredHotels.value = []
     } finally {
       loading.value = false
     }
