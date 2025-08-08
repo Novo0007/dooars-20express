@@ -40,18 +40,88 @@
         <div class="hidden md:flex items-center space-x-4">
           <LanguageSelector />
           <ThemeToggle />
-          <router-link
-            to="/login"
-            class="text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 px-3 py-2 text-sm font-medium transition-colors duration-200"
-          >
-            {{ $t('nav.signin') }}
-          </router-link>
-          <router-link
-            to="/signup"
-            class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200"
-          >
-            {{ $t('nav.signup') }}
-          </router-link>
+
+          <!-- Authenticated User Menu -->
+          <div v-if="authStore.isAuthenticated" class="relative">
+            <button
+              @click="showUserMenu = !showUserMenu"
+              class="flex items-center space-x-2 text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 px-3 py-2 text-sm font-medium transition-colors duration-200"
+            >
+              <img
+                v-if="authStore.user?.profile?.avatar_url"
+                :src="authStore.user.profile.avatar_url"
+                :alt="authStore.userDisplayName"
+                class="w-8 h-8 rounded-full"
+              />
+              <div
+                v-else
+                class="w-8 h-8 rounded-full bg-primary-500 flex items-center justify-center text-white text-sm font-semibold"
+              >
+                {{ authStore.userDisplayName.charAt(0).toUpperCase() }}
+              </div>
+              <span>{{ authStore.userDisplayName }}</span>
+              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            <!-- User Dropdown Menu -->
+            <div
+              v-if="showUserMenu"
+              @click="showUserMenu = false"
+              class="absolute right-0 mt-2 w-48 bg-white dark:bg-neutral-800 rounded-lg shadow-large border border-neutral-200 dark:border-neutral-700 py-1 z-50"
+            >
+              <router-link
+                to="/profile"
+                class="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700"
+              >
+                My Profile
+              </router-link>
+              <router-link
+                to="/favorites"
+                class="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700"
+              >
+                My Favorites
+              </router-link>
+              <router-link
+                to="/booking-history"
+                class="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700"
+              >
+                Booking History
+              </router-link>
+              <hr v-if="authStore.isAdmin" class="my-1 border-neutral-200 dark:border-neutral-700" />
+              <router-link
+                v-if="authStore.isAdmin"
+                to="/admin"
+                class="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700"
+              >
+                Admin Dashboard
+              </router-link>
+              <hr class="my-1 border-neutral-200 dark:border-neutral-700" />
+              <button
+                @click="handleLogout"
+                class="block w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
+              >
+                Sign Out
+              </button>
+            </div>
+          </div>
+
+          <!-- Guest Auth Buttons -->
+          <template v-else>
+            <router-link
+              to="/login"
+              class="text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 px-3 py-2 text-sm font-medium transition-colors duration-200"
+            >
+              {{ $t('nav.signin') }}
+            </router-link>
+            <router-link
+              to="/signup"
+              class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200"
+            >
+              {{ $t('nav.signup') }}
+            </router-link>
+          </template>
         </div>
 
         <!-- Mobile menu button -->
