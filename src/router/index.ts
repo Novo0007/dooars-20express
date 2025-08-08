@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import Search from '../views/Search.vue'
 import Placeholder from '../views/Placeholder.vue'
 
 const router = createRouter({
@@ -13,7 +14,7 @@ const router = createRouter({
     {
       path: '/search',
       name: 'search',
-      component: Placeholder,
+      component: Search,
       meta: { title: 'Search Hotels' }
     },
     {
