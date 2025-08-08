@@ -97,6 +97,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import ThemeToggle from './ThemeToggle.vue'
 
 const mobileMenuOpen = ref(false)
 
