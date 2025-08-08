@@ -140,9 +140,10 @@ export const useBookingStore = defineStore('booking', () => {
     ) {
       const duration = bookingDuration.value
       // Convert to INR if price is in USD (legacy data)
-      const priceInINR = currentBooking.value.hotel.price < 1000
-        ? convertPriceToINR(currentBooking.value.hotel.price)
-        : currentBooking.value.hotel.price
+      const priceInINR =
+        currentBooking.value.hotel.price < 1000
+          ? convertPriceToINR(currentBooking.value.hotel.price)
+          : currentBooking.value.hotel.price
 
       const baseAmount = priceInINR * duration * (currentBooking.value.rooms || 1)
 

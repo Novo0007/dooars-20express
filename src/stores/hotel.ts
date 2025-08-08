@@ -371,7 +371,8 @@ export const useHotelStore = defineStore('hotel', () => {
       // Fetch from Supabase with rooms data
       const { data, error: supabaseError } = await supabase
         .from('hotels')
-        .select(`
+        .select(
+          `
           *,
           rooms (
             id,
@@ -384,7 +385,8 @@ export const useHotelStore = defineStore('hotel', () => {
             is_active,
             images
           )
-        `)
+        `,
+        )
         .eq('id', id)
         .eq('is_active', true)
         .single()
@@ -398,11 +400,13 @@ export const useHotelStore = defineStore('hotel', () => {
         location: data.location,
         rating: data.rating || 4.5,
         badge: data.badge || '',
-        image: data.images?.[0] || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500&h=300&fit=crop',
+        image:
+          data.images?.[0] ||
+          'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500&h=300&fit=crop',
         coordinates: { lat: data.latitude || 0, lng: data.longitude || 0 },
         description: data.description || '',
         amenities: data.amenities || [],
-        rooms: data.rooms || []
+        rooms: data.rooms || [],
       }
 
       selectedHotel.value = transformedHotel

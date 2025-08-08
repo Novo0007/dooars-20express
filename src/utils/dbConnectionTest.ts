@@ -73,13 +73,16 @@ export async function testDatabaseConnection(): Promise<DatabaseTestResult> {
       } else if (typeof error === 'object' && error !== null) {
         // Handle Supabase error objects
         const supabaseError = error as any
-        errorMessage = supabaseError.message || supabaseError.error_description || 'Supabase rooms error'
+        errorMessage =
+          supabaseError.message || supabaseError.error_description || 'Supabase rooms error'
         errorDetails = `Code: ${supabaseError.code || 'N/A'}, Details: ${supabaseError.details || 'N/A'}`
       } else {
         errorMessage = String(error)
       }
 
-      result.errors.push(`Rooms table exception: ${errorMessage}${errorDetails ? ` (${errorDetails})` : ''}`)
+      result.errors.push(
+        `Rooms table exception: ${errorMessage}${errorDetails ? ` (${errorDetails})` : ''}`,
+      )
       logger.error('Rooms table exception', { error, errorMessage, errorDetails })
     }
   } catch (error) {

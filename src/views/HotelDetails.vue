@@ -478,16 +478,21 @@ const roomTypes = computed(() => {
     return []
   }
 
-  return hotel.value.rooms.filter(room => room.is_active).map(room => ({
-    id: room.id,
-    type: room.type,
-    price: room.price,
-    description: room.description || `Comfortable ${room.type.toLowerCase()} with modern amenities`,
-    amenities: room.amenities || ['WiFi', 'Air Conditioning', 'TV'],
-    max_guests: room.max_guests || 2,
-    available_count: room.available_count || 0,
-    images: room.images || ['https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=600&fit=crop'],
-  }))
+  return hotel.value.rooms
+    .filter((room) => room.is_active)
+    .map((room) => ({
+      id: room.id,
+      type: room.type,
+      price: room.price,
+      description:
+        room.description || `Comfortable ${room.type.toLowerCase()} with modern amenities`,
+      amenities: room.amenities || ['WiFi', 'Air Conditioning', 'TV'],
+      max_guests: room.max_guests || 2,
+      available_count: room.available_count || 0,
+      images: room.images || [
+        'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=600&fit=crop',
+      ],
+    }))
 })
 
 const reviews = ref([
