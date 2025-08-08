@@ -340,9 +340,11 @@
 <script setup lang="ts">
 import { ref, onMounted, nextTick } from 'vue'
 import { useAuthStore } from '@/stores/auth'
+import { useNotificationStore } from '@/stores/notification'
 import { supabase } from '@/lib/supabase'
 
 const authStore = useAuthStore()
+const notificationStore = useNotificationStore()
 
 const loading = ref(true)
 const recentBookings = ref<any[]>([])
@@ -429,6 +431,7 @@ const loadDashboardData = async () => {
     await calculateStats()
   } catch (error) {
     console.error('Failed to load dashboard data:', error)
+    notificationStore.error('Failed to load dashboard data. Please refresh the page.')
   } finally {
     loading.value = false
   }
@@ -481,6 +484,7 @@ const calculateStats = async () => {
     stats.value[3].value = totalUsers.toString()
   } catch (error) {
     console.error('Failed to calculate stats:', error)
+    notificationStore.warning('Some statistics may not be up to date.')
   }
 }
 
