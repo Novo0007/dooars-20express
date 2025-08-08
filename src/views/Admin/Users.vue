@@ -969,5 +969,6 @@ const nextPage = () => {
 // Lifecycle
 onMounted(() => {
   fetchUsers()
+  fetchHotels()
 })
 </script>
