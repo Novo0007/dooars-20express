@@ -328,7 +328,14 @@ const features = ref([
 // Methods
 const handleSearch = () => {
   console.log('Searching with:', searchForm.value)
-  router.push('/search')
+  const query: any = {}
+
+  if (searchForm.value.destination) query.destination = searchForm.value.destination
+  if (searchForm.value.checkIn) query.checkIn = searchForm.value.checkIn
+  if (searchForm.value.checkOut) query.checkOut = searchForm.value.checkOut
+  if (searchForm.value.guests) query.guests = searchForm.value.guests
+
+  router.push({ path: '/search', query })
 }
 
 const goToHotel = (id: number) => {
