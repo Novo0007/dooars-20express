@@ -185,6 +185,45 @@
         </form>
       </div>
     </div>
+
+    <!-- Email Confirmation Modal -->
+    <div v-if="showEmailConfirmation" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+      <div class="bg-white dark:bg-neutral-800 rounded-2xl shadow-xl max-w-md w-full p-6">
+        <div class="text-center mb-6">
+          <div class="w-16 h-16 bg-yellow-100 dark:bg-yellow-900/20 rounded-full mx-auto mb-4 flex items-center justify-center">
+            <svg class="w-8 h-8 text-yellow-600 dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-neutral-900 dark:text-neutral-100 mb-2">
+            Email Confirmation Required
+          </h3>
+          <p class="text-neutral-600 dark:text-neutral-400 mb-4">
+            Your email address hasn't been confirmed yet. Please check your inbox for a confirmation email, or request a new one.
+          </p>
+          <p class="text-sm text-neutral-500 dark:text-neutral-400 mb-4">
+            Email: <strong>{{ confirmationEmail }}</strong>
+          </p>
+        </div>
+
+        <div class="space-y-3">
+          <button
+            @click="handleResendConfirmation"
+            :disabled="authStore.loading"
+            class="w-full bg-primary-600 hover:bg-primary-700 disabled:bg-neutral-400 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200"
+          >
+            <span v-if="authStore.loading">Sending...</span>
+            <span v-else>Resend Confirmation Email</span>
+          </button>
+          <button
+            @click="showEmailConfirmation = false"
+            class="w-full px-4 py-3 border border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors duration-200"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
