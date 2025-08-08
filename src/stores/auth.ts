@@ -215,28 +215,7 @@ export const useAuthStore = defineStore('auth', () => {
   const setUser = async (authUser: SupabaseUser, authSession: Session) => {
     session.value = authSession
 
-    // Test Supabase connection first
-    try {
-      console.log('Testing Supabase connection...')
-      const { data: testData, error: testError } = await supabase
-        .from('user_profiles')
-        .select('count')
-        .limit(1)
-
-      if (testError) {
-        console.error('Supabase connection test failed:', testError.message)
-        if (testError.message.includes('relation "public.user_profiles" does not exist')) {
-          console.warn('user_profiles table does not exist. Please run the database migrations.')
-        }
-        // Continue with basic user info
-        user.value = authUser
-        return
-      }
-    } catch (connectionError) {
-      console.error('Supabase connection error:', connectionError)
-      user.value = authUser
-      return
-    }
+    // Note: Removed problematic connection test that was causing RLS infinite recursion
 
     // Fetch user profile
     try {
