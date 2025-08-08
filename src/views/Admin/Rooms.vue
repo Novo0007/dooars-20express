@@ -561,6 +561,7 @@ import { logger } from '@/utils/logger'
 import { testDatabaseConnection, testRoomsQuery } from '@/utils/dbConnectionTest'
 import { runAllErrorTests } from '@/utils/errorTestUtils'
 import { diagnosticRoomsTable, printDiagnosticReport } from '@/utils/roomsDiagnostic'
+import { quickRoomsTest } from '@/utils/quickRoomsTest'
 
 // State
 const rooms = ref<any[]>([])
