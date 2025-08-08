@@ -61,10 +61,10 @@
     <!-- Mobile menu -->
     <div v-if="mobileMenuOpen" class="md:hidden bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-700">
       <div class="px-2 pt-2 pb-3 space-y-1">
-        <router-link 
-          v-for="item in navigation" 
-          :key="item.name"
-          :to="item.href" 
+        <router-link
+          v-for="item in navigation"
+          :key="item.href"
+          :to="item.href"
           @click="mobileMenuOpen = false"
           class="block px-3 py-2 text-base font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-md transition-colors duration-200"
           :class="{ 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/50': $route.path === item.href }"
