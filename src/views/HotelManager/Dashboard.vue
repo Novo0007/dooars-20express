@@ -543,12 +543,21 @@ const formatDate = (dateString: string) => {
 
 // Lifecycle
 onMounted(async () => {
-  // Fetch hotel assignments for the current user
-  await authStore.fetchHotelAssignments()
+  try {
+    // Fetch hotel assignments for the current user
+    await authStore.fetchHotelAssignments()
 
-  // Auto-select first hotel if available
-  if (authStore.hotelAssignments.length > 0) {
-    selectHotel(authStore.hotelAssignments[0].hotel)
+    // Auto-select first hotel if available
+    if (authStore.hotelAssignments.length > 0) {
+      selectHotel(authStore.hotelAssignments[0].hotel)
+    } else {
+      loading.value = false
+      notificationStore.info('No hotels assigned to your account. Please contact an administrator.')
+    }
+  } catch (error) {
+    console.error('Failed to load hotel assignments:', error)
+    notificationStore.error('Failed to load your hotel assignments.')
+    loading.value = false
   }
 })
 </script>
