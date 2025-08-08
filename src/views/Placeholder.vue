@@ -1,7 +1,7 @@
 <template>
-  <div class="min-h-screen bg-neutral-50 py-12">
+  <div class="min-h-screen bg-neutral-50 dark:bg-neutral-900 py-12">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="bg-white rounded-2xl shadow-soft p-12">
+      <div class="bg-white dark:bg-neutral-800 rounded-2xl shadow-soft p-12">
         <div class="w-20 h-20 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full mx-auto mb-6 flex items-center justify-center">
           <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
