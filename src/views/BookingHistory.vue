@@ -397,6 +397,10 @@ const fetchBookings = async (page = 1, append = false) => {
     currentPage.value = page
   } catch (error) {
     console.error('Failed to fetch bookings:', error)
+    // Ensure we have empty array on error
+    if (!append) {
+      bookings.value = []
+    }
   } finally {
     loading.value = false
   }
