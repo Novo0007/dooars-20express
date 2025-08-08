@@ -85,6 +85,23 @@ export const useBookingStore = defineStore('booking', () => {
     })
   })
 
+  // Formatted pricing for display
+  const formattedPricing = computed(() => {
+    if (!currentBooking.value?.totalPrice) return null
+
+    const baseAmount = currentBooking.value.totalPrice
+    const taxes = calculateIndianTaxes(baseAmount / 1.12) // Get base amount without taxes
+
+    return {
+      baseAmount: formatPrice(taxes.baseAmount),
+      cgst: formatPrice(taxes.cgst),
+      sgst: formatPrice(taxes.sgst),
+      totalTax: formatPrice(taxes.totalTax),
+      finalAmount: formatPrice(taxes.finalAmount),
+      perNight: formatPrice(taxes.baseAmount / (bookingDuration.value || 1)),
+    }
+  })
+
   // Actions
   const startBooking = (hotel: Hotel, searchParams: any) => {
     currentBooking.value = {
