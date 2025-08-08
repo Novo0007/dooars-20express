@@ -270,6 +270,14 @@
             >
               Manage Users
             </router-link>
+            <router-link
+              v-if="authStore.isHotelManager"
+              to="/hotel-manager"
+              @click="mobileMenuOpen = false"
+              class="block px-3 py-2 text-base font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-md transition-colors duration-200"
+            >
+              Hotel Manager Dashboard
+            </router-link>
             <button
               @click="handleLogout"
               class="block w-full text-left px-3 py-2 text-base font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md mt-2 transition-colors duration-200"
