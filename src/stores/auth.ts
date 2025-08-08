@@ -242,14 +242,24 @@ export const useAuthStore = defineStore('auth', () => {
   const initializeAuth = async () => {
     try {
       // Get current session
-      const { data: { session: currentSession } } = await supabase.auth.getSession()
-      
+      const { data: { session: currentSession }, error: sessionError } = await supabase.auth.getSession()
+
+      if (sessionError) {
+        console.error('Failed to get session:', sessionError)
+        return
+      }
+
       if (currentSession?.user) {
+        console.log('Found existing session for user:', currentSession.user.email)
         await setUser(currentSession.user, currentSession)
+      } else {
+        console.log('No existing session found')
       }
 
       // Listen for auth changes
       supabase.auth.onAuthStateChange(async (event, authSession) => {
+        console.log('Auth state change:', event, authSession?.user?.email)
+
         if (event === 'SIGNED_IN' && authSession?.user) {
           await setUser(authSession.user, authSession)
         } else if (event === 'SIGNED_OUT') {
