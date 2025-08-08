@@ -94,6 +94,18 @@ const router = createRouter({
       component: () => import('../views/Admin/Users.vue'),
       meta: { title: 'Manage Users', requiresAuth: true, requiresAdmin: true },
     },
+    {
+      path: '/admin/rooms',
+      name: 'admin-rooms',
+      component: () => import('../views/Admin/Rooms.vue'),
+      meta: { title: 'Manage Rooms', requiresAuth: true, requiresAdmin: true },
+    },
+    {
+      path: '/admin/reports',
+      name: 'admin-reports',
+      component: () => import('../views/Admin/Reports.vue'),
+      meta: { title: 'Reports & Analytics', requiresAuth: true, requiresAdmin: true },
+    },
   ],
 })
 
