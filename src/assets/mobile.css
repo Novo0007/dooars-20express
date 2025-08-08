@@ -1,0 +1,298 @@
+/* Mobile-first responsive utilities for Indian users */
+
+/* Touch targets - minimum 44px for accessibility */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Mobile-friendly form inputs */
+.mobile-input {
+  @apply text-base; /* Prevents zoom on iOS */
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 2px solid #e2e8f0;
+  transition: border-color 0.2s ease;
+}
+
+.mobile-input:focus {
+  border-color: #3b82f6;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Mobile-optimized buttons */
+.mobile-button {
+  @apply touch-target;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-button:active {
+  transform: scale(0.98);
+}
+
+/* Card layouts for mobile */
+.mobile-card {
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background: white;
+}
+
+@media (prefers-color-scheme: dark) {
+  .mobile-card {
+    background: #374151;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Mobile navigation */
+.mobile-nav-item {
+  @apply touch-target;
+  padding: 16px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.mobile-nav-item:active {
+  background-color: rgba(59, 130, 246, 0.1);
+}
+
+/* Mobile modal/drawer */
+.mobile-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  overflow-y: auto;
+}
+
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 90%;
+  max-width: 320px;
+  background: white;
+  box-shadow: -4px 0 8px rgba(0, 0, 0, 0.1);
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
+
+.mobile-drawer.open {
+  transform: translateX(0);
+}
+
+/* Indian mobile-specific optimizations */
+.rupee-symbol::before {
+  content: '₹';
+  margin-right: 2px;
+}
+
+.phone-input {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.5px;
+}
+
+/* Mobile search */
+.mobile-search {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: white;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 12px;
+}
+
+/* Mobile list items */
+.mobile-list-item {
+  padding: 16px;
+  border-bottom: 1px solid #f1f5f9;
+  transition: background-color 0.2s ease;
+}
+
+.mobile-list-item:active {
+  background-color: #f8fafc;
+}
+
+.mobile-list-item:last-child {
+  border-bottom: none;
+}
+
+/* Loading states for mobile */
+.mobile-loading {
+  display: flex;
+  items-center: center;
+  justify-content: center;
+  padding: 40px 20px;
+  color: #64748b;
+}
+
+.mobile-spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #e2e8f0;
+  border-top: 2px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Mobile-specific spacing */
+.mobile-container {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.mobile-section {
+  margin-bottom: 24px;
+}
+
+.mobile-header {
+  padding: 16px;
+  text-align: center;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+/* Swipe gestures indicators */
+.swipe-hint {
+  position: relative;
+  overflow: hidden;
+}
+
+.swipe-hint::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  width: 12px;
+  height: 2px;
+  background: #94a3b8;
+  border-radius: 1px;
+  transform: translateY(-50%);
+}
+
+/* Indian payment methods styling */
+.payment-method {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.payment-method:hover {
+  border-color: #3b82f6;
+  background-color: #f8fafc;
+}
+
+.payment-method.selected {
+  border-color: #3b82f6;
+  background-color: #eff6ff;
+}
+
+.payment-icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 12px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+/* Mobile tables - convert to cards */
+@media (max-width: 768px) {
+  .mobile-table {
+    display: block;
+  }
+  
+  .mobile-table thead {
+    display: none;
+  }
+  
+  .mobile-table tbody {
+    display: block;
+  }
+  
+  .mobile-table tr {
+    display: block;
+    margin-bottom: 16px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+  }
+  
+  .mobile-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  
+  .mobile-table td:last-child {
+    border-bottom: none;
+  }
+  
+  .mobile-table td::before {
+    content: attr(data-label);
+    font-weight: 500;
+    color: #64748b;
+    flex-shrink: 0;
+    margin-right: 16px;
+  }
+}
+
+/* Accessibility improvements for mobile */
+@media (prefers-reduced-motion: reduce) {
+  .mobile-button:active,
+  .mobile-nav-item:active,
+  .mobile-list-item:active {
+    transform: none;
+  }
+  
+  .mobile-drawer {
+    transition: none;
+  }
+  
+  .mobile-spinner {
+    animation: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .mobile-input {
+    border-width: 3px;
+  }
+  
+  .mobile-button {
+    border: 2px solid currentColor;
+  }
+}
+
+/* Large text support */
+@media (min-resolution: 2dppx) {
+  .mobile-text {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
