@@ -564,8 +564,9 @@ const approveBooking = async (booking: any) => {
     // TODO: Send confirmation email
     alert('Booking approved successfully!')
   } catch (error) {
-    console.error('Failed to approve booking:', error)
-    alert('Failed to approve booking')
+    logger.error('Failed to approve booking', { error, bookingId })
+    const errorMessage = error instanceof Error ? error.message : 'Failed to approve booking'
+    notificationStore.error(errorMessage, 'Booking Approval Error')
   }
 }
 
@@ -585,8 +586,9 @@ const cancelBooking = async (booking: any) => {
 
     alert('Booking cancelled successfully!')
   } catch (error) {
-    console.error('Failed to cancel booking:', error)
-    alert('Failed to cancel booking')
+    logger.error('Failed to cancel booking', { error, bookingId })
+    const errorMessage = error instanceof Error ? error.message : 'Failed to cancel booking'
+    notificationStore.error(errorMessage, 'Booking Cancellation Error')
   }
 }
 
