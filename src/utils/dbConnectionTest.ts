@@ -64,9 +64,23 @@ export async function testDatabaseConnection(): Promise<DatabaseTestResult> {
         result.tablesAccessible = true
       }
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Unknown rooms table error'
-      result.errors.push(`Rooms table exception: ${errorMessage}`)
-      logger.error('Rooms table exception', { error })
+      let errorMessage = 'Unknown rooms table error'
+      let errorDetails = ''
+
+      if (error instanceof Error) {
+        errorMessage = error.message
+        errorDetails = error.stack || ''
+      } else if (typeof error === 'object' && error !== null) {
+        // Handle Supabase error objects
+        const supabaseError = error as any
+        errorMessage = supabaseError.message || supabaseError.error_description || 'Supabase rooms error'
+        errorDetails = `Code: ${supabaseError.code || 'N/A'}, Details: ${supabaseError.details || 'N/A'}`
+      } else {
+        errorMessage = String(error)
+      }
+
+      result.errors.push(`Rooms table exception: ${errorMessage}${errorDetails ? ` (${errorDetails})` : ''}`)
+      logger.error('Rooms table exception', { error, errorMessage, errorDetails })
     }
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown connection error'
