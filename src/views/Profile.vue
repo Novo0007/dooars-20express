@@ -365,6 +365,7 @@ const stats = ref({
 // Profile form
 const profileForm = ref({
   full_name: '',
+  email: '',
   phone: '',
   date_of_birth: '',
   preferred_language: 'en',
@@ -450,6 +451,7 @@ const loadProfileData = () => {
   if (authStore.user?.profile) {
     profileForm.value = {
       full_name: authStore.user.profile.full_name || '',
+      email: authStore.user.email || '',
       phone: authStore.user.profile.phone || '',
       date_of_birth: authStore.user.profile.date_of_birth || '',
       preferred_language: authStore.user.profile.preferred_language || 'en',
