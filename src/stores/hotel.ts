@@ -232,11 +232,16 @@ export const useHotelStore = defineStore('hotel', () => {
         return hotel
       }
 
-      // Mock API call for individual hotel
-      const response = await fetch(`/api/hotels/${id}`)
-      if (!response.ok) throw new Error('Hotel not found')
+      // Fetch from Supabase
+      const { data, error: supabaseError } = await supabase
+        .from('hotels')
+        .select('*')
+        .eq('id', id)
+        .eq('is_active', true)
+        .single()
 
-      const data = await response.json()
+      if (supabaseError) throw supabaseError
+
       selectedHotel.value = data
       return data
     } catch (err) {
