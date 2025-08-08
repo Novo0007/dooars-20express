@@ -413,23 +413,31 @@ const loadUserStats = async () => {
 
   try {
     // Get booking count
-    const { count: bookingCount } = await supabase
+    const { count: bookingCount, error: bookingError } = await supabase
       .from('bookings')
       .select('*', { count: 'exact', head: true })
       .eq('user_id', authStore.user!.id)
 
+    if (bookingError) throw bookingError
+
     // Get favorites count
-    const { count: favoritesCount } = await supabase
+    const { count: favoritesCount, error: favoritesError } = await supabase
       .from('user_favorites')
       .select('*', { count: 'exact', head: true })
       .eq('user_id', authStore.user!.id)
+
+    if (favoritesError) throw favoritesError
 
     stats.value = {
       totalBookings: bookingCount || 0,
       favoriteHotels: favoritesCount || 0,
     }
+
+    console.log('User stats loaded successfully')
   } catch (error) {
     console.error('Failed to load user stats:', error)
+    notificationStore.warning('Some profile statistics could not be loaded.')
+
     // Set default values even if there's an error
     stats.value = {
       totalBookings: 0,
