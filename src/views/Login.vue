@@ -274,4 +274,17 @@ const handleForgotPassword = async () => {
     console.error('Password reset failed:', error)
   }
 }
+
+const handleResendConfirmation = async () => {
+  if (!confirmationEmail.value) return
+
+  try {
+    await authStore.resendConfirmation(confirmationEmail.value)
+    showEmailConfirmation.value = false
+    alert('Confirmation email sent! Please check your inbox and click the confirmation link.')
+  } catch (error) {
+    console.error('Failed to resend confirmation:', error)
+    alert('Failed to resend confirmation email. Please try again.')
+  }
+}
 </script>
