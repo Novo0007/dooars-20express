@@ -144,7 +144,8 @@ export const useHotelStore = defineStore('hotel', () => {
       // Fetch featured hotels with their rooms data
       const { data, error: supabaseError } = await supabase
         .from('hotels')
-        .select(`
+        .select(
+          `
           *,
           rooms (
             id,
@@ -154,7 +155,8 @@ export const useHotelStore = defineStore('hotel', () => {
             available_count,
             is_active
           )
-        `)
+        `,
+        )
         .eq('is_active', true)
         .eq('featured', true)
         .order('rating', { ascending: false })
@@ -168,7 +170,7 @@ export const useHotelStore = defineStore('hotel', () => {
       if (data && data.length > 0) {
         // Transform data to match interface with real room prices
         featuredHotels.value = data.map((hotel) => {
-          const roomPrices = hotel.rooms?.filter(r => r.is_active).map(r => r.price) || []
+          const roomPrices = hotel.rooms?.filter((r) => r.is_active).map((r) => r.price) || []
           const minPrice = roomPrices.length > 0 ? Math.min(...roomPrices) : 3000
 
           return {
@@ -178,11 +180,13 @@ export const useHotelStore = defineStore('hotel', () => {
             price: minPrice, // Use actual minimum room price
             rating: hotel.rating || 4.5,
             badge: hotel.badge || 'Featured',
-            image: hotel.images?.[0] || 'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=500&h=300&fit=crop',
+            image:
+              hotel.images?.[0] ||
+              'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=500&h=300&fit=crop',
             coordinates: { lat: hotel.latitude || 0, lng: hotel.longitude || 0 },
             description: hotel.description || '',
             amenities: hotel.amenities || [],
-            rooms: hotel.rooms || []
+            rooms: hotel.rooms || [],
           }
         })
       } else {
@@ -190,7 +194,8 @@ export const useHotelStore = defineStore('hotel', () => {
         console.log('No featured hotels found, fetching regular hotels')
         const { data: regularHotels, error: regularError } = await supabase
           .from('hotels')
-          .select(`
+          .select(
+            `
             *,
             rooms (
               id,
@@ -200,14 +205,15 @@ export const useHotelStore = defineStore('hotel', () => {
               available_count,
               is_active
             )
-          `)
+          `,
+          )
           .eq('is_active', true)
           .order('rating', { ascending: false })
           .limit(6)
 
         if (!regularError && regularHotels) {
           featuredHotels.value = regularHotels.map((hotel) => {
-            const roomPrices = hotel.rooms?.filter(r => r.is_active).map(r => r.price) || []
+            const roomPrices = hotel.rooms?.filter((r) => r.is_active).map((r) => r.price) || []
             const minPrice = roomPrices.length > 0 ? Math.min(...roomPrices) : 3000
 
             return {
@@ -217,11 +223,13 @@ export const useHotelStore = defineStore('hotel', () => {
               price: minPrice,
               rating: hotel.rating || 4.5,
               badge: hotel.badge || '',
-              image: hotel.images?.[0] || 'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=500&h=300&fit=crop',
+              image:
+                hotel.images?.[0] ||
+                'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=500&h=300&fit=crop',
               coordinates: { lat: hotel.latitude || 0, lng: hotel.longitude || 0 },
               description: hotel.description || '',
               amenities: hotel.amenities || [],
-              rooms: hotel.rooms || []
+              rooms: hotel.rooms || [],
             }
           })
         } else {
@@ -249,7 +257,8 @@ export const useHotelStore = defineStore('hotel', () => {
       // Build query based on filters
       let query = supabase
         .from('hotels')
-        .select(`
+        .select(
+          `
           *,
           rooms (
             id,
@@ -259,7 +268,8 @@ export const useHotelStore = defineStore('hotel', () => {
             available_count,
             is_active
           )
-        `)
+        `,
+        )
         .eq('is_active', true)
 
       // Apply destination filter
@@ -270,14 +280,15 @@ export const useHotelStore = defineStore('hotel', () => {
       // Apply price range filter
       if (filters.priceRange && filters.priceRange.length === 2) {
         // Get hotels that have rooms within the price range
-        query = query.in('id',
+        query = query.in(
+          'id',
           await supabase
             .from('rooms')
             .select('hotel_id')
             .gte('price', filters.priceRange[0])
             .lte('price', filters.priceRange[1])
             .eq('is_active', true)
-            .then(({ data }) => data?.map(r => r.hotel_id) || [])
+            .then(({ data }) => data?.map((r) => r.hotel_id) || []),
         )
       }
 
@@ -302,24 +313,27 @@ export const useHotelStore = defineStore('hotel', () => {
       if (supabaseError) throw supabaseError
 
       // Transform data to match interface and calculate prices
-      const transformedResults = data?.map((hotel) => {
-        const roomPrices = hotel.rooms?.filter(r => r.is_active).map(r => r.price) || []
-        const minPrice = roomPrices.length > 0 ? Math.min(...roomPrices) : 3000
+      const transformedResults =
+        data?.map((hotel) => {
+          const roomPrices = hotel.rooms?.filter((r) => r.is_active).map((r) => r.price) || []
+          const minPrice = roomPrices.length > 0 ? Math.min(...roomPrices) : 3000
 
-        return {
-          id: hotel.id,
-          name: hotel.name,
-          location: hotel.location,
-          price: minPrice,
-          rating: hotel.rating || 4.5,
-          badge: hotel.badge || (hotel.featured ? 'Featured' : ''),
-          image: hotel.images?.[0] || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500&h=300&fit=crop',
-          coordinates: { lat: hotel.latitude || 0, lng: hotel.longitude || 0 },
-          description: hotel.description || '',
-          amenities: hotel.amenities || [],
-          rooms: hotel.rooms || []
-        }
-      }) || []
+          return {
+            id: hotel.id,
+            name: hotel.name,
+            location: hotel.location,
+            price: minPrice,
+            rating: hotel.rating || 4.5,
+            badge: hotel.badge || (hotel.featured ? 'Featured' : ''),
+            image:
+              hotel.images?.[0] ||
+              'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500&h=300&fit=crop',
+            coordinates: { lat: hotel.latitude || 0, lng: hotel.longitude || 0 },
+            description: hotel.description || '',
+            amenities: hotel.amenities || [],
+            rooms: hotel.rooms || [],
+          }
+        }) || []
 
       // Sort by price if needed (after transformation)
       if (filters.sortBy === 'price') {
