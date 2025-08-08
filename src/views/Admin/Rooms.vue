@@ -671,8 +671,7 @@ const closeModal = () => {
 const saveRoom = async () => {
   loading.value = true
   try {
-    const roomData = { ...roomForm.value }
-    delete roomData.id
+    const { id, ...roomData } = roomForm.value
 
     if (isEditing.value) {
       const { error } = await supabase.from('rooms').update(roomData).eq('id', roomForm.value.id)
