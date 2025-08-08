@@ -663,8 +663,12 @@ const fetchUserHotelAssignments = async (userId: string) => {
   }
 }
 
-const editUser = (user: any) => {
+const editUser = async (user: any) => {
   editingUser.value = user
+
+  // Fetch user's hotel assignments
+  const assignments = await fetchUserHotelAssignments(user.id)
+
   editForm.value = {
     full_name: user.full_name || '',
     email: user.email || '',
@@ -672,7 +676,8 @@ const editUser = (user: any) => {
     is_active: user.is_active ?? true,
     phone: user.phone || '',
     email_notifications: user.email_notifications ?? true,
-    marketing_emails: user.marketing_emails ?? false
+    marketing_emails: user.marketing_emails ?? false,
+    assigned_hotels: assignments
   }
   showEditModal.value = true
 }
