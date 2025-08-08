@@ -2,11 +2,13 @@
   <div id="app">
     <TheNavigation />
     <router-view />
+    <LiveChatWidget />
   </div>
 </template>
 
 <script setup lang="ts">
 import TheNavigation from './components/TheNavigation.vue'
+import LiveChatWidget from './components/LiveChatWidget.vue'
 </script>
 
 <style>
