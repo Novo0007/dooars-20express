@@ -7,7 +7,7 @@
       </div>
       <div class="flex gap-2">
         <button
-          @click="testConnection"
+          @click="runQuickTest"
           class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md flex items-center gap-2"
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -15,10 +15,10 @@
               stroke-linecap="round"
               stroke-linejoin="round"
               stroke-width="2"
-              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              d="M13 10V3L4 14h7v7l9-11h-7z"
             ></path>
           </svg>
-          Test DB
+          Quick Test
         </button>
         <button
           @click="testErrorHandling"
