@@ -262,6 +262,7 @@ import { useRouter } from 'vue-router'
 import { supabase } from '../lib/supabase'
 import { formatPrice } from '../utils/currency'
 import { useNotificationStore } from '../stores/notification'
+import { runFullDatabaseTest } from '../utils/dbTest'
 
 const router = useRouter()
 const notificationStore = useNotificationStore()
@@ -310,27 +311,59 @@ const features = ref([
 const loadFeaturedHotels = async () => {
   try {
     loadingHotels.value = true
-    
-    // Fetch hotels from Supabase
+
+    console.log('Starting to load featured hotels...')
+
+    // First, try to fetch hotels without rooms join to test basic connectivity
     const { data: hotels, error, count } = await supabase
       .from('hotels')
-      .select(`
-        *,
-        rooms(price_per_night)
-      `, { count: 'exact' })
+      .select('*', { count: 'exact' })
       .eq('is_active', true)
       .order('rating', { ascending: false })
       .limit(6)
 
-    if (error) throw error
+    if (error) {
+      console.error('Supabase error details:', {
+        message: error.message,
+        details: error.details,
+        hint: error.hint,
+        code: error.code
+      })
+      throw error
+    }
+
+    console.log('Hotels loaded successfully:', hotels?.length || 0)
+
+    // If hotels loaded successfully, try to get room data separately
+    if (hotels && hotels.length > 0) {
+      const hotelIds = hotels.map(hotel => hotel.id)
+      const { data: rooms, error: roomsError } = await supabase
+        .from('rooms')
+        .select('hotel_id, price_per_night')
+        .in('hotel_id', hotelIds)
+
+      if (roomsError) {
+        console.warn('Could not load room prices:', roomsError.message)
+        // Continue without room prices
+      } else {
+        // Attach room data to hotels
+        hotels.forEach(hotel => {
+          hotel.rooms = rooms?.filter(room => room.hotel_id === hotel.id) || []
+        })
+      }
+    }
 
     featuredHotels.value = hotels || []
     totalHotels.value = count || 0
-    
-    console.log('Loaded featured hotels:', featuredHotels.value.length)
+
+    console.log('Featured hotels loaded successfully:', featuredHotels.value.length)
   } catch (error) {
-    console.error('Failed to load featured hotels:', error)
-    notificationStore.error('Failed to load featured hotels. Please refresh the page.')
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
+    console.error('Failed to load featured hotels:', {
+      error: errorMessage,
+      fullError: error
+    })
+    notificationStore.error(`Failed to load featured hotels: ${errorMessage}`)
   } finally {
     loadingHotels.value = false
   }
@@ -368,7 +401,11 @@ const goToHotel = (id: number) => {
 }
 
 // Initialize data on mount
-onMounted(() => {
+onMounted(async () => {
+  // Run database test first to diagnose any issues
+  await runFullDatabaseTest()
+
+  // Then load featured hotels
   loadFeaturedHotels()
 })
 </script>
