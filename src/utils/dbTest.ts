@@ -111,7 +111,7 @@ export const testRoomsTable = async (): Promise<DBTestResult> => {
 
     if (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown rooms table error'
-    console.error('Rooms table error:', errorMessage)
+      console.error('Rooms table error:', errorMessage)
       return {
         success: false,
         message: `Rooms table access failed: ${error.message}`,

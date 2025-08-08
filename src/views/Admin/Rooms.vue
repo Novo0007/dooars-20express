@@ -647,7 +647,8 @@ const testConnection = async () => {
     } else {
       const allErrors = [...result.errors]
       if (roomsTest.error) {
-        const errorMessage = typeof roomsTest.error === 'string' ? roomsTest.error : 'Rooms query failed'
+        const errorMessage =
+          typeof roomsTest.error === 'string' ? roomsTest.error : 'Rooms query failed'
         allErrors.push(errorMessage)
       }
       notificationStore.error(`Issues found: ${allErrors.join('; ')}`, 'Database Test Failed')
