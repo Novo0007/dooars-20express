@@ -197,14 +197,14 @@
     </section>
 
     <!-- Why Choose Us Section -->
-    <section class="py-20 bg-white">
+    <section class="py-20 bg-white dark:bg-neutral-900">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-          <h2 class="text-3xl lg:text-4xl font-display font-bold text-neutral-800 mb-4">
-            Why Choose WanderStay?
+          <h2 class="text-3xl lg:text-4xl font-display font-bold text-neutral-800 dark:text-neutral-200 mb-4">
+            {{ $t('home.features.title') }}
           </h2>
-          <p class="text-lg text-neutral-600 max-w-2xl mx-auto">
-            We make travel booking simple, secure, and rewarding
+          <p class="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
+            {{ $t('home.features.subtitle') }}
           </p>
         </div>
 
