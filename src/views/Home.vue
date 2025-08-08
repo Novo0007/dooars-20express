@@ -344,7 +344,7 @@ const goToHotel = (id: number) => {
 
 const searchDestination = (destination: string) => {
   searchForm.value.destination = destination
-  handleSearch()
+  router.push({ path: '/search', query: { destination } })
 }
 
 const getFeatureTitle = (id: number) => {
