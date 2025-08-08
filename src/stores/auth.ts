@@ -44,7 +44,15 @@ export const useAuthStore = defineStore('auth', () => {
     () => user.value?.profile?.role === 'super_admin',
   )
 
+  const isHotelManager = computed(
+    () => user.value?.profile?.role === 'hotel_manager',
+  )
+
   const userRole = computed(() => user.value?.profile?.role || 'user')
+
+  // Hotel assignments for hotel managers
+  const hotelAssignments = ref<any[]>([])
+  const assignedHotels = computed(() => hotelAssignments.value.map(assignment => assignment.hotel_id))
 
   // Role-based permissions system
   const permissions = computed(() => {
