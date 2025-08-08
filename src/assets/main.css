@@ -1,2 +1,26 @@
 @import './base.css';
 @import './mobile.css';
+
+/* Bottom Navigation Styles */
+.bottom-nav-safe-area {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Ensure content doesn't get hidden behind bottom nav */
+@media (max-width: 768px) {
+  body {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Add padding to main content areas */
+  .main-content {
+    padding-bottom: 80px; /* Height of bottom nav + safe area */
+  }
+}
+
+/* Hide bottom nav on larger screens */
+@media (min-width: 769px) {
+  .bottom-navigation {
+    display: none;
+  }
+}
