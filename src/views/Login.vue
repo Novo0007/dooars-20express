@@ -240,7 +240,7 @@ const handleLogin = async () => {
 
   try {
     await authStore.login(form.value.email, form.value.password)
-    
+
     // Redirect to intended page or dashboard
     const redirectTo = router.currentRoute.value.query.redirect as string
     if (redirectTo) {
@@ -250,8 +250,14 @@ const handleLogin = async () => {
     } else {
       router.push('/profile')
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error('Login failed:', error)
+
+    // Check if this is an email confirmation error
+    if (error?.message?.includes('Email not confirmed')) {
+      confirmationEmail.value = form.value.email
+      showEmailConfirmation.value = true
+    }
   }
 }
 
