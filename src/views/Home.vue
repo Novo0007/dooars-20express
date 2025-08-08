@@ -139,8 +139,8 @@
             </div>
             
             <div class="p-6">
-              <h3 class="font-display font-bold text-xl text-neutral-800 mb-2">{{ hotel.name }}</h3>
-              <p class="text-neutral-600 mb-4 flex items-center">
+              <h3 class="font-display font-bold text-xl text-neutral-800 dark:text-neutral-200 mb-2">{{ hotel.name }}</h3>
+              <p class="text-neutral-600 dark:text-neutral-400 mb-4 flex items-center">
                 <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -149,11 +149,11 @@
               </p>
               <div class="flex items-center justify-between">
                 <div>
-                  <span class="text-2xl font-bold text-primary-600">${{ hotel.price }}</span>
-                  <span class="text-neutral-500">/night</span>
+                  <span class="text-2xl font-bold text-primary-600 dark:text-primary-400">${{ hotel.price }}</span>
+                  <span class="text-neutral-500 dark:text-neutral-400">{{ $t('home.featured.perNight') }}</span>
                 </div>
-                <button class="text-primary-600 hover:text-primary-700 font-medium text-sm transition-colors duration-200">
-                  View Details →
+                <button class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium text-sm transition-colors duration-200">
+                  {{ $t('home.featured.viewDetails') }} →
                 </button>
               </div>
             </div>
