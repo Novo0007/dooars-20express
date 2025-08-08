@@ -70,6 +70,20 @@ export const useAuthStore = defineStore('auth', () => {
       'leave_reviews': true,
     }
 
+    const hotelManagerPermissions = {
+      ...basePermissions,
+      // Hotel manager permissions (limited to assigned hotels)
+      'view_hotel_dashboard': true,
+      'view_assigned_hotels': true,
+      'manage_assigned_hotels': true,
+      'manage_assigned_rooms': true,
+      'view_assigned_bookings': true,
+      'manage_assigned_bookings': true,
+      'view_assigned_reports': true,
+      'export_assigned_data': true,
+      'moderate_assigned_reviews': true,
+    }
+
     const adminPermissions = {
       ...basePermissions,
       // Admin permissions
@@ -84,6 +98,7 @@ export const useAuthStore = defineStore('auth', () => {
       'export_data': true,
       'moderate_reviews': true,
       'activate_deactivate_users': true,
+      'assign_hotel_managers': true,
     }
 
     const superAdminPermissions = {
@@ -104,6 +119,8 @@ export const useAuthStore = defineStore('auth', () => {
         return superAdminPermissions
       case 'admin':
         return adminPermissions
+      case 'hotel_manager':
+        return hotelManagerPermissions
       case 'user':
       default:
         return basePermissions
