@@ -82,12 +82,14 @@
                   {{ hotel.badge }}
                 </span>
                 <button
+                  v-if="authStore.isAuthenticated"
                   @click="toggleFavorite"
-                  class="p-2 rounded-full transition-colors duration-200"
+                  :disabled="favoriteLoading"
+                  class="p-2 rounded-full transition-colors duration-200 disabled:opacity-50"
                   :class="
                     isFavorite
-                      ? 'text-red-500 hover:text-red-600'
-                      : 'text-neutral-400 hover:text-red-500'
+                      ? 'text-red-500 hover:text-red-600 bg-red-50 dark:bg-red-900/20'
+                      : 'text-neutral-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20'
                   "
                 >
                   <svg
