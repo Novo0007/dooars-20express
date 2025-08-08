@@ -1,5 +1,8 @@
 <template>
-  <nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-700 z-50 md:hidden">
+  <nav
+    v-if="shouldShowBottomNav"
+    class="fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-lg border-t border-neutral-200 dark:border-neutral-700 z-50 md:hidden"
+  >
     <div class="flex items-center justify-around py-2">
       <!-- Home -->
       <router-link 
@@ -179,13 +182,21 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import { useBookingStore } from '../stores/booking'
 import { useI18n } from 'vue-i18n'
 
+const route = useRoute()
 const authStore = useAuthStore()
 const bookingStore = useBookingStore()
 const { t } = useI18n()
+
+// Hide bottom nav on admin pages and during booking flow
+const shouldShowBottomNav = computed(() => {
+  const hiddenRoutes = ['/admin', '/hotel-manager', '/booking/', '/booking-confirmation/']
+  return !hiddenRoutes.some(hiddenRoute => route.path.startsWith(hiddenRoute))
+})
 
 // Get pending bookings count for notification badge
 const pendingBookingsCount = computed(() => {

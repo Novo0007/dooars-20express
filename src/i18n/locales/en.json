@@ -2,7 +2,10 @@
   "nav": {
     "home": "Home",
     "search": "Search",
-    "bookings": "My Bookings",
+    "bookings": "Bookings",
+    "favorites": "Favorites",
+    "profile": "Profile",
+    "login": "Login",
     "signin": "Sign In",
     "signup": "Sign Up",
     "theme": "Theme"
