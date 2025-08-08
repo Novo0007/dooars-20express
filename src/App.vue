@@ -1,14 +1,18 @@
 <template>
   <div id="app">
     <TheNavigation />
+    <OfflineIndicator />
     <router-view />
     <LiveChatWidget />
+    <PWAInstallPrompt />
   </div>
 </template>
 
 <script setup lang="ts">
 import TheNavigation from './components/TheNavigation.vue'
 import LiveChatWidget from './components/LiveChatWidget.vue'
+import PWAInstallPrompt from './components/PWAInstallPrompt.vue'
+import OfflineIndicator from './components/OfflineIndicator.vue'
 </script>
 
 <style>
