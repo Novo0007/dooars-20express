@@ -36,8 +36,8 @@ export const useAuthStore = defineStore('auth', () => {
     if (!user.value?.profile?.full_name) return user.value?.email || ''
     return user.value.profile.full_name
   })
-  const isAdmin = computed(() => 
-    user.value?.profile?.role === 'admin' || user.value?.profile?.role === 'super_admin'
+  const isAdmin = computed(
+    () => user.value?.profile?.role === 'admin' || user.value?.profile?.role === 'super_admin',
   )
 
   // Actions
@@ -48,13 +48,15 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       const { data, error: authError } = await supabase.auth.signInWithPassword({
         email,
-        password
+        password,
       })
 
       if (authError) {
         // Customize error messages for better user experience
         if (authError.message.includes('Email not confirmed')) {
-          throw new Error('Please check your email and click the confirmation link before signing in.')
+          throw new Error(
+            'Please check your email and click the confirmation link before signing in.',
+          )
         }
         throw authError
       }
@@ -88,9 +90,9 @@ export const useAuthStore = defineStore('auth', () => {
         options: {
           data: {
             full_name: userData.full_name,
-            phone: userData.phone
-          }
-        }
+            phone: userData.phone,
+          },
+        },
       })
 
       if (authError) throw authError
@@ -137,7 +139,7 @@ export const useAuthStore = defineStore('auth', () => {
         .from('user_profiles')
         .update({
           ...updates,
-          updated_at: new Date().toISOString()
+          updated_at: new Date().toISOString(),
         })
         .eq('id', user.value.id)
         .select()
@@ -163,12 +165,10 @@ export const useAuthStore = defineStore('auth', () => {
     if (!user.value) throw new Error('User not authenticated')
 
     try {
-      const { error: insertError } = await supabase
-        .from('user_favorites')
-        .insert({
-          user_id: user.value.id,
-          hotel_id: hotelId
-        })
+      const { error: insertError } = await supabase.from('user_favorites').insert({
+        user_id: user.value.id,
+        hotel_id: hotelId,
+      })
 
       if (insertError) throw insertError
     } catch (err) {
@@ -205,7 +205,7 @@ export const useAuthStore = defineStore('auth', () => {
 
       if (fetchError) throw fetchError
 
-      return data.map(item => item.hotel_id)
+      return data.map((item) => item.hotel_id)
     } catch (err) {
       console.error('Failed to fetch favorites:', err)
       return []
@@ -239,7 +239,7 @@ export const useAuthStore = defineStore('auth', () => {
 
       user.value = {
         ...authUser,
-        profile: profile || undefined
+        profile: profile || undefined,
       }
     } catch (err) {
       console.error('Failed to fetch user profile:', err)
@@ -251,7 +251,10 @@ export const useAuthStore = defineStore('auth', () => {
   const initializeAuth = async () => {
     try {
       // Get current session
-      const { data: { session: currentSession }, error: sessionError } = await supabase.auth.getSession()
+      const {
+        data: { session: currentSession },
+        error: sessionError,
+      } = await supabase.auth.getSession()
 
       if (sessionError) {
         console.error('Failed to get session:', sessionError)
@@ -289,7 +292,7 @@ export const useAuthStore = defineStore('auth', () => {
 
     try {
       const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/reset-password`
+        redirectTo: `${window.location.origin}/reset-password`,
       })
 
       if (resetError) throw resetError
@@ -307,7 +310,7 @@ export const useAuthStore = defineStore('auth', () => {
 
     try {
       const { error: updateError } = await supabase.auth.updateUser({
-        password: newPassword
+        password: newPassword,
       })
 
       if (updateError) throw updateError
@@ -328,8 +331,8 @@ export const useAuthStore = defineStore('auth', () => {
         type: 'signup',
         email: email,
         options: {
-          emailRedirectTo: `${window.location.origin}/login`
-        }
+          emailRedirectTo: `${window.location.origin}/login`,
+        },
       })
 
       if (resendError) throw resendError

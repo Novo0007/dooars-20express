@@ -1,5 +1,7 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-neutral-900 dark:to-neutral-800 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+  <div
+    class="min-h-screen bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-neutral-900 dark:to-neutral-800 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
+  >
     <div class="max-w-md w-full space-y-8">
       <!-- Header -->
       <div class="text-center">
@@ -7,10 +9,17 @@
           <div class="flex items-center justify-center space-x-3 mb-6">
             <div class="bg-gradient-to-r from-primary-500 to-secondary-500 rounded-lg p-3">
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
               </svg>
             </div>
-            <span class="font-display font-bold text-2xl text-neutral-800 dark:text-neutral-200">Dooars Express</span>
+            <span class="font-display font-bold text-2xl text-neutral-800 dark:text-neutral-200"
+              >Dooars Express</span
+            >
           </div>
         </router-link>
         <h2 class="text-3xl font-bold text-neutral-900 dark:text-neutral-100">
@@ -26,7 +35,10 @@
         <form @submit.prevent="handleSignup" class="space-y-6">
           <!-- Full Name Field -->
           <div>
-            <label for="fullName" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+            <label
+              for="fullName"
+              class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
+            >
               Full Name
             </label>
             <input
@@ -46,7 +58,10 @@
 
           <!-- Email Field -->
           <div>
-            <label for="email" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+            <label
+              for="email"
+              class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
+            >
               Email Address
             </label>
             <input
@@ -66,7 +81,10 @@
 
           <!-- Phone Field (Optional) -->
           <div>
-            <label for="phone" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+            <label
+              for="phone"
+              class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
+            >
               Phone Number <span class="text-neutral-400">(Optional)</span>
             </label>
             <input
@@ -81,7 +99,10 @@
 
           <!-- Password Field -->
           <div>
-            <label for="password" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+            <label
+              for="password"
+              class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
+            >
               Password
             </label>
             <div class="relative">
@@ -100,12 +121,33 @@
                 @click="showPassword = !showPassword"
                 class="absolute inset-y-0 right-0 pr-3 flex items-center text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200"
               >
-                <svg v-if="showPassword" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                <svg
+                  v-if="showPassword"
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                  />
                 </svg>
                 <svg v-else class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"
+                  />
                 </svg>
               </button>
             </div>
@@ -114,7 +156,9 @@
             </p>
             <!-- Password Strength Indicator -->
             <div class="mt-2">
-              <div class="text-xs text-neutral-500 dark:text-neutral-400 mb-1">Password strength:</div>
+              <div class="text-xs text-neutral-500 dark:text-neutral-400 mb-1">
+                Password strength:
+              </div>
               <div class="flex space-x-1">
                 <div
                   v-for="i in 4"
@@ -131,7 +175,10 @@
 
           <!-- Confirm Password Field -->
           <div>
-            <label for="confirmPassword" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+            <label
+              for="confirmPassword"
+              class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
+            >
               Confirm Password
             </label>
             <input
@@ -159,11 +206,17 @@
             />
             <label for="agree-terms" class="ml-3 text-sm text-neutral-600 dark:text-neutral-400">
               I agree to the
-              <a href="#" class="text-primary-600 hover:text-primary-500 dark:text-primary-400 font-medium">
+              <a
+                href="#"
+                class="text-primary-600 hover:text-primary-500 dark:text-primary-400 font-medium"
+              >
                 Terms of Service
               </a>
               and
-              <a href="#" class="text-primary-600 hover:text-primary-500 dark:text-primary-400 font-medium">
+              <a
+                href="#"
+                class="text-primary-600 hover:text-primary-500 dark:text-primary-400 font-medium"
+              >
                 Privacy Policy
               </a>
             </label>
@@ -180,7 +233,10 @@
               type="checkbox"
               class="mt-1 w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 rounded focus:ring-primary-500 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             />
-            <label for="marketing-emails" class="ml-3 text-sm text-neutral-600 dark:text-neutral-400">
+            <label
+              for="marketing-emails"
+              class="ml-3 text-sm text-neutral-600 dark:text-neutral-400"
+            >
               I would like to receive marketing emails about exclusive deals and travel tips
             </label>
           </div>
@@ -189,7 +245,11 @@
           <div v-if="authStore.error" class="rounded-lg bg-red-50 dark:bg-red-900/20 p-4">
             <div class="flex">
               <svg class="w-5 h-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                  clip-rule="evenodd"
+                />
               </svg>
               <div class="ml-3">
                 <p class="text-sm text-red-800 dark:text-red-200">
@@ -206,9 +266,24 @@
             class="w-full bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 disabled:from-neutral-400 disabled:to-neutral-400 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] focus:ring-4 focus:ring-primary-200 disabled:transform-none disabled:cursor-not-allowed"
           >
             <span v-if="authStore.loading" class="flex items-center justify-center">
-              <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+              <svg
+                class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  class="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"
+                />
+                <path
+                  class="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                />
               </svg>
               Creating Account...
             </span>
@@ -232,19 +307,35 @@
     </div>
 
     <!-- Email Confirmation Modal -->
-    <div v-if="showEmailConfirmation" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div
+      v-if="showEmailConfirmation"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+    >
       <div class="bg-white dark:bg-neutral-800 rounded-2xl shadow-xl max-w-md w-full p-6">
         <div class="text-center mb-6">
-          <div class="w-16 h-16 bg-green-100 dark:bg-green-900/20 rounded-full mx-auto mb-4 flex items-center justify-center">
-            <svg class="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          <div
+            class="w-16 h-16 bg-green-100 dark:bg-green-900/20 rounded-full mx-auto mb-4 flex items-center justify-center"
+          >
+            <svg
+              class="w-8 h-8 text-green-600 dark:text-green-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
             </svg>
           </div>
           <h3 class="text-lg font-semibold text-neutral-900 dark:text-neutral-100 mb-2">
             Account Created Successfully!
           </h3>
           <p class="text-neutral-600 dark:text-neutral-400 mb-4">
-            We've sent a confirmation email to verify your account. Please check your inbox and click the confirmation link to complete your registration.
+            We've sent a confirmation email to verify your account. Please check your inbox and
+            click the confirmation link to complete your registration.
           </p>
           <p class="text-sm text-neutral-500 dark:text-neutral-400 mb-6">
             Email: <strong>{{ signupEmail }}</strong>
@@ -289,7 +380,7 @@ const form = ref({
   password: '',
   confirmPassword: '',
   agreeToTerms: false,
-  marketingEmails: false
+  marketingEmails: false,
 })
 
 const showPassword = ref(false)
@@ -302,13 +393,13 @@ const errors = ref<Record<string, string>>({})
 const passwordStrength = computed(() => {
   const password = form.value.password
   let strength = 0
-  
+
   if (password.length >= 8) strength++
   if (/[a-z]/.test(password)) strength++
   if (/[A-Z]/.test(password)) strength++
   if (/[0-9]/.test(password)) strength++
   if (/[^A-Za-z0-9]/.test(password)) strength++
-  
+
   return Math.min(strength, 4)
 })
 
@@ -387,7 +478,7 @@ const handleSignup = async () => {
       email: form.value.email,
       password: form.value.password,
       full_name: form.value.fullName,
-      phone: form.value.phone || undefined
+      phone: form.value.phone || undefined,
     })
 
     // Check if user needs email confirmation

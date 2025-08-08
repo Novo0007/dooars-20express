@@ -6,9 +6,7 @@
         <h1 class="text-3xl font-bold text-neutral-900 dark:text-neutral-100 mb-2">
           My Favorite Hotels
         </h1>
-        <p class="text-neutral-600 dark:text-neutral-400">
-          Your saved hotels for future bookings
-        </p>
+        <p class="text-neutral-600 dark:text-neutral-400">Your saved hotels for future bookings</p>
       </div>
 
       <!-- Loading State -->
@@ -18,14 +16,25 @@
 
       <!-- Empty State -->
       <div v-else-if="favoriteHotels.length === 0" class="text-center py-20">
-        <svg class="mx-auto h-24 w-24 text-neutral-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+        <svg
+          class="mx-auto h-24 w-24 text-neutral-400 mb-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+          />
         </svg>
         <h3 class="text-xl font-semibold text-neutral-900 dark:text-neutral-100 mb-2">
           No favorite hotels yet
         </h3>
         <p class="text-neutral-600 dark:text-neutral-400 mb-6 max-w-md mx-auto">
-          Start browsing hotels and save your favorites for easy access later. Click the heart icon on any hotel to add it to your favorites.
+          Start browsing hotels and save your favorites for easy access later. Click the heart icon
+          on any hotel to add it to your favorites.
         </p>
         <router-link
           to="/search"
@@ -50,7 +59,9 @@
             :class="{ 'animate-pulse': removingFavorites.includes(hotel.id) }"
           >
             <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              <path
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+              />
             </svg>
           </button>
 
@@ -75,9 +86,7 @@
           </div>
 
           <div class="p-6">
-            <h3
-              class="font-display font-bold text-xl text-neutral-800 dark:text-neutral-200 mb-2"
-            >
+            <h3 class="font-display font-bold text-xl text-neutral-800 dark:text-neutral-200 mb-2">
               {{ hotel.name }}
             </h3>
             <p class="text-neutral-600 dark:text-neutral-400 mb-4 flex items-center">
@@ -178,7 +187,7 @@ const fetchFavorites = async () => {
       return
     }
 
-    const hotelIds = favorites.map(f => f.hotel_id)
+    const hotelIds = favorites.map((f) => f.hotel_id)
 
     // Fetch hotel details
     const { data: hotels, error: hotelError } = await supabase
@@ -215,19 +224,19 @@ const removeFavorite = async (hotelId: number) => {
     removingFavorites.value.push(hotelId)
 
     await authStore.removeFavoriteHotel(hotelId)
-    
+
     // Remove from local state
-    favoriteHotels.value = favoriteHotels.value.filter(hotel => hotel.id !== hotelId)
+    favoriteHotels.value = favoriteHotels.value.filter((hotel) => hotel.id !== hotelId)
   } catch (error) {
     console.error('Failed to remove favorite:', error)
   } finally {
-    removingFavorites.value = removingFavorites.value.filter(id => id !== hotelId)
+    removingFavorites.value = removingFavorites.value.filter((id) => id !== hotelId)
   }
 }
 
 const clearAllFavorites = async () => {
   if (!authStore.isAuthenticated) return
-  
+
   if (!confirm('Are you sure you want to remove all hotels from your favorites?')) {
     return
   }
@@ -251,9 +260,9 @@ const clearAllFavorites = async () => {
 }
 
 const getLowestRoomPrice = (hotelId: number): number => {
-  const hotelRooms = rooms.value.filter(room => room.hotel_id === hotelId)
+  const hotelRooms = rooms.value.filter((room) => room.hotel_id === hotelId)
   if (hotelRooms.length === 0) return 0
-  return Math.min(...hotelRooms.map(room => room.price))
+  return Math.min(...hotelRooms.map((room) => room.price))
 }
 
 const goToHotel = (id: number) => {

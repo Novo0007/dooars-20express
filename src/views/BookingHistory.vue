@@ -20,9 +20,11 @@
               :key="tab.key"
               @click="activeFilter = tab.key"
               class="py-2 px-1 border-b-2 font-medium text-sm transition-colors duration-200"
-              :class="activeFilter === tab.key
-                ? 'border-primary-500 text-primary-600 dark:text-primary-400'
-                : 'border-transparent text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300 hover:border-neutral-300 dark:hover:border-neutral-600'"
+              :class="
+                activeFilter === tab.key
+                  ? 'border-primary-500 text-primary-600 dark:text-primary-400'
+                  : 'border-transparent text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300 hover:border-neutral-300 dark:hover:border-neutral-600'
+              "
             >
               {{ tab.label }} ({{ getBookingCount(tab.key) }})
             </button>
@@ -37,8 +39,18 @@
 
       <!-- Empty State -->
       <div v-else-if="filteredBookings.length === 0" class="text-center py-20">
-        <svg class="mx-auto h-24 w-24 text-neutral-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+        <svg
+          class="mx-auto h-24 w-24 text-neutral-400 mb-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
+          />
         </svg>
         <h3 class="text-xl font-semibold text-neutral-900 dark:text-neutral-100 mb-2">
           No bookings found
@@ -78,12 +90,10 @@
                   {{ getPaymentStatusLabel(booking.payment_status) }}
                 </span>
               </div>
-              
+
               <!-- Booking ID -->
               <div class="text-right">
-                <p class="text-sm text-neutral-500 dark:text-neutral-400">
-                  Booking ID
-                </p>
+                <p class="text-sm text-neutral-500 dark:text-neutral-400">Booking ID</p>
                 <p class="text-sm font-mono text-neutral-900 dark:text-neutral-100">
                   {{ booking.id.slice(0, 8).toUpperCase() }}
                 </p>
@@ -104,13 +114,28 @@
                       {{ booking.hotel?.name }}
                     </h3>
                     <p class="text-neutral-600 dark:text-neutral-400 mb-2 flex items-center">
-                      <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <svg
+                        class="w-4 h-4 mr-1"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                        />
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
                       </svg>
                       {{ booking.hotel?.location }}
                     </p>
-                    
+
                     <!-- Booking Details Grid -->
                     <div class="grid grid-cols-2 gap-4 text-sm">
                       <div>
@@ -157,13 +182,19 @@
               <!-- Price and Actions -->
               <div class="lg:text-right">
                 <div class="mb-4">
-                  <div v-if="booking.discount_amount > 0" class="text-sm text-neutral-500 dark:text-neutral-400 line-through">
+                  <div
+                    v-if="booking.discount_amount > 0"
+                    class="text-sm text-neutral-500 dark:text-neutral-400 line-through"
+                  >
                     ${{ booking.total_price.toFixed(2) }}
                   </div>
                   <div class="text-2xl font-bold text-primary-600 dark:text-primary-400">
                     ${{ booking.final_price.toFixed(2) }}
                   </div>
-                  <div v-if="booking.discount_amount > 0" class="text-sm text-green-600 dark:text-green-400">
+                  <div
+                    v-if="booking.discount_amount > 0"
+                    class="text-sm text-green-600 dark:text-green-400"
+                  >
                     Saved ${{ booking.discount_amount.toFixed(2) }}
                   </div>
                 </div>
@@ -176,7 +207,7 @@
                   >
                     View Details
                   </button>
-                  
+
                   <button
                     v-if="canCancelBooking(booking)"
                     @click="cancelBooking(booking)"
@@ -184,7 +215,7 @@
                   >
                     Cancel Booking
                   </button>
-                  
+
                   <button
                     v-if="canReview(booking)"
                     @click="leaveReview(booking)"
@@ -192,7 +223,7 @@
                   >
                     Leave Review
                   </button>
-                  
+
                   <router-link
                     v-if="booking.status === 'completed'"
                     :to="`/hotel/${booking.hotel_id}`"
@@ -219,8 +250,13 @@
     </div>
 
     <!-- Booking Details Modal -->
-    <div v-if="selectedBooking" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div class="bg-white dark:bg-neutral-800 rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+    <div
+      v-if="selectedBooking"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+    >
+      <div
+        class="bg-white dark:bg-neutral-800 rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+      >
         <div class="p-6">
           <div class="flex justify-between items-center mb-6">
             <h3 class="text-xl font-semibold text-neutral-900 dark:text-neutral-100">
@@ -231,34 +267,48 @@
               class="text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200"
             >
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
           </div>
-          
+
           <!-- Detailed booking information would go here -->
           <div class="space-y-4">
             <div>
-              <h4 class="font-semibold text-neutral-900 dark:text-neutral-100 mb-2">Guest Information</h4>
+              <h4 class="font-semibold text-neutral-900 dark:text-neutral-100 mb-2">
+                Guest Information
+              </h4>
               <div class="bg-neutral-50 dark:bg-neutral-700 rounded-lg p-4">
                 <p><strong>Name:</strong> {{ selectedBooking.guest_info?.name }}</p>
                 <p><strong>Email:</strong> {{ selectedBooking.guest_info?.email }}</p>
                 <p><strong>Phone:</strong> {{ selectedBooking.guest_info?.phone }}</p>
               </div>
             </div>
-            
+
             <div v-if="selectedBooking.special_requests">
-              <h4 class="font-semibold text-neutral-900 dark:text-neutral-100 mb-2">Special Requests</h4>
+              <h4 class="font-semibold text-neutral-900 dark:text-neutral-100 mb-2">
+                Special Requests
+              </h4>
               <div class="bg-neutral-50 dark:bg-neutral-700 rounded-lg p-4">
                 <p>{{ selectedBooking.special_requests }}</p>
               </div>
             </div>
-            
+
             <div>
-              <h4 class="font-semibold text-neutral-900 dark:text-neutral-100 mb-2">Payment Information</h4>
+              <h4 class="font-semibold text-neutral-900 dark:text-neutral-100 mb-2">
+                Payment Information
+              </h4>
               <div class="bg-neutral-50 dark:bg-neutral-700 rounded-lg p-4">
                 <p><strong>Payment ID:</strong> {{ selectedBooking.payment_id || 'N/A' }}</p>
-                <p><strong>Payment Method:</strong> {{ selectedBooking.payment_method || 'Credit Card' }}</p>
+                <p>
+                  <strong>Payment Method:</strong>
+                  {{ selectedBooking.payment_method || 'Credit Card' }}
+                </p>
                 <p><strong>Total Amount:</strong> ${{ selectedBooking.final_price.toFixed(2) }}</p>
               </div>
             </div>
@@ -311,57 +361,63 @@ const filterTabs = [
   { key: 'all', label: 'All Bookings' },
   { key: 'upcoming', label: 'Upcoming' },
   { key: 'completed', label: 'Completed' },
-  { key: 'cancelled', label: 'Cancelled' }
+  { key: 'cancelled', label: 'Cancelled' },
 ]
 
 const filteredBookings = computed(() => {
   if (activeFilter.value === 'all') return bookings.value
-  
+
   if (activeFilter.value === 'upcoming') {
-    return bookings.value.filter(booking => 
-      ['pending', 'confirmed'].includes(booking.status) && 
-      new Date(booking.check_in) > new Date()
+    return bookings.value.filter(
+      (booking) =>
+        ['pending', 'confirmed'].includes(booking.status) &&
+        new Date(booking.check_in) > new Date(),
     )
   }
-  
+
   if (activeFilter.value === 'completed') {
-    return bookings.value.filter(booking => booking.status === 'completed')
+    return bookings.value.filter((booking) => booking.status === 'completed')
   }
-  
+
   if (activeFilter.value === 'cancelled') {
-    return bookings.value.filter(booking => booking.status === 'cancelled')
+    return bookings.value.filter((booking) => booking.status === 'cancelled')
   }
-  
+
   return bookings.value
 })
 
 const getBookingCount = (filter: string) => {
   if (filter === 'all') return bookings.value.length
-  
+
   if (filter === 'upcoming') {
-    return bookings.value.filter(booking => 
-      ['pending', 'confirmed'].includes(booking.status) && 
-      new Date(booking.check_in) > new Date()
+    return bookings.value.filter(
+      (booking) =>
+        ['pending', 'confirmed'].includes(booking.status) &&
+        new Date(booking.check_in) > new Date(),
     ).length
   }
-  
+
   if (filter === 'completed') {
-    return bookings.value.filter(booking => booking.status === 'completed').length
+    return bookings.value.filter((booking) => booking.status === 'completed').length
   }
-  
+
   if (filter === 'cancelled') {
-    return bookings.value.filter(booking => booking.status === 'cancelled').length
+    return bookings.value.filter((booking) => booking.status === 'cancelled').length
   }
-  
+
   return 0
 }
 
 const getEmptyStateMessage = () => {
   switch (activeFilter.value) {
-    case 'upcoming': return 'You have no upcoming bookings. Start planning your next trip!'
-    case 'completed': return 'You haven\'t completed any stays yet.'
-    case 'cancelled': return 'You have no cancelled bookings.'
-    default: return 'You haven\'t made any bookings yet. Start exploring amazing hotels!'
+    case 'upcoming':
+      return 'You have no upcoming bookings. Start planning your next trip!'
+    case 'completed':
+      return "You haven't completed any stays yet."
+    case 'cancelled':
+      return 'You have no cancelled bookings.'
+    default:
+      return "You haven't made any bookings yet. Start exploring amazing hotels!"
   }
 }
 
@@ -376,11 +432,14 @@ const fetchBookings = async (page = 1, append = false) => {
 
     const { data, error, count } = await supabase
       .from('bookings')
-      .select(`
+      .select(
+        `
         *,
         hotel:hotels(*),
         room:rooms(*)
-      `, { count: 'exact' })
+      `,
+        { count: 'exact' },
+      )
       .eq('user_id', authStore.user!.id)
       .order('created_at', { ascending: false })
       .range(from, to)
@@ -416,7 +475,7 @@ const getStatusLabel = (status: string) => {
     confirmed: 'Confirmed',
     cancelled: 'Cancelled',
     completed: 'Completed',
-    no_show: 'No Show'
+    no_show: 'No Show',
   }
   return labels[status] || status
 }
@@ -427,7 +486,7 @@ const getStatusBadgeClass = (status: string) => {
     confirmed: 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400',
     cancelled: 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400',
     completed: 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400',
-    no_show: 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400'
+    no_show: 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400',
   }
   return classes[status] || 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400'
 }
@@ -438,7 +497,7 @@ const getPaymentStatusLabel = (status: string) => {
     paid: 'Paid',
     failed: 'Payment Failed',
     refunded: 'Refunded',
-    partial_refund: 'Partially Refunded'
+    partial_refund: 'Partially Refunded',
   }
   return labels[status] || status
 }
@@ -449,7 +508,7 @@ const getPaymentStatusBadgeClass = (status: string) => {
     paid: 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400',
     failed: 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400',
     refunded: 'bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-400',
-    partial_refund: 'bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-400'
+    partial_refund: 'bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-400',
   }
   return classes[status] || 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400'
 }
@@ -459,18 +518,18 @@ const formatDate = (dateString: string) => {
   return date.toLocaleDateString(undefined, {
     year: 'numeric',
     month: 'short',
-    day: 'numeric'
+    day: 'numeric',
   })
 }
 
 const canCancelBooking = (booking: Booking) => {
-  return ['pending', 'confirmed'].includes(booking.status) && 
-         new Date(booking.check_in) > new Date()
+  return (
+    ['pending', 'confirmed'].includes(booking.status) && new Date(booking.check_in) > new Date()
+  )
 }
 
 const canReview = (booking: Booking) => {
-  return booking.status === 'completed' && 
-         new Date(booking.check_out) < new Date()
+  return booking.status === 'completed' && new Date(booking.check_out) < new Date()
 }
 
 const viewBookingDetails = (booking: Booking) => {
@@ -483,16 +542,16 @@ const cancelBooking = async (booking: Booking) => {
   try {
     const { error } = await supabase
       .from('bookings')
-      .update({ 
+      .update({
         status: 'cancelled',
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       })
       .eq('id', booking.id)
 
     if (error) throw error
 
     // Update local state
-    const index = bookings.value.findIndex(b => b.id === booking.id)
+    const index = bookings.value.findIndex((b) => b.id === booking.id)
     if (index !== -1) {
       bookings.value[index].status = 'cancelled'
     }

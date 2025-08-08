@@ -61,7 +61,12 @@
               </div>
               <span>{{ authStore.userDisplayName }}</span>
               <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"
+                />
               </svg>
             </button>
 
@@ -89,7 +94,10 @@
               >
                 Booking History
               </router-link>
-              <hr v-if="authStore.isAdmin" class="my-1 border-neutral-200 dark:border-neutral-700" />
+              <hr
+                v-if="authStore.isAdmin"
+                class="my-1 border-neutral-200 dark:border-neutral-700"
+              />
               <router-link
                 v-if="authStore.isAdmin"
                 to="/admin"
