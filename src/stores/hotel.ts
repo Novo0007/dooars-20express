@@ -140,7 +140,43 @@ export const useHotelStore = defineStore('hotel', () => {
     error.value = null
 
     try {
-      // Mock data for now
+      // Try to fetch from Supabase first
+      const { data, error: supabaseError } = await supabase
+        .from('hotels')
+        .select('*')
+        .eq('is_active', true)
+        .eq('featured', true)
+        .order('rating', { ascending: false })
+        .limit(6)
+
+      if (supabaseError) {
+        console.warn('Supabase error, falling back to mock data:', supabaseError.message)
+        throw supabaseError
+      }
+
+      if (data && data.length > 0) {
+        // Transform data to match interface
+        featuredHotels.value = data.map(hotel => ({
+          id: hotel.id,
+          name: hotel.name,
+          location: hotel.location,
+          price: 250, // Default price, could be calculated from rooms
+          rating: hotel.rating || 4.5,
+          badge: hotel.badge || 'Featured',
+          image: hotel.images?.[0] || 'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=500&h=300&fit=crop',
+          coordinates: { lat: hotel.latitude || 0, lng: hotel.longitude || 0 },
+          description: hotel.description || '',
+          amenities: hotel.amenities || []
+        }))
+      } else {
+        // No featured hotels found, use mock data
+        throw new Error('No featured hotels found')
+      }
+    } catch (err) {
+      error.value = err instanceof Error ? err.message : 'Unknown error'
+      console.error('Error fetching featured hotels, using mock data:', err)
+
+      // Fallback to mock data
       featuredHotels.value = [
         {
           id: 1,
@@ -184,9 +220,6 @@ export const useHotelStore = defineStore('hotel', () => {
           amenities: ['Gym', 'Business Center', 'Restaurant', 'Bar', 'WiFi', 'Concierge'],
         },
       ]
-    } catch (err) {
-      error.value = err instanceof Error ? err.message : 'Unknown error'
-      console.error('Error fetching featured hotels:', err)
     } finally {
       loading.value = false
     }
