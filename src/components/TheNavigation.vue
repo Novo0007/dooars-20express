@@ -29,17 +29,17 @@
         <div class="hidden md:flex items-center space-x-4">
           <LanguageSelector />
           <ThemeToggle />
-          <router-link 
-            to="/login" 
+          <router-link
+            to="/login"
             class="text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 px-3 py-2 text-sm font-medium transition-colors duration-200"
           >
-            Sign In
+            {{ $t('nav.signin') }}
           </router-link>
-          <router-link 
-            to="/signup" 
+          <router-link
+            to="/signup"
             class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200"
           >
-            Sign Up
+            {{ $t('nav.signup') }}
           </router-link>
         </div>
 
