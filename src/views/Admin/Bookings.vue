@@ -475,6 +475,8 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { supabase } from '@/lib/supabase'
+import { useNotificationStore } from '@/stores/notification'
+import { logger } from '@/utils/logger'
 
 const loading = ref(true)
 const bookings = ref<any[]>([])
