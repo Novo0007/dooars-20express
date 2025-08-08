@@ -684,6 +684,37 @@ const testErrorHandling = () => {
   }
 }
 
+const runRoomsDiagnostic = async () => {
+  notificationStore.info('Running comprehensive rooms table diagnostic...', 'Diagnostic')
+
+  try {
+    const result = await diagnosticRoomsTable()
+    printDiagnosticReport(result)
+
+    if (result.tableExists && result.accessible && result.errors.length === 0) {
+      notificationStore.success(
+        `Rooms table is healthy! Found ${result.recordCount} records with no errors.`,
+        'Diagnostic Complete'
+      )
+    } else if (result.errors.length > 0) {
+      const mainError = result.errors[0].substring(0, 100) + (result.errors[0].length > 100 ? '...' : '')
+      notificationStore.error(
+        `Issues found: ${mainError}. Check console for full diagnostic report.`,
+        'Diagnostic Issues'
+      )
+    } else {
+      notificationStore.warning(
+        'Diagnostic completed with warnings. Check console for details.',
+        'Diagnostic Warnings'
+      )
+    }
+  } catch (error) {
+    logger.error('Diagnostic execution failed', { error })
+    const errorMessage = error instanceof Error ? error.message : 'Diagnostic failed'
+    notificationStore.error(errorMessage, 'Diagnostic Error')
+  }
+}
+
 const testConnection = async () => {
   notificationStore.info('Testing database connection...', 'Database Test')
 
