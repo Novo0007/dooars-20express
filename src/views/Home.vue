@@ -212,7 +212,7 @@
           <div 
             v-for="feature in features" 
             :key="feature.id"
-            class="text-center p-8 rounded-2xl bg-neutral-50 hover:bg-neutral-100 transition-colors duration-200"
+            class="text-center p-8 rounded-2xl bg-neutral-50 dark:bg-neutral-800 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors duration-200"
           >
             <div class="w-16 h-16 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-2xl mx-auto mb-6 flex items-center justify-center">
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
