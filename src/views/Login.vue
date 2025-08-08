@@ -205,7 +205,9 @@ const form = ref({
 
 const showPassword = ref(false)
 const showForgotPassword = ref(false)
+const showEmailConfirmation = ref(false)
 const forgotPasswordEmail = ref('')
+const confirmationEmail = ref('')
 
 // Validation
 const errors = ref<Record<string, string>>({})
