@@ -603,6 +603,7 @@ export const useAuthStore = defineStore('auth', () => {
     session,
     loading,
     error,
+    isInitialized,
 
     // Computed
     isAuthenticated,
