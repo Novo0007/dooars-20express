@@ -339,4 +339,22 @@ const searchDestination = (destination: string) => {
   searchForm.value.destination = destination
   handleSearch()
 }
+
+const getFeatureTitle = (id: number) => {
+  switch (id) {
+    case 1: return t('home.features.priceGuarantee.title')
+    case 2: return t('home.features.support.title')
+    case 3: return t('home.features.secure.title')
+    default: return ''
+  }
+}
+
+const getFeatureDescription = (id: number) => {
+  switch (id) {
+    case 1: return t('home.features.priceGuarantee.description')
+    case 2: return t('home.features.support.description')
+    case 3: return t('home.features.secure.description')
+    default: return ''
+  }
+}
 </script>
