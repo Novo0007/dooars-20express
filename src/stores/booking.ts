@@ -122,8 +122,16 @@ export const useBookingStore = defineStore('booking', () => {
       currentBooking.value.checkOut
     ) {
       const duration = bookingDuration.value
-      currentBooking.value.totalPrice =
-        currentBooking.value.hotel.price * duration * (currentBooking.value.rooms || 1)
+      // Convert to INR if price is in USD (legacy data)
+      const priceInINR = currentBooking.value.hotel.price < 1000
+        ? convertPriceToINR(currentBooking.value.hotel.price)
+        : currentBooking.value.hotel.price
+
+      const baseAmount = priceInINR * duration * (currentBooking.value.rooms || 1)
+
+      // Calculate Indian taxes (12% GST)
+      const taxes = calculateIndianTaxes(baseAmount)
+      currentBooking.value.totalPrice = taxes.finalAmount
       currentBooking.value.finalPrice = bookingTotal.value
     }
   }
