@@ -174,7 +174,8 @@ export const useHotelStore = defineStore('hotel', () => {
         badge: 'Popular',
         image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500&h=300&fit=crop',
         coordinates: { lat: 40.7128, lng: -74.006 },
-        description: 'Modern hotel in the heart of Manhattan with easy access to major attractions.',
+        description:
+          'Modern hotel in the heart of Manhattan with easy access to major attractions.',
         amenities: ['Gym', 'Business Center', 'Restaurant', 'Bar', 'WiFi', 'Concierge'],
       },
     ]

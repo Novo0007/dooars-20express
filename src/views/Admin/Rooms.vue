@@ -654,12 +654,12 @@ const testErrorHandling = () => {
     if (allPassed) {
       notificationStore.success(
         'All error handling tests passed! No [object Object] errors detected.',
-        'Error Test Successful'
+        'Error Test Successful',
       )
     } else {
       notificationStore.warning(
         'Some error handling tests failed. Check console for details.',
-        'Error Test Warning'
+        'Error Test Warning',
       )
     }
   } catch (error) {
@@ -686,7 +686,8 @@ const testConnection = async () => {
     } else {
       const allErrors = [...result.errors]
       if (roomsTest.error) {
-        const errorMessage = typeof roomsTest.error === 'string' ? roomsTest.error : 'Rooms query failed'
+        const errorMessage =
+          typeof roomsTest.error === 'string' ? roomsTest.error : 'Rooms query failed'
         allErrors.push(errorMessage)
       }
       notificationStore.error(`Issues found: ${allErrors.join('; ')}`, 'Database Test Failed')
