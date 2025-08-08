@@ -185,20 +185,86 @@
               <LanguageSelector />
             </div>
           </div>
-          <router-link
-            to="/login"
-            @click="mobileMenuOpen = false"
-            class="block px-3 py-2 text-base font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-md transition-colors duration-200"
-          >
-            {{ $t('nav.signin') }}
-          </router-link>
-          <router-link
-            to="/signup"
-            @click="mobileMenuOpen = false"
-            class="block px-3 py-2 text-base font-medium bg-primary-600 text-white hover:bg-primary-700 rounded-md mt-2 transition-colors duration-200"
-          >
-            {{ $t('nav.signup') }}
-          </router-link>
+          <!-- Authenticated Mobile Menu -->
+          <template v-if="authStore.isAuthenticated">
+            <div class="px-3 py-2 mb-2">
+              <div class="flex items-center space-x-3 mb-3">
+                <img
+                  v-if="authStore.user?.profile?.avatar_url"
+                  :src="authStore.user.profile.avatar_url"
+                  :alt="authStore.userDisplayName"
+                  class="w-10 h-10 rounded-full"
+                />
+                <div
+                  v-else
+                  class="w-10 h-10 rounded-full bg-primary-500 flex items-center justify-center text-white font-semibold"
+                >
+                  {{ authStore.userDisplayName.charAt(0).toUpperCase() }}
+                </div>
+                <div>
+                  <div class="font-medium text-neutral-900 dark:text-neutral-100">
+                    {{ authStore.userDisplayName }}
+                  </div>
+                  <div class="text-sm text-neutral-500 dark:text-neutral-400">
+                    {{ authStore.user?.email }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <router-link
+              to="/profile"
+              @click="mobileMenuOpen = false"
+              class="block px-3 py-2 text-base font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-md transition-colors duration-200"
+            >
+              My Profile
+            </router-link>
+            <router-link
+              to="/favorites"
+              @click="mobileMenuOpen = false"
+              class="block px-3 py-2 text-base font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-md transition-colors duration-200"
+            >
+              My Favorites
+            </router-link>
+            <router-link
+              to="/booking-history"
+              @click="mobileMenuOpen = false"
+              class="block px-3 py-2 text-base font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-md transition-colors duration-200"
+            >
+              Booking History
+            </router-link>
+            <router-link
+              v-if="authStore.isAdmin"
+              to="/admin"
+              @click="mobileMenuOpen = false"
+              class="block px-3 py-2 text-base font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-md transition-colors duration-200"
+            >
+              Admin Dashboard
+            </router-link>
+            <button
+              @click="handleLogout"
+              class="block w-full text-left px-3 py-2 text-base font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md mt-2 transition-colors duration-200"
+            >
+              Sign Out
+            </button>
+          </template>
+
+          <!-- Guest Mobile Menu -->
+          <template v-else>
+            <router-link
+              to="/login"
+              @click="mobileMenuOpen = false"
+              class="block px-3 py-2 text-base font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-md transition-colors duration-200"
+            >
+              {{ $t('nav.signin') }}
+            </router-link>
+            <router-link
+              to="/signup"
+              @click="mobileMenuOpen = false"
+              class="block px-3 py-2 text-base font-medium bg-primary-600 text-white hover:bg-primary-700 rounded-md mt-2 transition-colors duration-200"
+            >
+              {{ $t('nav.signup') }}
+            </router-link>
+          </template>
         </div>
       </div>
     </div>
