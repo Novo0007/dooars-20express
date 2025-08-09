@@ -398,6 +398,7 @@ import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useBookingStore } from '../stores/booking'
 import { useAppStore } from '../stores/app'
+import { formatPrice } from '../utils/currency'
 import BookingSummary from '../components/BookingSummary.vue'
 
 const router = useRouter()
