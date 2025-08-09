@@ -439,54 +439,14 @@ const features = ref([
 const loadFeaturedHotels = async () => {
   try {
     loadingHotels.value = true
+    console.log('Loading featured hotels using hotel store...')
 
-    console.log('Starting to load featured hotels...')
+    // Use the hotel store which has proper error handling and fallback data
+    await hotelStore.fetchFeaturedHotels()
 
-    // First, try to fetch hotels without rooms join to test basic connectivity
-    const {
-      data: hotels,
-      error,
-      count,
-    } = await supabase
-      .from('hotels')
-      .select('*', { count: 'exact' })
-      .eq('is_active', true)
-      .order('rating', { ascending: false })
-      .limit(6)
-
-    if (error) {
-      console.error('Supabase error details:', {
-        message: error.message,
-        details: error.details,
-        hint: error.hint,
-        code: error.code,
-      })
-      throw error
-    }
-
-    console.log('Hotels loaded successfully:', hotels?.length || 0)
-
-    // If hotels loaded successfully, try to get room data separately
-    if (hotels && hotels.length > 0) {
-      const hotelIds = hotels.map((hotel) => hotel.id)
-      const { data: rooms, error: roomsError } = await supabase
-        .from('rooms')
-        .select('hotel_id, price')
-        .in('hotel_id', hotelIds)
-
-      if (roomsError) {
-        console.warn('Could not load room prices:', roomsError.message)
-        // Continue without room prices
-      } else {
-        // Attach room data to hotels
-        hotels.forEach((hotel) => {
-          hotel.rooms = rooms?.filter((room) => room.hotel_id === hotel.id) || []
-        })
-      }
-    }
-
-    featuredHotels.value = hotels || []
-    totalHotels.value = count || 0
+    // Get the data from the store
+    featuredHotels.value = hotelStore.featuredHotels
+    totalHotels.value = hotelStore.featuredHotels.length
 
     console.log('Featured hotels loaded successfully:', featuredHotels.value.length)
   } catch (error) {
@@ -495,7 +455,8 @@ const loadFeaturedHotels = async () => {
       error: errorMessage,
       fullError: error,
     })
-    notificationStore.error(`Failed to load featured hotels: ${errorMessage}`, 'Featured Hotels Error')
+    // Don't show error notification since store already handles fallback gracefully
+    console.log('Using fallback data from hotel store')
   } finally {
     loadingHotels.value = false
   }
