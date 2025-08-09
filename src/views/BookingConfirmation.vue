@@ -361,6 +361,8 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import { useBookingStore } from '../stores/booking'
+import { formatPrice } from '../utils/currency'
 import { useI18n } from 'vue-i18n'
 import { useAppStore } from '../stores/app'
 
