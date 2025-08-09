@@ -270,10 +270,10 @@ export const useHotelStore = defineStore('hotel', () => {
         rating: 4.8,
         badge: 'Featured',
         image: 'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=500&h=300&fit=crop',
-        coordinates: { lat: 19.0760, lng: 72.8777 },
+        coordinates: { lat: 19.076, lng: 72.8777 },
         description: 'Luxury hotel in the heart of Mumbai',
         amenities: ['WiFi', 'Pool', 'Spa', 'Restaurant'],
-        rooms: []
+        rooms: [],
       },
       {
         id: 2,
@@ -283,10 +283,10 @@ export const useHotelStore = defineStore('hotel', () => {
         rating: 4.6,
         badge: 'Popular',
         image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500&h=300&fit=crop',
-        coordinates: { lat: 15.2993, lng: 74.1240 },
+        coordinates: { lat: 15.2993, lng: 74.124 },
         description: 'Beautiful beachfront resort',
         amenities: ['Beach Access', 'WiFi', 'Restaurant', 'Bar'],
-        rooms: []
+        rooms: [],
       },
       {
         id: 3,
@@ -299,8 +299,8 @@ export const useHotelStore = defineStore('hotel', () => {
         coordinates: { lat: 32.2432, lng: 77.1892 },
         description: 'Cozy lodge with mountain views',
         amenities: ['Mountain View', 'WiFi', 'Fireplace', 'Restaurant'],
-        rooms: []
-      }
+        rooms: [],
+      },
     ]
   }
 

@@ -25,77 +25,75 @@ export const useValidation = () => {
   const rules = {
     required: (message = 'This field is required'): ValidationRule => ({
       message,
-      validator: (value) => value !== null && value !== undefined && value !== ''
+      validator: (value) => value !== null && value !== undefined && value !== '',
     }),
 
     email: (message = 'Please enter a valid email address'): ValidationRule => ({
       message,
-      validator: (value) => !value || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+      validator: (value) => !value || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
     }),
 
     minLength: (min: number, message?: string): ValidationRule => ({
       message: message || `Must be at least ${min} characters`,
-      validator: (value) => !value || value.toString().length >= min
+      validator: (value) => !value || value.toString().length >= min,
     }),
 
     maxLength: (max: number, message?: string): ValidationRule => ({
       message: message || `Must be no more than ${max} characters`,
-      validator: (value) => !value || value.toString().length <= max
+      validator: (value) => !value || value.toString().length <= max,
     }),
 
     phoneNumber: (message = 'Please enter a valid phone number'): ValidationRule => ({
       message,
-      validator: (value) => !value || /^[\+]?[1-9][\d]{0,15}$/.test(value.replace(/\s/g, ''))
+      validator: (value) => !value || /^[\+]?[1-9][\d]{0,15}$/.test(value.replace(/\s/g, '')),
     }),
 
     indianPhoneNumber: (message = 'Please enter a valid Indian phone number'): ValidationRule => ({
       message,
-      validator: (value) => !value || /^(\+91|91|0)?[6-9]\d{9}$/.test(value.replace(/\s/g, ''))
+      validator: (value) => !value || /^(\+91|91|0)?[6-9]\d{9}$/.test(value.replace(/\s/g, '')),
     }),
 
-    passwordStrength: (message = 'Password must be at least 8 characters with uppercase, lowercase, and number'): ValidationRule => ({
+    passwordStrength: (
+      message = 'Password must be at least 8 characters with uppercase, lowercase, and number',
+    ): ValidationRule => ({
       message,
-      validator: (value) => !value || (
-        value.length >= 8 &&
-        /[a-z]/.test(value) &&
-        /[A-Z]/.test(value) &&
-        /\d/.test(value)
-      )
+      validator: (value) =>
+        !value ||
+        (value.length >= 8 && /[a-z]/.test(value) && /[A-Z]/.test(value) && /\d/.test(value)),
     }),
 
-    confirmPassword: (passwordRef: Ref<string>, message = 'Passwords do not match'): ValidationRule => ({
+    confirmPassword: (
+      passwordRef: Ref<string>,
+      message = 'Passwords do not match',
+    ): ValidationRule => ({
       message,
-      validator: (value) => !value || value === passwordRef.value
+      validator: (value) => !value || value === passwordRef.value,
     }),
 
     positiveNumber: (message = 'Must be a positive number'): ValidationRule => ({
       message,
-      validator: (value) => !value || (Number(value) > 0)
+      validator: (value) => !value || Number(value) > 0,
     }),
 
     dateNotPast: (message = 'Date cannot be in the past'): ValidationRule => ({
       message,
-      validator: (value) => !value || new Date(value) >= new Date()
+      validator: (value) => !value || new Date(value) >= new Date(),
     }),
 
     url: (message = 'Please enter a valid URL'): ValidationRule => ({
       message,
-      validator: (value) => !value || /^https?:\/\/.+/.test(value)
-    })
+      validator: (value) => !value || /^https?:\/\/.+/.test(value),
+    }),
   }
 
   /**
    * Register a field for validation
    */
-  const registerField = (
-    name: string,
-    value: Ref<any>,
-    validationRules: ValidationRule[]
-  ) => {
+  const registerField = (name: string, value: Ref<any>, validationRules: ValidationRule[]) => {
     fields.value[name] = {
       value,
       rules: validationRules,
-      touched: ref(false)
+      touched: ref(false),
     }
   }
 
@@ -123,8 +121,8 @@ export const useValidation = () => {
     if (!field || !field.touched.value) return []
 
     return field.rules
-      .filter(rule => !rule.validator(field.value.value))
-      .map(rule => rule.message)
+      .filter((rule) => !rule.validator(field.value.value))
+      .map((rule) => rule.message)
   }
 
   /**
@@ -139,7 +137,7 @@ export const useValidation = () => {
    */
   const getAllErrors = computed(() => {
     const errors: Record<string, string[]> = {}
-    Object.keys(fields.value).forEach(name => {
+    Object.keys(fields.value).forEach((name) => {
       const fieldErrors = getFieldErrors(name)
       if (fieldErrors.length > 0) {
         errors[name] = fieldErrors
@@ -167,7 +165,7 @@ export const useValidation = () => {
    * Reset all validation states
    */
   const reset = () => {
-    Object.keys(fields.value).forEach(name => {
+    Object.keys(fields.value).forEach((name) => {
       fields.value[name].touched.value = false
     })
   }
@@ -190,6 +188,6 @@ export const useValidation = () => {
     isValid,
     validate,
     reset,
-    clear
+    clear,
   }
 }

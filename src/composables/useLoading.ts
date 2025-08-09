@@ -35,10 +35,7 @@ export const useLoading = (initialState = false) => {
   /**
    * Execute operation with loading state management
    */
-  const withLoading = async <T>(
-    operation: () => Promise<T>,
-    loadingKey?: string
-  ): Promise<T> => {
+  const withLoading = async <T>(operation: () => Promise<T>, loadingKey?: string): Promise<T> => {
     if (loadingKey) {
       setLoadingState(loadingKey, true)
     } else {
@@ -60,7 +57,7 @@ export const useLoading = (initialState = false) => {
    * Execute multiple operations with individual loading states
    */
   const withMultipleLoading = async <T extends Record<string, () => Promise<any>>>(
-    operations: T
+    operations: T,
   ): Promise<{ [K in keyof T]: Awaited<ReturnType<T[K]>> }> => {
     const promises = Object.entries(operations).map(async ([key, operation]) => {
       setLoadingState(key, true)
@@ -98,6 +95,6 @@ export const useLoading = (initialState = false) => {
     withLoading,
     withMultipleLoading,
     getLoadingStates,
-    clearLoadingStates
+    clearLoadingStates,
   }
 }

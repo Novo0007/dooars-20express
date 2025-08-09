@@ -5,17 +5,20 @@
 The app is currently using demo Supabase credentials. To connect to a real Supabase database:
 
 ### 1. Create a Supabase Project
+
 1. Go to [supabase.com](https://supabase.com)
 2. Create a new project
 3. Wait for the database to initialize
 
 ### 2. Get Your Credentials
+
 From your Supabase dashboard:
 
 1. **Project URL**: Found in Settings → API
+
    - Format: `https://your-project-id.supabase.co`
 
-2. **Anon Key**: Found in Settings → API  
+2. **Anon Key**: Found in Settings → API
    - The `anon` `public` key (starts with `eyJ...`)
 
 ### 3. Update Environment Variables
@@ -26,7 +29,7 @@ Use the DevServerControl tool to set your real credentials:
 # Set your Supabase URL
 VITE_SUPABASE_URL=https://your-project-id.supabase.co
 
-# Set your Supabase anon key  
+# Set your Supabase anon key
 VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -35,6 +38,7 @@ VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 Your Supabase project needs these tables:
 
 #### Hotels Table
+
 ```sql
 CREATE TABLE hotels (
   id BIGSERIAL PRIMARY KEY,
@@ -54,7 +58,8 @@ CREATE TABLE hotels (
 );
 ```
 
-#### Rooms Table  
+#### Rooms Table
+
 ```sql
 CREATE TABLE rooms (
   id BIGSERIAL PRIMARY KEY,
@@ -73,6 +78,7 @@ CREATE TABLE rooms (
 ```
 
 #### Bookings Table
+
 ```sql
 CREATE TABLE bookings (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -118,23 +124,26 @@ CREATE POLICY "Users can view own bookings" ON bookings FOR SELECT USING (auth.u
 The app includes automatic configuration validation:
 
 - ✅ **Environment Variables**: Set via DevServerControl
-- ✅ **Fallback Data**: Demo hotels shown when database is unavailable  
+- ✅ **Fallback Data**: Demo hotels shown when database is unavailable
 - ✅ **Error Handling**: Proper error messages instead of "[object Object]"
 - ✅ **Connection Testing**: Automatic validation on startup
 
 ## 🚨 Troubleshooting
 
 ### "Failed to fetch" errors
+
 - Check your Supabase project is active
 - Verify the URL and anon key are correct
 - Ensure tables exist in your database
 
 ### No data showing
+
 - The app shows fallback demo data when Supabase isn't configured
 - Check browser console for connection errors
 - Verify Row Level Security policies if enabled
 
 ### Permission errors
+
 - Make sure anon key has proper permissions
 - Check RLS policies are not too restrictive
 - Verify table structure matches the schema above

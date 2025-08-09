@@ -19,13 +19,13 @@ export const useErrorHandler = () => {
       notificationTitle?: string
       logLevel?: 'error' | 'warn'
       fallbackMessage?: string
-    }
+    },
   ) => {
     const {
       showNotification = true,
       notificationTitle = 'Error',
       logLevel = 'error',
-      fallbackMessage = 'An unexpected error occurred'
+      fallbackMessage = 'An unexpected error occurred',
     } = options || {}
 
     // Format error message
@@ -55,12 +55,12 @@ export const useErrorHandler = () => {
     options?: {
       showNotification?: boolean
       fallbackMessage?: string
-    }
+    },
   ) => {
     return handleError(error, `API ${operation}`, {
       notificationTitle: `${operation} Failed`,
       fallbackMessage: `Failed to ${operation.toLowerCase()}`,
-      ...options
+      ...options,
     })
   }
 
@@ -73,12 +73,12 @@ export const useErrorHandler = () => {
     operation: string,
     options?: {
       showNotification?: boolean
-    }
+    },
   ) => {
     return handleError(error, `Database ${operation} on ${table}`, {
       notificationTitle: `Database Error`,
       fallbackMessage: `Failed to ${operation} ${table} data`,
-      ...options
+      ...options,
     })
   }
 
@@ -91,7 +91,7 @@ export const useErrorHandler = () => {
     options?: {
       showNotification?: boolean
       fallbackValue?: T
-    }
+    },
   ): Promise<T | undefined> => {
     try {
       return await operation()
@@ -105,6 +105,6 @@ export const useErrorHandler = () => {
     handleError,
     handleApiError,
     handleDbError,
-    withErrorHandling
+    withErrorHandling,
   }
 }
