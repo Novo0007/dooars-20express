@@ -4,6 +4,35 @@ import { createClient } from '@supabase/supabase-js'
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://your-project.supabase.co'
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'your-anon-key'
 
+// Check if Supabase is properly configured
+export const isSupabaseConfigured = () => {
+  return (
+    supabaseUrl !== 'https://your-project.supabase.co' &&
+    supabaseAnonKey !== 'your-anon-key' &&
+    supabaseUrl.includes('.supabase.co')
+  )
+}
+
+// Helper to format Supabase errors properly
+export const formatSupabaseError = (error: any): string => {
+  if (!error) return 'Unknown error'
+
+  if (typeof error === 'string') return error
+
+  if (error.message) {
+    const details = error.code ? ` (Code: ${error.code})` : ''
+    const hint = error.hint ? `, Hint: ${error.hint}` : ''
+    return `${error.message}${details}${hint}`
+  }
+
+  // Fallback for complex error objects
+  try {
+    return JSON.stringify(error)
+  } catch {
+    return '[Complex error object - check console]'
+  }
+}
+
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     autoRefreshToken: true,
@@ -11,6 +40,31 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     detectSessionInUrl: true,
   },
 })
+
+// Test connection on module load (in development)
+if (import.meta.env.DEV) {
+  const testConnection = async () => {
+    if (!isSupabaseConfigured()) {
+      console.warn('⚠️ Supabase not configured - using placeholder values')
+      console.log('Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your .env file')
+      return
+    }
+
+    try {
+      const { error } = await supabase.from('hotels').select('count').limit(1)
+      if (error) {
+        console.error('Supabase connection test failed:', formatSupabaseError(error))
+      } else {
+        console.log('✅ Supabase connection successful')
+      }
+    } catch (err) {
+      console.error('Supabase connection test error:', err)
+    }
+  }
+
+  // Run test after a short delay to avoid blocking module loading
+  setTimeout(testConnection, 1000)
+}
 
 // Database Types
 export interface Database {

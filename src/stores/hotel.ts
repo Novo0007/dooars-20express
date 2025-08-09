@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import { supabase } from '@/lib/supabase'
+import { supabase, isSupabaseConfigured, formatSupabaseError } from '@/lib/supabase'
 import { useAppStore } from '@/stores/app'
+import { logger } from '@/utils/logger'
 
 export interface Hotel {
   id: number
@@ -140,6 +141,14 @@ export const useHotelStore = defineStore('hotel', () => {
     loading.value = true
     error.value = null
 
+    // Check if Supabase is configured
+    if (!isSupabaseConfigured()) {
+      console.warn('Supabase not configured, using fallback data')
+      featuredHotels.value = getFallbackHotels()
+      loading.value = false
+      return
+    }
+
     try {
       // Fetch featured hotels with their rooms data
       const { data, error: supabaseError } = await supabase
@@ -163,8 +172,9 @@ export const useHotelStore = defineStore('hotel', () => {
         .limit(6)
 
       if (supabaseError) {
-        console.warn('Supabase error:', supabaseError.message)
-        throw supabaseError
+        const errorMessage = formatSupabaseError(supabaseError)
+        logger.error('Featured hotels query failed', { error: supabaseError })
+        throw new Error(errorMessage)
       }
 
       if (data && data.length > 0) {
@@ -237,13 +247,60 @@ export const useHotelStore = defineStore('hotel', () => {
         }
       }
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Unknown error occurred'
+      const errorMessage = err instanceof Error ? err.message : formatSupabaseError(err)
       error.value = errorMessage
-      console.error('Error fetching featured hotels:', errorMessage)
-      featuredHotels.value = []
+      logger.error('Error fetching featured hotels', { error: err })
+
+      // Use fallback data instead of empty array
+      featuredHotels.value = getFallbackHotels()
     } finally {
       loading.value = false
     }
+  }
+
+  // Fallback hotels data for when Supabase is not configured
+  const getFallbackHotels = (): Hotel[] => {
+    return [
+      {
+        id: 1,
+        name: 'The Grand Plaza',
+        location: 'Mumbai, India',
+        price: 3500,
+        rating: 4.8,
+        badge: 'Featured',
+        image: 'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=500&h=300&fit=crop',
+        coordinates: { lat: 19.0760, lng: 72.8777 },
+        description: 'Luxury hotel in the heart of Mumbai',
+        amenities: ['WiFi', 'Pool', 'Spa', 'Restaurant'],
+        rooms: []
+      },
+      {
+        id: 2,
+        name: 'Seaside Resort',
+        location: 'Goa, India',
+        price: 2800,
+        rating: 4.6,
+        badge: 'Popular',
+        image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500&h=300&fit=crop',
+        coordinates: { lat: 15.2993, lng: 74.1240 },
+        description: 'Beautiful beachfront resort',
+        amenities: ['Beach Access', 'WiFi', 'Restaurant', 'Bar'],
+        rooms: []
+      },
+      {
+        id: 3,
+        name: 'Mountain View Lodge',
+        location: 'Manali, India',
+        price: 2200,
+        rating: 4.5,
+        badge: 'Nature',
+        image: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=500&h=300&fit=crop',
+        coordinates: { lat: 32.2432, lng: 77.1892 },
+        description: 'Cozy lodge with mountain views',
+        amenities: ['Mountain View', 'WiFi', 'Fireplace', 'Restaurant'],
+        rooms: []
+      }
+    ]
   }
 
   const searchHotels = async (filters: Partial<SearchFilters>) => {
