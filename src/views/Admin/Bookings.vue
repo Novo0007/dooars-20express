@@ -527,12 +527,12 @@
                   Payment Information
                 </h4>
                 <div class="bg-neutral-50 dark:bg-neutral-700 rounded-lg p-4 space-y-2">
-                  <div><strong>Total:</strong> ${{ selectedBooking.total_price?.toFixed(2) }}</div>
+                  <div><strong>Total:</strong> {{ formatPrice(selectedBooking.total_price || 0) }}</div>
                   <div v-if="selectedBooking.discount_amount > 0">
-                    <strong>Discount:</strong> -${{ selectedBooking.discount_amount.toFixed(2) }}
+                    <strong>Discount:</strong> -{{ formatPrice(selectedBooking.discount_amount) }}
                   </div>
                   <div>
-                    <strong>Final Amount:</strong> ${{ selectedBooking.final_price?.toFixed(2) }}
+                    <strong>Final Amount:</strong> {{ formatPrice(selectedBooking.final_price || 0) }}
                   </div>
                   <div>
                     <strong>Payment Status:</strong>
