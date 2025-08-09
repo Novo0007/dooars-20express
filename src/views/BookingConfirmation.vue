@@ -170,7 +170,7 @@
                 <span class="text-neutral-600 dark:text-neutral-400"
                   >{{ $t('booking.phone') }}:</span
                 >
-                <span class="ml-2 text-neutral-800 dark:text-neutral-200">+1-555-0123</span>
+                <span class="ml-2 text-neutral-800 dark:text-neutral-200">{{ booking?.guestInfo?.phone }}</span>
               </div>
             </div>
           </div>
