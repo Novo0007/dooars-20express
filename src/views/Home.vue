@@ -495,7 +495,7 @@ const loadFeaturedHotels = async () => {
       error: errorMessage,
       fullError: error,
     })
-    notificationStore.error(`Failed to load featured hotels: ${errorMessage}`)
+    notificationStore.error(`Failed to load featured hotels: ${errorMessage}`, 'Featured Hotels Error')
   } finally {
     loadingHotels.value = false
   }

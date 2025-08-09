@@ -852,7 +852,10 @@ const testConnection = async () => {
           typeof roomsTest.error === 'string' ? roomsTest.error : 'Rooms query failed'
         allErrors.push(errorMessage)
       }
-      notificationStore.error(`Issues found: ${allErrors.join('; ')}`, 'Database Test Failed')
+      const formattedErrors = allErrors.map(error =>
+        typeof error === 'string' ? error : JSON.stringify(error)
+      ).join('; ')
+      notificationStore.error(`Issues found: ${formattedErrors}`, 'Database Test Failed')
     }
   } catch (error) {
     logger.error('Database test exception', { error })
