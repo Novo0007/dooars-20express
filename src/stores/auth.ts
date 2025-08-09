@@ -11,7 +11,7 @@ export interface UserProfile {
   phone?: string
   date_of_birth?: string
   preferred_language: string
-  role: 'user' | 'admin' | 'super_admin'
+  role: 'user' | 'admin' | 'super_admin' | 'hotel_manager'
   is_active: boolean
   email_notifications: boolean
   marketing_emails: boolean
