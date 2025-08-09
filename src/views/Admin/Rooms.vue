@@ -511,6 +511,62 @@
               ></textarea>
             </div>
 
+            <!-- Room Images Section -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Room Images</label>
+              <div class="space-y-3">
+                <!-- Current Images -->
+                <div v-if="roomForm.images && roomForm.images.length > 0" class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  <div v-for="(image, index) in roomForm.images" :key="index" class="relative">
+                    <img :src="image" :alt="`Room image ${index + 1}`" class="w-full h-24 object-cover rounded-lg border" />
+                    <button
+                      type="button"
+                      @click="removeImage(index)"
+                      class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600"
+                    >
+                      ×
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Add New Image -->
+                <div class="border-2 border-dashed border-gray-300 rounded-lg p-4">
+                  <div class="flex items-center space-x-2">
+                    <input
+                      v-model="newImageUrl"
+                      type="url"
+                      placeholder="Enter image URL (e.g., https://example.com/image.jpg)"
+                      class="flex-1 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    <button
+                      type="button"
+                      @click="addImage"
+                      :disabled="!newImageUrl || !isValidUrl(newImageUrl)"
+                      class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      Add
+                    </button>
+                  </div>
+
+                  <!-- URL Preview -->
+                  <div v-if="newImageUrl && isValidUrl(newImageUrl)" class="mt-3">
+                    <p class="text-sm text-gray-600 mb-2">Preview:</p>
+                    <img
+                      :src="newImageUrl"
+                      alt="Image preview"
+                      class="w-32 h-20 object-cover rounded border"
+                      @error="onImageError"
+                      @load="onImageLoad"
+                    />
+                  </div>
+
+                  <p class="text-xs text-gray-500 mt-2">
+                    Add high-quality images of the room. Supported formats: JPG, PNG, WebP.
+                  </p>
+                </div>
+              </div>
+            </div>
+
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Amenities</label>
               <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
@@ -591,7 +647,11 @@ const roomForm = ref({
   is_active: true,
   description: '',
   amenities: [] as string[],
+  images: [] as string[],
 })
+
+// Image handling
+const newImageUrl = ref('')
 
 const availableAmenities = [
   'Wi-Fi',
@@ -811,13 +871,20 @@ const openCreateModal = () => {
     is_active: true,
     description: '',
     amenities: [],
+    images: [],
   }
+  newImageUrl.value = ''
   showModal.value = true
 }
 
 const editRoom = (room: any) => {
   isEditing.value = true
-  roomForm.value = { ...room, amenities: room.amenities || [] }
+  roomForm.value = {
+    ...room,
+    amenities: room.amenities || [],
+    images: room.images || []
+  }
+  newImageUrl.value = ''
   showModal.value = true
 }
 
