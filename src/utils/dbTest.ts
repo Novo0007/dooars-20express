@@ -106,7 +106,7 @@ export const testRoomsTable = async (): Promise<DBTestResult> => {
 
     const { data: rooms, error } = await supabase
       .from('rooms')
-      .select('id, hotel_id, price_per_night')
+      .select('id, hotel_id, price')
       .limit(3)
 
     if (error) {

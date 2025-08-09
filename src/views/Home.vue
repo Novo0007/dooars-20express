@@ -471,7 +471,7 @@ const loadFeaturedHotels = async () => {
       const hotelIds = hotels.map((hotel) => hotel.id)
       const { data: rooms, error: roomsError } = await supabase
         .from('rooms')
-        .select('hotel_id, price_per_night')
+        .select('hotel_id, price')
         .in('hotel_id', hotelIds)
 
       if (roomsError) {
