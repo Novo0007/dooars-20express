@@ -420,28 +420,11 @@ const guestInfo = ref({
   specialRequests: '',
 })
 
-const cardInfo = ref({
-  number: '',
-  expiry: '',
-  cvv: '',
-  name: '',
-})
-
 const paymentMethods = ref([
   {
     id: 'razorpay',
-    name: 'Razorpay',
+    name: 'Razorpay (All Cards, UPI, Wallets)',
     logo: 'https://razorpay.com/assets/razorpay-logo.svg',
-  },
-  {
-    id: 'card',
-    name: 'Credit Card',
-    logo: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCA0MCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjI0IiByeD0iNCIgZmlsbD0iIzAwNTBBNCIvPgo8dGV4dCB4PSI1IiB5PSIxNSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEwIiBmaWxsPSJ3aGl0ZSI+Q0FSRDE8L3RleHQ+Cjwvc3ZnPgo=',
-  },
-  {
-    id: 'upi',
-    name: 'UPI',
-    logo: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCA0MCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjI0IiByeD0iNCIgZmlsbD0iI0ZGNjYwMCIvPgo8dGV4dCB4PSIxMCIgeT0iMTUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMCIgZmlsbD0id2hpdGUiPlVQSTwvdGV4dD4KPC9zdmc+Cg==',
   },
 ])
 
