@@ -164,7 +164,7 @@
                 <span class="text-neutral-600 dark:text-neutral-400"
                   >{{ $t('booking.email') }}:</span
                 >
-                <span class="ml-2 text-neutral-800 dark:text-neutral-200">john@example.com</span>
+                <span class="ml-2 text-neutral-800 dark:text-neutral-200">{{ booking?.guestInfo?.email }}</span>
               </div>
               <div>
                 <span class="text-neutral-600 dark:text-neutral-400"
