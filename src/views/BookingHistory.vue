@@ -325,6 +325,7 @@ import { useAuthStore } from '@/stores/auth'
 import { supabase } from '@/lib/supabase'
 import { useNotificationStore } from '@/stores/notification'
 import { logger } from '@/utils/logger'
+import { formatPrice } from '@/utils/currency'
 
 interface Booking {
   id: string
