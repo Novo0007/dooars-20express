@@ -387,10 +387,12 @@ import { useRouter } from 'vue-router'
 import { supabase } from '../lib/supabase'
 import { formatPrice, formatPricePerNight } from '../utils/currency'
 import { useNotificationStore } from '../stores/notification'
+import { useHotelStore } from '../stores/hotel'
 import { runFullDatabaseTest } from '../utils/dbTest'
 
 const router = useRouter()
 const notificationStore = useNotificationStore()
+const hotelStore = useHotelStore()
 
 // Reactive state
 const featuredHotels = ref<any[]>([])
