@@ -196,7 +196,7 @@
               </div>
             </div>
 
-            <!-- Razorpay Payment Form -->
+            <!-- Razorpay Payment Information -->
             <div v-if="selectedPaymentMethod === 'razorpay'" class="space-y-4">
               <div
                 class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4"
@@ -212,90 +212,16 @@
                       stroke-linecap="round"
                       stroke-linejoin="round"
                       stroke-width="2"
-                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                     />
                   </svg>
                   <span class="text-sm text-blue-800 dark:text-blue-200 font-medium">
-                    {{ $t('booking.securePayment') }}
+                    Secure Payment with Razorpay
                   </span>
                 </div>
                 <p class="text-sm text-blue-700 dark:text-blue-300 mt-1">
-                  {{ $t('booking.paymentNote') }}
+                  Pay securely using Credit Cards, Debit Cards, UPI, or Digital Wallets. Your payment information is encrypted and protected.
                 </p>
-              </div>
-
-              <!-- Test Card Information -->
-              <div
-                class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4"
-              >
-                <h4 class="font-medium text-amber-800 dark:text-amber-200 mb-2">
-                  {{ $t('booking.testMode') }}
-                </h4>
-                <div class="text-sm text-amber-700 dark:text-amber-300 space-y-1">
-                  <p>{{ $t('booking.testCardNumber') }}: 4111 1111 1111 1111</p>
-                  <p>{{ $t('booking.testExpiry') }}: 12/25, {{ $t('booking.testCVV') }}: 123</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Card Payment Form (Demo) -->
-            <div v-if="selectedPaymentMethod === 'card'" class="space-y-4">
-              <div>
-                <label
-                  class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
-                >
-                  {{ $t('booking.cardNumber') }}
-                </label>
-                <input
-                  v-model="cardInfo.number"
-                  type="text"
-                  placeholder="1234 5678 9012 3456"
-                  class="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-neutral-700 text-neutral-800 dark:text-neutral-200"
-                />
-              </div>
-
-              <div class="grid grid-cols-2 gap-4">
-                <div>
-                  <label
-                    class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
-                  >
-                    {{ $t('booking.expiryDate') }}
-                  </label>
-                  <input
-                    v-model="cardInfo.expiry"
-                    type="text"
-                    placeholder="MM/YY"
-                    class="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-neutral-700 text-neutral-800 dark:text-neutral-200"
-                  />
-                </div>
-
-                <div>
-                  <label
-                    class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
-                  >
-                    {{ $t('booking.cvv') }}
-                  </label>
-                  <input
-                    v-model="cardInfo.cvv"
-                    type="text"
-                    placeholder="123"
-                    class="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-neutral-700 text-neutral-800 dark:text-neutral-200"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label
-                  class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
-                >
-                  {{ $t('booking.cardholderName') }}
-                </label>
-                <input
-                  v-model="cardInfo.name"
-                  type="text"
-                  :placeholder="$t('booking.nameOnCard')"
-                  class="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-neutral-700 text-neutral-800 dark:text-neutral-200"
-                />
               </div>
             </div>
           </div>
