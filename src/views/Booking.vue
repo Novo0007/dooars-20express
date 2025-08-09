@@ -479,13 +479,11 @@ const processPayment = async () => {
   loading.value = true
 
   try {
-    if (selectedPaymentMethod.value === 'razorpay') {
-      await processRazorpayPayment()
-    } else {
-      await processMockPayment()
-    }
+    await processRazorpayPayment()
   } catch (error) {
     console.error('Payment error:', error)
+    // Show user-friendly error message
+    alert('Payment failed. Please try again or contact support.')
   } finally {
     loading.value = false
   }
