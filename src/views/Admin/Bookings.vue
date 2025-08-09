@@ -374,13 +374,13 @@
 
                   <td class="px-6 py-4 whitespace-nowrap">
                     <div class="text-sm font-medium text-neutral-900 dark:text-neutral-100">
-                      ${{ booking.final_price?.toFixed(2) }}
+                      {{ formatPrice(booking.final_price || 0) }}
                     </div>
                     <div
                       v-if="booking.discount_amount > 0"
                       class="text-sm text-green-600 dark:text-green-400"
                     >
-                      -${{ booking.discount_amount.toFixed(2) }}
+                      -{{ formatPrice(booking.discount_amount) }}
                     </div>
                   </td>
 
