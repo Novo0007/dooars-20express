@@ -590,6 +590,7 @@ import { ref, computed, onMounted } from 'vue'
 import { supabase } from '@/lib/supabase'
 import { useNotificationStore } from '@/stores/notification'
 import { logger } from '@/utils/logger'
+import { formatPrice } from '@/utils/currency'
 
 const notificationStore = useNotificationStore()
 const loading = ref(true)
