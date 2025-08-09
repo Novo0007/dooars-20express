@@ -264,15 +264,27 @@
               <td class="px-6 py-4 whitespace-nowrap">
                 <div class="flex items-center">
                   <img
-                    v-if="room.image_url"
-                    :src="room.image_url"
-                    :alt="room.name"
-                    class="h-10 w-10 rounded-lg object-cover mr-3"
+                    v-if="room.images && room.images.length > 0"
+                    :src="room.images[0]"
+                    :alt="room.type"
+                    class="h-12 w-12 rounded-lg object-cover mr-3"
+                    @error="(e) => (e.target as HTMLImageElement).style.display = 'none'"
                   />
+                  <div
+                    v-else
+                    class="h-12 w-12 rounded-lg bg-gray-200 mr-3 flex items-center justify-center"
+                  >
+                    <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                  </div>
                   <div>
                     <div class="text-sm font-medium text-gray-900">{{ room.type }}</div>
                     <div class="text-sm text-gray-500">
                       {{ room.description || 'No description' }}
+                    </div>
+                    <div class="text-xs text-gray-400 mt-1">
+                      {{ room.images?.length || 0 }} image(s)
                     </div>
                   </div>
                 </div>
