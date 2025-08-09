@@ -506,7 +506,7 @@ const getLowestRoomPrice = (hotel: any) => {
     return 3000 // Default price if no rooms
   }
 
-  const prices = hotel.rooms.map((room: any) => room.price_per_night)
+  const prices = hotel.rooms.map((room: any) => room.price)
   return Math.min(...prices)
 }
 
