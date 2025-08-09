@@ -196,7 +196,7 @@
             <span class="text-neutral-600 dark:text-neutral-400">{{
               $t('booking.taxesAndFees')
             }}</span>
-            <span class="text-neutral-800 dark:text-neutral-200">${{ taxesAndFees }}</span>
+            <span class="text-neutral-800 dark:text-neutral-200">{{ formatPrice(taxesAndFees) }}</span>
           </div>
           <div
             class="border-t border-neutral-200 dark:border-neutral-700 pt-3 flex justify-between font-semibold"
