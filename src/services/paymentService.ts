@@ -174,15 +174,11 @@ export class IndianPaymentService {
     return phoneRegex.test(phone.replace(/\D/g, ''))
   }
 
-  // Format Indian currency
+  // Use centralized currency formatting from utils/currency.ts
   formatIndianCurrency(amount: number): string {
-    const formatter = new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 2,
-    })
-    return formatter.format(amount / 100) // Convert from paise to rupees
+    // Import formatPrice dynamically to avoid circular dependencies
+    const { formatPrice } = require('@/utils/currency')
+    return formatPrice(amount / 100) // Convert from paise to rupees
   }
 
   // Get GST calculation for hotel bookings
