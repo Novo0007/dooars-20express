@@ -273,7 +273,7 @@ export interface Database {
               phone?: string | null
               date_of_birth?: string | null
               preferred_language?: string
-              role?: 'user' | 'admin' | 'super_admin'
+              role?: 'user' | 'admin' | 'super_admin' | 'hotel_manager'
               is_active?: boolean
               email_notifications?: boolean
               marketing_emails?: boolean
@@ -285,7 +285,7 @@ export interface Database {
               phone?: string | null
               date_of_birth?: string | null
               preferred_language?: string
-              role?: 'user' | 'admin' | 'super_admin'
+              role?: 'user' | 'admin' | 'super_admin' | 'hotel_manager'
               is_active?: boolean
               email_notifications?: boolean
               marketing_emails?: boolean
