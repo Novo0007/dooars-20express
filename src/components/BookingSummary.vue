@@ -227,6 +227,7 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useAppStore } from '../stores/app'
+import { formatPrice } from '../utils/currency'
 import PromoCodeInput from './PromoCodeInput.vue'
 
 interface Props {
