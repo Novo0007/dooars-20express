@@ -369,25 +369,30 @@ import { useAppStore } from '../stores/app'
 const route = useRoute()
 const { t } = useI18n()
 const appStore = useAppStore()
+const bookingStore = useBookingStore()
 
-const bookingId = ref((route.params.id as string) || 'WS123456789')
+const bookingId = ref((route.params.id as string) || '')
+const booking = ref<any>(null)
+const loading = ref(true)
+const error = ref<string | null>(null)
 
-// Mock booking data - in real app this would come from API
-const mockBooking = ref({
-  id: bookingId.value,
-  hotel: {
-    name: 'Ocean View Resort',
-    location: 'Maldives',
-    image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=500&h=300&fit=crop',
-    rating: 4.9,
-  },
-  checkIn: '2024-02-15',
-  checkOut: '2024-02-20',
-  guests: 2,
-  roomType: 'Deluxe Ocean View Suite',
-  totalPrice: 2250,
-  finalPrice: 2395,
-})
+// Load booking data from store or current booking
+const loadBooking = async () => {
+  try {
+    loading.value = true
+    // Check if it's the current booking from the store
+    if (bookingStore.currentBooking) {
+      booking.value = bookingStore.currentBooking
+    } else {
+      error.value = 'Booking not found. Please complete a booking first.'
+    }
+  } catch (err) {
+    console.error('Failed to load booking:', err)
+    error.value = 'Failed to load booking details'
+  } finally {
+    loading.value = false
+  }
+}
 
 const nights = computed(() => {
   const checkIn = new Date(mockBooking.value.checkIn)
