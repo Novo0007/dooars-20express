@@ -229,11 +229,8 @@ export const useBookingStore = defineStore('booking', () => {
     error.value = null
 
     try {
-      // Mock API call - replace with actual implementation
-      await new Promise((resolve) => setTimeout(resolve, 500))
-
-      // Mock data would be fetched here
-      // userBookings.value = await api.getUserBookings()
+      // TODO: Implement real API call to fetch user bookings from Supabase
+      // userBookings.value = await supabase.from('bookings').select('*').eq('user_id', userId)
     } catch (err) {
       error.value = err instanceof Error ? err.message : 'Failed to fetch bookings'
     } finally {
