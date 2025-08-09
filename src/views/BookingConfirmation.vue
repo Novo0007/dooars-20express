@@ -395,13 +395,15 @@ const loadBooking = async () => {
 }
 
 const nights = computed(() => {
-  const checkIn = new Date(mockBooking.value.checkIn)
-  const checkOut = new Date(mockBooking.value.checkOut)
+  if (!booking.value) return 0
+  const checkIn = new Date(booking.value.checkIn)
+  const checkOut = new Date(booking.value.checkOut)
   return Math.ceil((checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60 * 24))
 })
 
 const taxesAndFees = computed(() => {
-  return mockBooking.value.finalPrice - mockBooking.value.totalPrice
+  if (!booking.value) return 0
+  return booking.value.finalPrice - booking.value.totalPrice
 })
 
 const formatDate = (dateString: string): string => {
