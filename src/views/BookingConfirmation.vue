@@ -158,19 +158,25 @@
                 <span class="text-neutral-600 dark:text-neutral-400"
                   >{{ $t('booking.name') }}:</span
                 >
-                <span class="ml-2 text-neutral-800 dark:text-neutral-200">{{ booking?.guestInfo?.firstName }} {{ booking?.guestInfo?.lastName }}</span>
+                <span class="ml-2 text-neutral-800 dark:text-neutral-200"
+                  >{{ booking?.guestInfo?.firstName }} {{ booking?.guestInfo?.lastName }}</span
+                >
               </div>
               <div>
                 <span class="text-neutral-600 dark:text-neutral-400"
                   >{{ $t('booking.email') }}:</span
                 >
-                <span class="ml-2 text-neutral-800 dark:text-neutral-200">{{ booking?.guestInfo?.email }}</span>
+                <span class="ml-2 text-neutral-800 dark:text-neutral-200">{{
+                  booking?.guestInfo?.email
+                }}</span>
               </div>
               <div>
                 <span class="text-neutral-600 dark:text-neutral-400"
                   >{{ $t('booking.phone') }}:</span
                 >
-                <span class="ml-2 text-neutral-800 dark:text-neutral-200">{{ booking?.guestInfo?.phone }}</span>
+                <span class="ml-2 text-neutral-800 dark:text-neutral-200">{{
+                  booking?.guestInfo?.phone
+                }}</span>
               </div>
             </div>
           </div>
@@ -188,23 +194,25 @@
         <div class="space-y-3 text-sm">
           <div class="flex justify-between">
             <span class="text-neutral-600 dark:text-neutral-400">{{ $t('booking.subtotal') }}</span>
-            <span class="text-neutral-800 dark:text-neutral-200"
-              >{{ formatPrice(booking?.totalPrice || 0) }}</span
-            >
+            <span class="text-neutral-800 dark:text-neutral-200">{{
+              formatPrice(booking?.totalPrice || 0)
+            }}</span>
           </div>
           <div class="flex justify-between">
             <span class="text-neutral-600 dark:text-neutral-400">{{
               $t('booking.taxesAndFees')
             }}</span>
-            <span class="text-neutral-800 dark:text-neutral-200">{{ formatPrice(taxesAndFees) }}</span>
+            <span class="text-neutral-800 dark:text-neutral-200">{{
+              formatPrice(taxesAndFees)
+            }}</span>
           </div>
           <div
             class="border-t border-neutral-200 dark:border-neutral-700 pt-3 flex justify-between font-semibold"
           >
             <span class="text-neutral-800 dark:text-neutral-200">{{ $t('booking.total') }}</span>
-            <span class="text-xl text-green-600 dark:text-green-400"
-              >{{ formatPrice(booking?.finalPrice || 0) }}</span
-            >
+            <span class="text-xl text-green-600 dark:text-green-400">{{
+              formatPrice(booking?.finalPrice || 0)
+            }}</span>
           </div>
         </div>
 

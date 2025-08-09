@@ -148,9 +148,9 @@
         class="border-t border-neutral-200 dark:border-neutral-700 pt-3 flex justify-between font-semibold"
       >
         <span class="text-neutral-800 dark:text-neutral-200">{{ $t('booking.total') }}</span>
-        <span class="text-xl text-primary-600 dark:text-primary-400"
-          >{{ formatPrice(booking.finalPrice) }}</span
-        >
+        <span class="text-xl text-primary-600 dark:text-primary-400">{{
+          formatPrice(booking.finalPrice)
+        }}</span>
       </div>
     </div>
 

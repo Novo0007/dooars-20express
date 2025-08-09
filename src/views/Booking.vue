@@ -220,7 +220,8 @@
                   </span>
                 </div>
                 <p class="text-sm text-blue-700 dark:text-blue-300 mt-1">
-                  Pay securely using Credit Cards, Debit Cards, UPI, or Digital Wallets. Your payment information is encrypted and protected.
+                  Pay securely using Credit Cards, Debit Cards, UPI, or Digital Wallets. Your
+                  payment information is encrypted and protected.
                 </p>
               </div>
             </div>
@@ -267,7 +268,9 @@
                 </svg>
                 {{ $t('booking.processing') }}
               </span>
-              <span v-else> {{ $t('booking.payNow') }} {{ formatPrice(currentBooking?.finalPrice || 0) }} </span>
+              <span v-else>
+                {{ $t('booking.payNow') }} {{ formatPrice(currentBooking?.finalPrice || 0) }}
+              </span>
             </button>
           </div>
         </div>
@@ -406,7 +409,9 @@ const processRazorpayPayment = async () => {
 
   script.onload = () => {
     if (!import.meta.env.VITE_RAZORPAY_KEY_ID) {
-      throw new Error('Razorpay Key ID not configured. Please set VITE_RAZORPAY_KEY_ID environment variable.')
+      throw new Error(
+        'Razorpay Key ID not configured. Please set VITE_RAZORPAY_KEY_ID environment variable.',
+      )
     }
 
     const options = {
@@ -442,7 +447,6 @@ const processRazorpayPayment = async () => {
     rzp.open()
   }
 }
-
 
 const completeBooking = async (paymentId: string) => {
   try {
