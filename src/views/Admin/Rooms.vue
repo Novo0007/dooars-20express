@@ -439,7 +439,7 @@
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1"
-                  >Price per Night ($)</label
+                  >Price per Night (₹)</label
                 >
                 <input
                   v-model.number="roomForm.price"
