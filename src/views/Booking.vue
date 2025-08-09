@@ -458,16 +458,8 @@ const isGuestInfoValid = computed(() => {
 })
 
 const isPaymentValid = computed(() => {
-  if (selectedPaymentMethod.value === 'razorpay') return true
-  if (selectedPaymentMethod.value === 'card') {
-    return (
-      cardInfo.value.number.trim() &&
-      cardInfo.value.expiry.trim() &&
-      cardInfo.value.cvv.trim() &&
-      cardInfo.value.name.trim()
-    )
-  }
-  return false
+  // Only Razorpay payment is supported
+  return selectedPaymentMethod.value === 'razorpay'
 })
 
 const proceedToPayment = () => {
