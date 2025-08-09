@@ -20,17 +20,24 @@ export const formatSupabaseError = (error: any): string => {
   if (typeof error === 'string') return error
 
   if (error.message) {
-    const details = error.code ? ` (Code: ${error.code})` : ''
-    const hint = error.hint ? `, Hint: ${error.hint}` : ''
-    return `${error.message}${details}${hint}`
+    const parts = [error.message]
+    if (error.code) parts.push(`Code: ${error.code}`)
+    if (error.details) parts.push(`Details: ${error.details}`)
+    if (error.hint) parts.push(`Hint: ${error.hint}`)
+    return parts.join(' - ')
   }
 
   // Fallback for complex error objects
   try {
-    return JSON.stringify(error)
+    const stringified = JSON.stringify(error, null, 2)
+    if (stringified && stringified !== '{}') {
+      return stringified
+    }
   } catch {
-    return '[Complex error object - check console]'
+    // Circular reference or other stringify issues
   }
+
+  return 'Complex error object - check console for details'
 }
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
@@ -45,7 +52,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
 if (import.meta.env.DEV) {
   const testConnection = async () => {
     if (!isSupabaseConfigured()) {
-      console.warn('⚠️ Supabase not configured - using placeholder values')
+      console.warn('⚠��� Supabase not configured - using placeholder values')
       console.log('Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your .env file')
       return
     }
