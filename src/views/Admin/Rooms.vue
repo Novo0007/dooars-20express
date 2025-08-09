@@ -984,6 +984,44 @@ const nextPage = () => {
   if (currentPage.value < totalPages.value) currentPage.value++
 }
 
+// Image handling methods
+const isValidUrl = (url: string) => {
+  try {
+    const urlObj = new URL(url)
+    return ['http:', 'https:'].includes(urlObj.protocol) &&
+           /\.(jpg|jpeg|png|webp|gif)$/i.test(urlObj.pathname)
+  } catch {
+    return false
+  }
+}
+
+const addImage = () => {
+  if (newImageUrl.value && isValidUrl(newImageUrl.value)) {
+    if (!roomForm.value.images.includes(newImageUrl.value)) {
+      roomForm.value.images.push(newImageUrl.value)
+      newImageUrl.value = ''
+      notificationStore.success('Image added successfully')
+    } else {
+      notificationStore.warning('This image URL is already added')
+    }
+  } else {
+    notificationStore.error('Please enter a valid image URL')
+  }
+}
+
+const removeImage = (index: number) => {
+  roomForm.value.images.splice(index, 1)
+  notificationStore.success('Image removed successfully')
+}
+
+const onImageError = () => {
+  notificationStore.error('Failed to load image. Please check the URL.')
+}
+
+const onImageLoad = () => {
+  // Image loaded successfully - no action needed
+}
+
 // Lifecycle
 onMounted(() => {
   fetchRooms()
