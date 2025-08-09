@@ -341,7 +341,7 @@
                 </svg>
                 {{ $t('booking.processing') }}
               </span>
-              <span v-else> {{ $t('booking.payNow') }} ${{ currentBooking?.finalPrice }} </span>
+              <span v-else> {{ $t('booking.payNow') }} {{ formatPrice(currentBooking?.finalPrice || 0) }} </span>
             </button>
           </div>
         </div>
