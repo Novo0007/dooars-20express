@@ -186,16 +186,16 @@
                     v-if="booking.discount_amount > 0"
                     class="text-sm text-neutral-500 dark:text-neutral-400 line-through"
                   >
-                    ${{ booking.total_price.toFixed(2) }}
+                    {{ formatPrice(booking.total_price) }}
                   </div>
                   <div class="text-2xl font-bold text-primary-600 dark:text-primary-400">
-                    ${{ booking.final_price.toFixed(2) }}
+                    {{ formatPrice(booking.final_price) }}
                   </div>
                   <div
                     v-if="booking.discount_amount > 0"
                     class="text-sm text-green-600 dark:text-green-400"
                   >
-                    Saved ${{ booking.discount_amount.toFixed(2) }}
+                    Saved {{ formatPrice(booking.discount_amount) }}
                   </div>
                 </div>
 
@@ -309,7 +309,7 @@
                   <strong>Payment Method:</strong>
                   {{ selectedBooking.payment_method || 'Credit Card' }}
                 </p>
-                <p><strong>Total Amount:</strong> ${{ selectedBooking.final_price.toFixed(2) }}</p>
+                <p><strong>Total Amount:</strong> {{ formatPrice(selectedBooking.final_price) }}</p>
               </div>
             </div>
           </div>
