@@ -534,11 +534,6 @@ const processRazorpayPayment = async () => {
   }
 }
 
-const processMockPayment = async () => {
-  // Simulate payment processing
-  await new Promise((resolve) => setTimeout(resolve, 2000))
-  await completeBooking('mock_payment_' + Date.now())
-}
 
 const completeBooking = async (paymentId: string) => {
   try {
