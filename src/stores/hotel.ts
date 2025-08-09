@@ -130,8 +130,9 @@ export const useHotelStore = defineStore('hotel', () => {
 
       hotels.value = data || []
     } catch (err) {
-      error.value = err instanceof Error ? err.message : 'Unknown error'
-      console.error('Error fetching hotels:', err)
+      const errorMessage = err instanceof Error ? err.message : formatSupabaseError(err)
+      error.value = errorMessage
+      logger.error('Error fetching hotels', { error: err })
     } finally {
       loading.value = false
     }
@@ -357,10 +358,9 @@ export const useHotelStore = defineStore('hotel', () => {
       const { data, error: supabaseError } = await query.limit(20)
 
       if (supabaseError) {
-        console.error('Supabase search error:', supabaseError)
-        throw new Error(
-          `Hotel search failed: ${supabaseError.message} (Code: ${supabaseError.code || 'N/A'})`,
-        )
+        const errorMessage = formatSupabaseError(supabaseError)
+        logger.error('Hotel search failed', { error: supabaseError, filters })
+        throw new Error(`Hotel search failed: ${errorMessage}`)
       }
 
       if (!data) {
@@ -469,8 +469,9 @@ export const useHotelStore = defineStore('hotel', () => {
       selectedHotel.value = transformedHotel
       return transformedHotel
     } catch (err) {
-      error.value = err instanceof Error ? err.message : 'Unknown error'
-      console.error('Error fetching hotel:', err)
+      const errorMessage = err instanceof Error ? err.message : formatSupabaseError(err)
+      error.value = errorMessage
+      logger.error('Error fetching hotel by ID', { error: err, hotelId: id })
       return null
     } finally {
       loading.value = false
