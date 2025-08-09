@@ -189,7 +189,7 @@
           <div class="flex justify-between">
             <span class="text-neutral-600 dark:text-neutral-400">{{ $t('booking.subtotal') }}</span>
             <span class="text-neutral-800 dark:text-neutral-200"
-              >${{ mockBooking.totalPrice }}</span
+              >{{ formatPrice(booking?.totalPrice || 0) }}</span
             >
           </div>
           <div class="flex justify-between">
