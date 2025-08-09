@@ -506,8 +506,12 @@ const processRazorpayPayment = async () => {
   document.head.appendChild(script)
 
   script.onload = () => {
+    if (!import.meta.env.VITE_RAZORPAY_KEY_ID) {
+      throw new Error('Razorpay Key ID not configured. Please set VITE_RAZORPAY_KEY_ID environment variable.')
+    }
+
     const options = {
-      key: import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_sample',
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
       amount: currentBooking.value!.finalPrice * 100, // Amount in paise
       currency: 'INR',
       name: 'WanderStay',
