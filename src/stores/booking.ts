@@ -185,8 +185,7 @@ export const useBookingStore = defineStore('booking', () => {
         },
       } as BookingDetails
 
-      // Mock API call to confirm booking
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      // TODO: Implement real API call to confirm booking with payment gateway
 
       // Add to user bookings
       userBookings.value.push(finalBooking)
