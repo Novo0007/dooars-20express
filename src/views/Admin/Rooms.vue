@@ -289,7 +289,7 @@
                 </span>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                ${{ room.price }}/night
+                {{ formatPricePerNight(room.price) }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
                 <span
@@ -670,12 +670,12 @@ const runQuickTest = async () => {
     if (result.success) {
       notificationStore.success(
         'Quick test passed! Rooms table is accessible and working.',
-        'Quick Test Success',
+        'Quick Test Success'
       )
     } else {
       notificationStore.error(
         `Quick test failed: ${result.error}. Check console for details.`,
-        'Quick Test Failed',
+        'Quick Test Failed'
       )
     }
   } catch (error) {
@@ -694,12 +694,12 @@ const testErrorHandling = () => {
     if (allPassed) {
       notificationStore.success(
         'All error handling tests passed! No [object Object] errors detected.',
-        'Error Test Successful',
+        'Error Test Successful'
       )
     } else {
       notificationStore.warning(
         'Some error handling tests failed. Check console for details.',
-        'Error Test Warning',
+        'Error Test Warning'
       )
     }
   } catch (error) {
@@ -719,19 +719,18 @@ const runRoomsDiagnostic = async () => {
     if (result.tableExists && result.accessible && result.errors.length === 0) {
       notificationStore.success(
         `Rooms table is healthy! Found ${result.recordCount} records with no errors.`,
-        'Diagnostic Complete',
+        'Diagnostic Complete'
       )
     } else if (result.errors.length > 0) {
-      const mainError =
-        result.errors[0].substring(0, 100) + (result.errors[0].length > 100 ? '...' : '')
+      const mainError = result.errors[0].substring(0, 100) + (result.errors[0].length > 100 ? '...' : '')
       notificationStore.error(
         `Issues found: ${mainError}. Check console for full diagnostic report.`,
-        'Diagnostic Issues',
+        'Diagnostic Issues'
       )
     } else {
       notificationStore.warning(
         'Diagnostic completed with warnings. Check console for details.',
-        'Diagnostic Warnings',
+        'Diagnostic Warnings'
       )
     }
   } catch (error) {
@@ -758,8 +757,7 @@ const testConnection = async () => {
     } else {
       const allErrors = [...result.errors]
       if (roomsTest.error) {
-        const errorMessage =
-          typeof roomsTest.error === 'string' ? roomsTest.error : 'Rooms query failed'
+        const errorMessage = typeof roomsTest.error === 'string' ? roomsTest.error : 'Rooms query failed'
         allErrors.push(errorMessage)
       }
       notificationStore.error(`Issues found: ${allErrors.join('; ')}`, 'Database Test Failed')
