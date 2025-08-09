@@ -120,12 +120,12 @@
       <!-- Room Rate -->
       <div class="flex justify-between text-sm">
         <span class="text-neutral-600 dark:text-neutral-400">
-          ${{ roomRate }} × {{ nights }}
+          {{ formatPrice(roomRate) }} × {{ nights }}
           {{ nights === 1 ? $t('booking.night') : $t('booking.nights') }} ×
           {{ booking.rooms || 1 }}
           {{ (booking.rooms || 1) === 1 ? $t('booking.room') : $t('booking.rooms') }}
         </span>
-        <span class="text-neutral-800 dark:text-neutral-200">${{ subtotal }}</span>
+        <span class="text-neutral-800 dark:text-neutral-200">{{ formatPrice(subtotal) }}</span>
       </div>
 
       <!-- Taxes and Fees -->
