@@ -426,7 +426,7 @@ const emailConfirmation = () => {
   console.log('Sending email confirmation...')
 }
 
-onMounted(() => {
-  // In a real app, fetch booking details from API using the booking ID
+onMounted(async () => {
+  await loadBooking()
 })
 </script>
