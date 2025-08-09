@@ -292,7 +292,7 @@
                 <td
                   class="px-6 py-4 whitespace-nowrap text-sm font-medium text-neutral-900 dark:text-neutral-100"
                 >
-                  ${{ booking.final_price?.toFixed(2) }}
+                  {{ formatPrice(booking.final_price || 0) }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                   <div class="flex space-x-2">
@@ -343,6 +343,7 @@ import { useAuthStore } from '@/stores/auth'
 import { useNotificationStore } from '@/stores/notification'
 import { supabase } from '@/lib/supabase'
 import { logger } from '@/utils/logger'
+import { formatPrice } from '@/utils/currency'
 
 const authStore = useAuthStore()
 const notificationStore = useNotificationStore()
