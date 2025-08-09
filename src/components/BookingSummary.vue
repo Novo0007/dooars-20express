@@ -140,7 +140,7 @@
         class="flex justify-between text-sm text-green-600 dark:text-green-400"
       >
         <span>{{ $t('booking.discount') }} ({{ appliedDiscount.code }})</span>
-        <span>-${{ discountAmount }}</span>
+        <span>-{{ formatPrice(discountAmount) }}</span>
       </div>
 
       <!-- Total -->
