@@ -207,8 +207,7 @@ export const useBookingStore = defineStore('booking', () => {
     error.value = null
 
     try {
-      // Mock API call
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      // TODO: Implement real API call to cancel booking
 
       // Update booking status
       const booking = userBookings.value.find((b) => b.id === bookingId)
